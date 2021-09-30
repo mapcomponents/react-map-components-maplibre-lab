@@ -5,7 +5,7 @@ import Legend from "../../ui_components/Legend";
 import mapContextDecorator from "../../decorators/MapContextDecorator";
 
 const storyoptions = {
-  title: "MapComponents/MlMobilerImker",
+  title: "Applications/MlMobilerImker",
   component: MlMobilerImker,
   argTypes: {
     url: {},

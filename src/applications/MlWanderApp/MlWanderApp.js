@@ -5,8 +5,8 @@ import {
   MlLayerMagnify,
   MlGPXViewer,
   MlWmsLayer,
+  GeoJsonProvider,
 } from "react-map-components-maplibre";
-import GeoJsonProvider from "react-map-components-maplibre";
 
 const MlWanderApp = (props) => {
   return (
@@ -21,7 +21,6 @@ const MlWanderApp = (props) => {
           mapId="map_2"
         />
       </TopToolbar>
-      <MlGPXViewer mapId="map_1" />
 
       <GeoJsonProvider>
         <MlGPXViewer mapId="map_1" />
