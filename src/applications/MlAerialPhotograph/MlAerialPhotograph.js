@@ -18,6 +18,14 @@ const MlAerialPhotograph = () => {
 
     mapContext.map.transform._maxZoom = 19.99;
 
+    mapContext.map.addSource("featuredGeometrySource", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    })
+
     mapContext.map.addLayer({
       id: "mapData",
       source: "openmaptiles",
@@ -64,18 +72,24 @@ const MlAerialPhotograph = () => {
       filter: ["==", "class", "river"],
       paint: {
         "line-opacity": 0,
-        "line-width": 150,
+        "line-width": {
+          stops: [
+            [0, 0],
+            [20, 500],
+          ],
+          base: 2,
+        },
+
       },
     });
 
-    mapContext.map.on("mousemove", function (e) {
+    mapContext.map.on("click", function (e) {
       let features = mapContext.map.queryRenderedFeatures(e.point, {
         layers: ["mapData", "greenData", "placeData", "riverData"],
       });
-      //let bigFeatures = mapContext.map.queryRenderedFeatures(e.point, {layers: ["cityData"]})
-      //let cityName = bigFeatures.find(element => element.properties.class === "city") || {properties: {name: ""}}
       let closestFeature = getClosestFeature(features, Object.values(e.point));
-      if (features[0]) {
+
+      if (features[0] && closestFeature.id !== mapContext.map.getSource("featuredGeometrySource")._data.id) {
         setLegendData({
           name: closestFeature.properties.name,
           class: closestFeature.properties.class,
@@ -83,6 +97,25 @@ const MlAerialPhotograph = () => {
           y: closestFeature._vectorTileFeature._y,
           z: closestFeature._vectorTileFeature._z,
         });
+
+        if(mapContext.map.getLayer("featuredGeometry")){
+          mapContext.map.removeLayer("featuredGeometry")
+        }
+        let layerType = closestFeature.layer.type
+        let layerTypeStyle = closestFeature.layer.paint
+        layerTypeStyle[layerType +"-opacity"] = 0.35
+        layerTypeStyle[layerType +"-color"] = "#dfbb33"
+
+        mapContext.map.addLayer({
+          id: "featuredGeometry",
+          source: "featuredGeometrySource",
+          type: layerType,
+          paint: layerTypeStyle,
+        });
+        mapContext.map.getSource("featuredGeometrySource").setData(closestFeature)
+      } else {
+        mapContext.map.removeLayer("featuredGeometry")
+        mapContext.map.getSource("featuredGeometrySource").setData({id: 333333})
       }
     });
   }, [mapContext.map]);
@@ -111,16 +144,11 @@ const MlAerialPhotograph = () => {
         sourceOptions={{ maxzoom: 20 }}
         belowLayerId="waterway-name"
       />
-      <hr
-        style={{ width: "100%", color: "black", padding: "none", height: "3px" }}
-      />
-      <ul style={{ paddingLeft: 0 }}>
-        {Object.keys(legendData).map((key) => (
-          <li> {`${key}: ${legendData[key] || ""}`} </li>
-        ))}
-      </ul>
+      <div style={{ paddingLeft: 0, fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', paddingTop: "10px"}}>
+        {legendData.name} {legendData.class && "(" + legendData.class + ")"}
+      </div>
     </>
   );
-};
+}; //"Roboto", "Helvetica", "Arial", sans-serif;
 
 export default MlAerialPhotograph;
