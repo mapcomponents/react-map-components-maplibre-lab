@@ -2,15 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { MapContext } from "react-map-components-core";
 import { MlWmsLayer } from "react-map-components-maplibre";
 import * as turf from "@turf/turf";
+import Button from "@material-ui/core/Button";
 
 const MlAerialPhotograph = () => {
   const mapContext = useContext(MapContext);
   const [legendData, setLegendData] = useState({
     name: "",
     class: "",
-    x: "",
-    y: "",
-    z: "",
   });
 
   useEffect(() => {
@@ -83,19 +81,29 @@ const MlAerialPhotograph = () => {
       },
     });
 
+    mapContext.map.on("mousemove", function (e) {
+      let features = mapContext.map.queryRenderedFeatures(e.point, {
+        layers: ["mapData", "greenData", "placeData", "riverData"],
+      });
+
+      if(features !== []){
+        document.body.style.cursor = "pointer"
+      } else{
+        document.body.cursor = "default"
+      }
+    })
+
     mapContext.map.on("click", function (e) {
       let features = mapContext.map.queryRenderedFeatures(e.point, {
         layers: ["mapData", "greenData", "placeData", "riverData"],
       });
+      console.log(features)
       let closestFeature = getClosestFeature(features, Object.values(e.point));
 
-      if (features[0] && closestFeature.id !== mapContext.map.getSource("featuredGeometrySource")._data.id) {
+      if (features[0]) {
         setLegendData({
           name: closestFeature.properties.name,
           class: closestFeature.properties.class,
-          x: closestFeature._vectorTileFeature._x,
-          y: closestFeature._vectorTileFeature._y,
-          z: closestFeature._vectorTileFeature._z,
         });
 
         if(mapContext.map.getLayer("featuredGeometry")){
@@ -113,9 +121,6 @@ const MlAerialPhotograph = () => {
           paint: layerTypeStyle,
         });
         mapContext.map.getSource("featuredGeometrySource").setData(closestFeature)
-      } else {
-        mapContext.map.removeLayer("featuredGeometry")
-        mapContext.map.getSource("featuredGeometrySource").setData({id: 333333})
       }
     });
   }, [mapContext.map]);
@@ -147,6 +152,16 @@ const MlAerialPhotograph = () => {
       <div style={{ paddingLeft: 0, fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', paddingTop: "10px"}}>
         {legendData.name} {legendData.class && "(" + legendData.class + ")"}
       </div>
+      <Button onClick={() => {
+        if(!mapContext.map) return;
+
+        mapContext.map.removeLayer("featuredGeometry")
+        mapContext.map.getSource("featuredGeometrySource").setData({id: ""})
+        setLegendData({
+          name: "",
+          class: ""
+        })
+      }}>Clear Feature</Button>
     </>
   );
 }; //"Roboto", "Helvetica", "Arial", sans-serif;
