@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MapContext } from "react-map-components-core";
 import { MlWmsLayer } from "react-map-components-maplibre";
 import * as turf from "@turf/turf";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 const MlAerialPhotograph = () => {
   const mapContext = useContext(MapContext);
@@ -10,6 +10,13 @@ const MlAerialPhotograph = () => {
     name: "",
     class: "",
   });
+
+  const layerIds = [
+      "mapData",
+      "greenData",
+      "placeData",
+      "riverData"
+  ]
 
   useEffect(() => {
     if (!mapContext.map) return;
@@ -81,23 +88,21 @@ const MlAerialPhotograph = () => {
       },
     });
 
-    mapContext.map.on("mousemove", function (e) {
-      let features = mapContext.map.queryRenderedFeatures(e.point, {
-        layers: ["mapData", "greenData", "placeData", "riverData"],
-      });
+    layerIds.forEach((el, id) => {
+      mapContext.map.on("mouseenter", el, function(){
+        mapContext.map.getCanvas().style.cursor = "pointer"
+      })
 
-      if(features !== []){
-        document.body.style.cursor = "pointer"
-      } else{
-        document.body.cursor = "default"
-      }
+      mapContext.map.on("mouseleave", el, function(){
+        mapContext.map.getCanvas().style.cursor = ""
+      })
     })
 
     mapContext.map.on("click", function (e) {
       let features = mapContext.map.queryRenderedFeatures(e.point, {
         layers: ["mapData", "greenData", "placeData", "riverData"],
       });
-      console.log(features)
+
       let closestFeature = getClosestFeature(features, Object.values(e.point));
 
       if (features[0]) {
@@ -152,8 +157,9 @@ const MlAerialPhotograph = () => {
       <div style={{ paddingLeft: 0, fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', paddingTop: "10px"}}>
         {legendData.name} {legendData.class && "(" + legendData.class + ")"}
       </div>
+      {legendData.class &&
       <Button onClick={() => {
-        if(!mapContext.map) return;
+        if (!mapContext.map) return;
 
         mapContext.map.removeLayer("featuredGeometry")
         mapContext.map.getSource("featuredGeometrySource").setData({id: ""})
@@ -161,7 +167,8 @@ const MlAerialPhotograph = () => {
           name: "",
           class: ""
         })
-      }}>Clear Feature</Button>
+      }} variant={"outlined"} style={{marginTop: "20px"}}>Clear Selection</Button>
+      }
     </>
   );
 }; //"Roboto", "Helvetica", "Arial", sans-serif;
