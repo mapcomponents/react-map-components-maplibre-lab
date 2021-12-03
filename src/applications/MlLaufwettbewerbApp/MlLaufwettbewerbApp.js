@@ -6,12 +6,12 @@ import {
   MlGeoJsonLayer,
   MlImageMarkerLayer,
   MlVectorTileLayer,
-} from "react-map-components-maplibre";
+} from "@mapcomponents/react-malibre";
 import DailyProgressChart from "./assets/DailyProgressChart";
 import StatsSidebar from "./assets/StatsSidebar";
 import Header from "./assets/Header";
 import Leaderboard from "./assets/Leaderboard";
-import { MapContext } from "react-map-components-core";
+import { MapContext } from "@mapcomponents/react-core";
 import { AppContext } from "./assets/AppContext";
 import { Grid, Paper } from "@material-ui/core";
 import germanyGeoJson from "./assets/json/germany.geo.json";

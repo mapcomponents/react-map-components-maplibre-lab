@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect, useState, useContext } from "react";
 import * as d3 from "d3";
 
-import { MapContext, SimpleDataContext } from "react-map-components-core";
+import { MapContext, SimpleDataContext } from "@mapcomponents/react-core";
 import DeckGlContext from "../../deckgl_components/DeckGlContext";
 
 import { MapboxLayer } from "@deck.gl/mapbox";

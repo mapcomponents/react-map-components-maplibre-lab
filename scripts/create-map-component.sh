@@ -10,7 +10,7 @@ fi
 component_name="$1"
 target_path="src/components/"
 template_name="MlComponentTemplate"
-template_path="node_modules/react-map-components-maplibre/src/components/"
+template_path="node_modules/@mapcomponents/react-malibre/src/components/"
 
 if [ ! -d "$target_path$component_name" ]; then
 

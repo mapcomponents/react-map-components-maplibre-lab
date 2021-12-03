@@ -5,7 +5,7 @@ import MlIconLayer from "./MlIconLayer";
 
 import DeckGlProvider from "../../deckgl_components/DeckGlProvider";
 import mapContextDecorator from "../../decorators/MapContextKlokantechBasicDecorator";
-import { MapContext, SimpleDataProvider } from "react-map-components-core";
+import { MapContext, SimpleDataProvider } from "@mapcomponents/react-core";
 import { LoadingOverlayContext } from "../../ui_components/LoadingOverlayContext";
 import destinationPoint from "./assets/destinationPoint";
 

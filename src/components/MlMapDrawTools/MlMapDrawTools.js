@@ -7,7 +7,7 @@ import CustomPolygonMode from "./custom-polygon-mode";
 import CustomSelectMode from "./custom-select-mode";
 import CustomDirectSelectMode from "./custom-direct-select-mode";
 
-import { MapContext } from "react-map-components-core";
+import { MapContext } from "@mapcomponents/react-core";
 
 import DeleteIcon from "@material-ui/icons/DeleteForever";
 import Button from "@material-ui/core/Button";

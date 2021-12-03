@@ -5,7 +5,7 @@ import { Deck } from "@deck.gl/core";
 
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { MapboxLayer } from "@deck.gl/mapbox";
-import { MapContext } from "react-map-components-core";
+import { MapContext } from "@mapcomponents/react-core";
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],

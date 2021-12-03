@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState, useCallback } from "react";
-import { MapContext } from "react-map-components-core";
+import { MapContext } from "@mapcomponents/react-core";
 
-import { MlBasicComponent } from "react-map-components-maplibre";
+import { MlBasicComponent } from "@mapcomponents/react-malibre";
 import Button from "@material-ui/core/Button";
 
 import { MapboxLayer } from "@deck.gl/mapbox";

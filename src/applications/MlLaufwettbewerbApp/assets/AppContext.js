@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
-import { MapContext } from "react-map-components-core";
+import { MapContext } from "@mapcomponents/react-core";
 
 import * as turf from "@turf/turf";
 

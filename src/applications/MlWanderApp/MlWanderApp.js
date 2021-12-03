@@ -6,7 +6,7 @@ import {
   MlGPXViewer,
   MlWmsLayer,
   GeoJsonProvider,
-} from "react-map-components-maplibre";
+} from "@mapcomponents/react-malibre";
 
 const MlWanderApp = (props) => {
   return (
