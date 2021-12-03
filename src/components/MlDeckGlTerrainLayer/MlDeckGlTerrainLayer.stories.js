@@ -18,7 +18,7 @@ const storyoptions = {
   decorators: mapContextDecorator,
 };
 export default storyoptions;
-//<MlCompositeLayer />
+//<MlFillExtrusionLayer />
 
 const Template = (args) => (
   <TopToolbar>

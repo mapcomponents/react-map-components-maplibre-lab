@@ -1,6 +1,6 @@
 import React from "react";
 import DashboardPage from "./MlDemoDashboard.js";
-import { MapLibreMap, MlCompositeLayer } from "react-map-components-maplibre";
+import { MapLibreMap, MlFillExtrusionLayer } from "react-map-components-maplibre";
 import mapContextDecorator from "../../decorators/MapContextDashboardDecorator";
 import { SimpleDataProvider } from "react-map-components-core";
 import "./style.css";
@@ -40,7 +40,7 @@ const Template = (args) => (
         }}
       />
       <SimpleDataProvider format="json" url="/assets/laerm_points.json">
-        <MlCompositeLayer
+        <MlFillExtrusionLayer
           paint={{
             "fill-extrusion-color": "hsl(30, 30, 30)",
           }}

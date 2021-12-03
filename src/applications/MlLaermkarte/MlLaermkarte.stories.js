@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import MlLaermkarte from "./MlLaermkarte";
-import { MlCompositeLayer } from "react-map-components-maplibre";
+import { MlFillExtrusionLayer } from "react-map-components-maplibre";
 import MlCameraFollowPath from "../../components/MlCameraFollowPath/MlCameraFollowPath";
 import { MapContext, SimpleDataProvider } from "react-map-components-core";
 import DeckGlProvider from "../../deckgl_components/DeckGlProvider";
@@ -59,7 +59,7 @@ const Template = (args) => {
               setTimeout(() => loadingOverlayContext.setLoadingDone(true), 1200)
             }
           />
-          <MlCompositeLayer
+          <MlFillExtrusionLayer
             paint={{
               "fill-extrusion-color": "hsl(30, 30, 30)",
             }}

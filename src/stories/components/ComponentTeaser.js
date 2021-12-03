@@ -45,7 +45,7 @@ const ComponentTeaserList = (props) => {
       url: "/?path=/story/core-maplibremap--example-config",
     },
     {
-      title: "MlCompositeLayer",
+      title: "MlFillExtrusionLayer",
       description: "",
       url: "/?path=/story/mapcomponents-mlcompositelayer--example-config",
     },
