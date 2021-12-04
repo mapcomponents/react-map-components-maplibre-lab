@@ -12,13 +12,14 @@
     "@deck.gl/layers": "^8.4.13",
     "@deck.gl/mapbox": "^8.4.10",
     "@deck.gl/mesh-layers": "^8.4.13",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/roboto": "^4.5.1",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/mapbox-gl-sync-move": "^0.3.0",
     "@mapcomponents/react-core": "^0.1.7",
-    "@mapcomponents/react-maplibre": "^0.1.11",
+    "@mapcomponents/react-maplibre": "^0.1.12",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.1",
@@ -160,6 +161,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "showdown": "^1.9.1",
     "ts-jest": "^26.5.3",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "webpack-merge": "^5.8.0"
   }
 }

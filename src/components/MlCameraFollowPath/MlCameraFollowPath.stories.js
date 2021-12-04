@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 
 import MlCameraFollowPath from "./MlCameraFollowPath";
 
-import { LoadingOverlayContext } from "../../ui_components/LoadingOverlayContext";
 import mapContextDecorator from "../../decorators/MapContextDecorator";
 
 const storyoptions = {
@@ -17,14 +16,6 @@ const storyoptions = {
 export default storyoptions;
 
 const Template = (args) => {
-  const loadingOverlayContext = useContext(LoadingOverlayContext);
-
-  useEffect(() => {
-    setTimeout(() => {
-      loadingOverlayContext.setLoadingDone(true);
-    }, 3000);
-  }, []);
-
   return <MlCameraFollowPath />;
 };
 
