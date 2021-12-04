@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
     padding: "10px 10px 10px 10px",
     boxSizing: "border-box",
     minWidth: "170px",
+    width: "200px",
   },
 }));
 
