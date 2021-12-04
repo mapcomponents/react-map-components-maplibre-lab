@@ -41,7 +41,7 @@ const Template = (args) => {
   const mapContext = useContext(MapContext);
 
   useEffect(() => {
-    if (!mapContext.mapExists()) return;
+    if (!mapContext?.mapExists()) return;
 
     mapContext.map.setCenter(route[0]);
     mapContext.map.setPitch(60);

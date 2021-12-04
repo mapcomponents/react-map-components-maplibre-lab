@@ -10,18 +10,6 @@ import Slider from "@mui/material/Slider";
 
 import TopToolbar from "../../ui_components/TopToolbar";
 
-//import Tooltip from "@mui/material/Tooltip";
-import Tooltip from "@mui/material/Tooltip";
-
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-
-  return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-      {children}
-    </Tooltip>
-  );
-}
 
 const getColorRange = (layerOpacity) => [
   [1, 152, 189, Math.round(80 * layerOpacity)],
@@ -193,7 +181,6 @@ const MlLaermkarte = (props) => {
           getAriaValueText={(value) => value}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
-          ValueLabelComponent={ValueLabelComponent}
           step={5}
           marks
           min={10}
@@ -214,7 +201,6 @@ const MlLaermkarte = (props) => {
           getAriaValueText={(value) => value}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
-          ValueLabelComponent={ValueLabelComponent}
           step={0.02}
           marks
           min={0.01}
@@ -235,7 +221,6 @@ const MlLaermkarte = (props) => {
           getAriaValueText={(value) => value}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
-          ValueLabelComponent={ValueLabelComponent}
           step={0.1}
           marks
           min={0}

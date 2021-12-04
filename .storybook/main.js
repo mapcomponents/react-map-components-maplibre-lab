@@ -40,7 +40,7 @@ module.exports = {
         alias: {
           "@emotion/core": getPackageDir("@emotion/react"),
           "@emotion/styled": getPackageDir("@emotion/styled"),
-          "emotion-theming": getPackageDir("@emotion/react"),
+          "@mapcomponents/react-core": getPackageDir("@mapcomponents/react-core"),
         },
       },
     });
