@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@mui/material/styles";
 import { AppContext } from "./AppContext";
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@mui/material";
 
 function StatsBlock({ label, progress }) {
   const theme = useTheme();

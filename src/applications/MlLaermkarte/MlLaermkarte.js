@@ -5,13 +5,13 @@ import DeckGlContext from "../../deckgl_components/DeckGlContext";
 
 import { HexagonLayer } from "@deck.gl/aggregation-layers";
 
-import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
 
 import TopToolbar from "../../ui_components/TopToolbar";
 
-//import Tooltip from "@material-ui/core/Tooltip";
-import Tooltip from "@material-ui/core/Tooltip";
+//import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 
 function ValueLabelComponent(props) {
   const { children, open, value } = props;

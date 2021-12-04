@@ -1,4 +1,4 @@
-import { yellow, lightBlue } from "@material-ui/core/colors";
+import { yellow, lightBlue } from "@mui/material/colors";
 
 const colorTheme = {
   palette: {

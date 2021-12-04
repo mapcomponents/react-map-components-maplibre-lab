@@ -13,15 +13,11 @@ import Header from "./assets/Header";
 import Leaderboard from "./assets/Leaderboard";
 import { MapContext } from "@mapcomponents/react-core";
 import { AppContext } from "./assets/AppContext";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, adaptV4Theme } from "@mui/material";
 import germanyGeoJson from "./assets/json/germany.geo.json";
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, responsiveFontSizes, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 
 import * as turf from "@turf/turf";
 
@@ -36,10 +32,10 @@ const MlLaufwettbewerbApp = (props) => {
 
   const colorTheme = useMemo(() => {
     return responsiveFontSizes(
-      createMuiTheme({
+      createTheme(adaptV4Theme({
         ...layoutTheme_default,
         ...(appContext.darkMode ? colorTheme_dark : colorTheme_default),
-      })
+      }))
     );
   }, [appContext.darkMode]);
 
@@ -63,8 +59,8 @@ const MlLaufwettbewerbApp = (props) => {
     //  .setCenter({ lng: 9.830202291394698, lat: 50.55342033900138 });
   }, [mapContext.mapIds, mapContext]);
 
-  return (
-    <>
+  return <>
+    <StyledEngineProvider injectFirst>
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
         <Grid
@@ -308,8 +304,8 @@ const MlLaufwettbewerbApp = (props) => {
           </Grid>
         </Grid>
       </ThemeProvider>
-    </>
-  );
+    </StyledEngineProvider>
+  </>;
 };
 
 export default MlLaufwettbewerbApp;

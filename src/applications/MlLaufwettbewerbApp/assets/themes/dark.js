@@ -1,4 +1,4 @@
-import { yellow, lime, cyan } from "@material-ui/core/colors";
+import { yellow, lime, cyan } from "@mui/material/colors";
 
 const colorTheme = {
   map: {
@@ -12,7 +12,7 @@ const colorTheme = {
     },
   },
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: cyan,
     secondary: lime,
     info: yellow,

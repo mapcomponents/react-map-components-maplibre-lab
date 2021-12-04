@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { MlGeoJsonLayer } from "@mapcomponents/react-maplibre";
 import * as turf from "@turf/turf";
 
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import { useTheme } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { useTheme } from "@mui/material/styles";
 import { AppContext } from "./AppContext";
 
-import List from "@material-ui/core/List";
+import List from "@mui/material/List";
 import LeaderboardEntry from "./LeaderboardEntry";
 
 const usersPerPage = 8;

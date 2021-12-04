@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import "./Imker.css";
 import { MapContext } from "@mapcomponents/react-core";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import Avatar from "@material-ui/core/Avatar";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Avatar from "@mui/material/Avatar";
 import * as turf from "@turf/turf";
-import { FormControl } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { FormControl } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import MlDraggableFeatureLayer from "../../components/MlDraggableFeatureLayer/MlDraggableFeatureLayer";
 
 const MlMobilerImker = () => {

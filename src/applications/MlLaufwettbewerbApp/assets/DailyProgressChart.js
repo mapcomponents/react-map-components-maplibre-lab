@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { Line } from "@nivo/line";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@mui/material/styles";
 import { AutoSizer } from "react-virtualized";
 
 function DailyProgressChart(props) {

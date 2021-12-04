@@ -3,7 +3,7 @@ import { AppContext } from "./AppContext";
 
 import DistanceEntryForm from "./DistanceEntryForm";
 import LoginForm from "./LoginForm";
-import { Button, Grid, FormControlLabel, Switch, Dialog } from "@material-ui/core";
+import { Button, Grid, FormControlLabel, Switch, Dialog } from "@mui/material";
 
 import logo from "./logo.svg";
 
