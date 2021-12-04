@@ -68,7 +68,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "build-storybook -o docs-build -s public",
     "storybook-docs": "start-storybook --docs --no-manager-cache",
     "build-catalogue-meta": "node scripts/build-catalogue-meta.js",
     "build-catalogue-markdown-docs": "node scripts/build-catalogue-markdown-docs.js",
