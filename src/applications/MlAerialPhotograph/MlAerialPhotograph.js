@@ -150,25 +150,39 @@ const MlAerialPhotograph = () => {
     <>
       <MlWmsLayer
         url="https://www.wms.nrw.de/geobasis/wms_nw_dop"
-        layer="nw_dop_rgb"
+        urlParameters={{
+          layers: "nw_dop_rgb",
+        }}
         sourceOptions={{ maxzoom: 20 }}
-        belowLayerId="waterway-name"
+        insertBeforeLayer="waterway-name"
       />
-      <div style={{ paddingLeft: 0, fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', paddingTop: "10px"}}>
+      <div
+        style={{
+          paddingLeft: 0,
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+          paddingTop: "10px",
+        }}
+      >
         {legendData.name} {legendData.class && "(" + legendData.class + ")"}
       </div>
-      {legendData.class &&
-      <Button onClick={() => {
-        if (!mapContext.map) return;
+      {legendData.class && (
+        <Button
+          onClick={() => {
+            if (!mapContext.map) return;
 
-        mapContext.map.removeLayer("featuredGeometry")
-        mapContext.map.getSource("featuredGeometrySource").setData({id: ""})
-        setLegendData({
-          name: "",
-          class: ""
-        })
-      }} variant={"outlined"} style={{marginTop: "20px"}}>Clear Selection</Button>
-      }
+            mapContext.map.removeLayer("featuredGeometry");
+            mapContext.map.getSource("featuredGeometrySource").setData({ id: "" });
+            setLegendData({
+              name: "",
+              class: "",
+            });
+          }}
+          variant={"outlined"}
+          style={{ marginTop: "20px" }}
+        >
+          Clear Selection
+        </Button>
+      )}
     </>
   );
 }; //"Roboto", "Helvetica", "Arial", sans-serif;
