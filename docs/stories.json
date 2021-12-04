@@ -1,0 +1,174 @@
+{
+  "v": 3,
+  "stories": {
+    "core-introduction--page": {
+      "id": "core-introduction--page",
+      "name": "Page",
+      "title": "Core/Introduction",
+      "importPath": 1522,
+      "kind": "Core/Introduction",
+      "story": "Page",
+      "parameters": {
+        "fileName": 1522,
+        "docsOnly": true,
+        "framework": "react",
+        "__id": "core-introduction--page",
+        "__isArgsStory": false
+      }
+    },
+    "applications-mlaerialphotograph--example-config": {
+      "id": "applications-mlaerialphotograph--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlAerialPhotograph",
+      "importPath": 1537,
+      "kind": "Applications/MlAerialPhotograph",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1537,
+        "framework": "react",
+        "__id": "applications-mlaerialphotograph--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "applications-mldemodashboard--example-config": {
+      "id": "applications-mldemodashboard--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlDemoDashboard",
+      "importPath": 1519,
+      "kind": "Applications/MlDemoDashboard",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1519,
+        "framework": "react",
+        "__id": "applications-mldemodashboard--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "applications-mllaermkarte--example-config": {
+      "id": "applications-mllaermkarte--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlLaermkarte",
+      "importPath": 1538,
+      "kind": "Applications/MlLaermkarte",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1538,
+        "framework": "react",
+        "__id": "applications-mllaermkarte--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "applications-mllaufwettbewerbapp--example-config": {
+      "id": "applications-mllaufwettbewerbapp--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlLaufwettbewerbApp",
+      "importPath": 1520,
+      "kind": "Applications/MlLaufwettbewerbApp",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1520,
+        "framework": "react",
+        "__id": "applications-mllaufwettbewerbapp--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "applications-mlmobilerimker--example-config": {
+      "id": "applications-mlmobilerimker--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlMobilerImker",
+      "importPath": 1530,
+      "kind": "Applications/MlMobilerImker",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1530,
+        "framework": "react",
+        "__id": "applications-mlmobilerimker--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "applications-mlwanderapp--example-config": {
+      "id": "applications-mlwanderapp--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlWanderApp",
+      "importPath": 1531,
+      "kind": "Applications/MlWanderApp",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1531,
+        "framework": "react",
+        "__id": "applications-mlwanderapp--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "mapcomponents-mlcamerafollowpath--example-config": {
+      "id": "mapcomponents-mlcamerafollowpath--example-config",
+      "name": "Example Config",
+      "title": "MapComponents/MlCameraFollowPath",
+      "importPath": 1513,
+      "kind": "MapComponents/MlCameraFollowPath",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1513,
+        "framework": "react",
+        "__id": "mapcomponents-mlcamerafollowpath--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "mapcomponents-mldeckglterrainlayer--example-config": {
+      "id": "mapcomponents-mldeckglterrainlayer--example-config",
+      "name": "Example Config",
+      "title": "MapComponents/MlDeckGlTerrainLayer",
+      "importPath": 1539,
+      "kind": "MapComponents/MlDeckGlTerrainLayer",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1539,
+        "framework": "react",
+        "__id": "mapcomponents-mldeckglterrainlayer--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "mapcomponents-mlhillshadelayer--example-config": {
+      "id": "mapcomponents-mlhillshadelayer--example-config",
+      "name": "Example Config",
+      "title": "MapComponents/MlHillshadeLayer",
+      "importPath": 1514,
+      "kind": "MapComponents/MlHillshadeLayer",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1514,
+        "framework": "react",
+        "__id": "mapcomponents-mlhillshadelayer--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "mapcomponents-mliconlayer--example-config": {
+      "id": "mapcomponents-mliconlayer--example-config",
+      "name": "Example Config",
+      "title": "MapComponents/MlIconLayer",
+      "importPath": 1527,
+      "kind": "MapComponents/MlIconLayer",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1527,
+        "framework": "react",
+        "__id": "mapcomponents-mliconlayer--example-config",
+        "__isArgsStory": true
+      }
+    },
+    "mapcomponents-mlmapdrawtools--example-config": {
+      "id": "mapcomponents-mlmapdrawtools--example-config",
+      "name": "Example Config",
+      "title": "MapComponents/MlMapDrawTools",
+      "importPath": 1525,
+      "kind": "MapComponents/MlMapDrawTools",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 1525,
+        "framework": "react",
+        "__id": "mapcomponents-mlmapdrawtools--example-config",
+        "__isArgsStory": true
+      }
+    }
+  }
+}
