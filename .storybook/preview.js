@@ -1,7 +1,7 @@
 import React from "react";
 
 //import { MapComponentsProvider } from "@mapcomponents/react-core";
-//import { MapLibreMap } from "@mapcomponents/react-malibre";
+//import { MapLibreMap } from "@mapcomponents/react-maplibre";
 
 //export const decorators = [
 //  (Story) => (

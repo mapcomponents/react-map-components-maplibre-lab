@@ -6,7 +6,7 @@ import {
   MlGeoJsonLayer,
   MlImageMarkerLayer,
   MlVectorTileLayer,
-} from "@mapcomponents/react-malibre";
+} from "@mapcomponents/react-maplibre";
 import DailyProgressChart from "./assets/DailyProgressChart";
 import StatsSidebar from "./assets/StatsSidebar";
 import Header from "./assets/Header";

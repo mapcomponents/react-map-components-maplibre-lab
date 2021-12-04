@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MapContext } from "@mapcomponents/react-core";
-import { MlWmsLayer } from "@mapcomponents/react-malibre";
+import { MlWmsLayer } from "@mapcomponents/react-maplibre";
 import * as turf from "@turf/turf";
 import Button from "@mui/material/Button";
 

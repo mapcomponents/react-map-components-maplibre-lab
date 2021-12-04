@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { MlGeoJsonLayer } from "@mapcomponents/react-malibre";
+import { MlGeoJsonLayer } from "@mapcomponents/react-maplibre";
 import * as turf from "@turf/turf";
 
 import Button from "@material-ui/core/Button";

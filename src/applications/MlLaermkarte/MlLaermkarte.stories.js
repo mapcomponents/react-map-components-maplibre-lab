@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import MlLaermkarte from "./MlLaermkarte";
-import { MlFillExtrusionLayer } from "@mapcomponents/react-malibre";
+import { MlFillExtrusionLayer } from "@mapcomponents/react-maplibre";
 import MlCameraFollowPath from "../../components/MlCameraFollowPath/MlCameraFollowPath";
 import { MapContext, SimpleDataProvider } from "@mapcomponents/react-core";
 import DeckGlProvider from "../../deckgl_components/DeckGlProvider";
