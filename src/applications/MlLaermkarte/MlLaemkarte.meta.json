@@ -1,10 +1,16 @@
 {
   "name": "MlLaermkarte",
-  "title": "Lärmkarte von Bonn",
+  "title": "Noise map of Bonn",
   "description": "",
+  "i18n": {
+    "de": {
+      "title": "Lärmkarte von Bonn",
+      "description": ""
+    }
+  },
   "tags": [],
   "category": "",
   "type": "application",
-  "components": [ "MlDeckGlLayer", "MlFillExtrusionLayer", "MlCameraFollowPath"] ,
+  "components": ["MlDeckGlLayer", "MlFillExtrusionLayer", "MlCameraFollowPath"],
   "price": 12000
 }

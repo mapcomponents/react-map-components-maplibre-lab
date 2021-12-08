@@ -1,7 +1,13 @@
 {
   "name": "MlCameraFollowPath",
-  "title": "Camerafahrt entlang eines Pfades",
+  "title": "Move Camera along Linestring",
   "description": "",
+  "i18n": {
+    "de": {
+      "title": "Kamerafahrt entlang eines Linestrings",
+      "description": ""
+    }
+  },
   "tags": [],
   "category": "",
   "type": "component",

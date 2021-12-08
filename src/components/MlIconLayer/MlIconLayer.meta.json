@@ -1,7 +1,13 @@
 {
   "name": "MlIconLayer",
-  "title": "Animierte Marker Ebene",
+  "title": "Animated marker layer",
   "description": "",
+  "i18n": {
+    "de": {
+      "title": "Animierte Marker Ebene",
+      "description": ""
+    }
+  },
   "tags": [],
   "category": "",
   "type": "component",

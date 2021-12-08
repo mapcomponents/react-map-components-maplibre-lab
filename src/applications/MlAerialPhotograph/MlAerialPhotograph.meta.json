@@ -1,10 +1,16 @@
 {
   "name": "MlAerialPhotograph",
-  "title": "Luftbild Daten Darsteller",
-  "description": "meep",
+  "title": "WMS - vector tile layer info",
+  "description": "",
+  "i18n": {
+    "de": {
+      "title": "WMS - Vektortile Ebenen Info",
+      "description": ""
+    }
+  },
   "tags": [],
   "category": "",
   "type": "application",
-  "components": [ "MlVectorTileLayer", "MlWMSLayer"],
+  "components": ["MlVectorTileLayer", "MlWMSLayer"],
   "price": 12000
 }

@@ -1,8 +1,14 @@
 {
   "name": "MlMapDrawTools",
-  "title": "Skizzen Werkzeug",
-  "description": "Ermöglicht das Zeichnen von.",
-  "tags": [ "Map add-on" ],
+  "title": "Simple draw tools",
+  "description": "",
+  "i18n": {
+    "de": {
+      "title": "Einfache Zeichenwerkzeuge",
+      "description": ""
+    }
+  },
+  "tags": ["Map add-on"],
   "category": "add-ons",
   "type": "component",
   "price": 5000
