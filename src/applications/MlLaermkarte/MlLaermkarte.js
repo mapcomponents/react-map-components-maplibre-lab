@@ -20,7 +20,7 @@ const getColorRange = (layerOpacity) => [
   [209, 55, 78, Math.round(150 * layerOpacity)],
 ];
 
-const DATA_URL = "/assets/laerm.json"; // eslint-disable-line
+const DATA_URL = "assets/laerm.json"; // eslint-disable-line
 
 const MlLaermkarte = (props) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
