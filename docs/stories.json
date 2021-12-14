@@ -5,11 +5,11 @@
       "id": "core-introduction--page",
       "name": "Page",
       "title": "Core/Introduction",
-      "importPath": 1281,
+      "importPath": 1276,
       "kind": "Core/Introduction",
       "story": "Page",
       "parameters": {
-        "fileName": 1281,
+        "fileName": 1276,
         "docsOnly": true,
         "framework": "react",
         "__id": "core-introduction--page",
@@ -20,11 +20,11 @@
       "id": "applications-mlaerialphotograph--example-config",
       "name": "Example Config",
       "title": "Applications/MlAerialPhotograph",
-      "importPath": 1296,
+      "importPath": 1291,
       "kind": "Applications/MlAerialPhotograph",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1296,
+        "fileName": 1291,
         "framework": "react",
         "__id": "applications-mlaerialphotograph--example-config",
         "__isArgsStory": true
@@ -34,11 +34,11 @@
       "id": "applications-mldemodashboard--example-config",
       "name": "Example Config",
       "title": "Applications/MlDemoDashboard",
-      "importPath": 1278,
+      "importPath": 1274,
       "kind": "Applications/MlDemoDashboard",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1278,
+        "fileName": 1274,
         "framework": "react",
         "__id": "applications-mldemodashboard--example-config",
         "__isArgsStory": true
@@ -48,11 +48,11 @@
       "id": "applications-mllaermkarte--example-config",
       "name": "Example Config",
       "title": "Applications/MlLaermkarte",
-      "importPath": 1297,
+      "importPath": 1292,
       "kind": "Applications/MlLaermkarte",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1297,
+        "fileName": 1292,
         "framework": "react",
         "__id": "applications-mllaermkarte--example-config",
         "__isArgsStory": true
@@ -62,11 +62,11 @@
       "id": "applications-mlmobilerimker--example-config",
       "name": "Example Config",
       "title": "Applications/MlMobilerImker",
-      "importPath": 1289,
+      "importPath": 1284,
       "kind": "Applications/MlMobilerImker",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1289,
+        "fileName": 1284,
         "framework": "react",
         "__id": "applications-mlmobilerimker--example-config",
         "__isArgsStory": true
@@ -76,11 +76,11 @@
       "id": "applications-mlwanderapp--example-config",
       "name": "Example Config",
       "title": "Applications/MlWanderApp",
-      "importPath": 1290,
+      "importPath": 1285,
       "kind": "Applications/MlWanderApp",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1290,
+        "fileName": 1285,
         "framework": "react",
         "__id": "applications-mlwanderapp--example-config",
         "__isArgsStory": true
@@ -90,11 +90,11 @@
       "id": "mapcomponents-mlcamerafollowpath--example-config",
       "name": "Example Config",
       "title": "MapComponents/MlCameraFollowPath",
-      "importPath": 1274,
+      "importPath": 1269,
       "kind": "MapComponents/MlCameraFollowPath",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1274,
+        "fileName": 1269,
         "framework": "react",
         "__id": "mapcomponents-mlcamerafollowpath--example-config",
         "__isArgsStory": true
@@ -104,11 +104,11 @@
       "id": "mapcomponents-mldeckglterrainlayer--example-config",
       "name": "Example Config",
       "title": "MapComponents/MlDeckGlTerrainLayer",
-      "importPath": 1298,
+      "importPath": 1293,
       "kind": "MapComponents/MlDeckGlTerrainLayer",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1298,
+        "fileName": 1293,
         "framework": "react",
         "__id": "mapcomponents-mldeckglterrainlayer--example-config",
         "__isArgsStory": true
@@ -118,11 +118,11 @@
       "id": "mapcomponents-mlhillshadelayer--example-config",
       "name": "Example Config",
       "title": "MapComponents/MlHillshadeLayer",
-      "importPath": 1299,
+      "importPath": 1294,
       "kind": "MapComponents/MlHillshadeLayer",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1299,
+        "fileName": 1294,
         "framework": "react",
         "__id": "mapcomponents-mlhillshadelayer--example-config",
         "__isArgsStory": true
@@ -132,11 +132,11 @@
       "id": "mapcomponents-mliconlayer--example-config",
       "name": "Example Config",
       "title": "MapComponents/MlIconLayer",
-      "importPath": 1286,
+      "importPath": 1281,
       "kind": "MapComponents/MlIconLayer",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1286,
+        "fileName": 1281,
         "framework": "react",
         "__id": "mapcomponents-mliconlayer--example-config",
         "__isArgsStory": true
@@ -146,11 +146,11 @@
       "id": "mapcomponents-mlmapdrawtools--example-config",
       "name": "Example Config",
       "title": "MapComponents/MlMapDrawTools",
-      "importPath": 1284,
+      "importPath": 1279,
       "kind": "MapComponents/MlMapDrawTools",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1284,
+        "fileName": 1279,
         "framework": "react",
         "__id": "mapcomponents-mlmapdrawtools--example-config",
         "__isArgsStory": true
