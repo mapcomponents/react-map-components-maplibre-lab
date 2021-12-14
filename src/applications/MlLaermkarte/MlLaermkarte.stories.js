@@ -50,7 +50,7 @@ const Template = (args) => {
   return (
     <>
       <DeckGlProvider>
-        <SimpleDataProvider format="json" url="/assets/laerm_points.json">
+        <SimpleDataProvider format="json" url="assets/laerm_points.json">
           <MlLaermkarte />
           <MlFillExtrusionLayer
             paint={{
