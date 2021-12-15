@@ -2197,10 +2197,10 @@
   dependencies:
     d3 "^6.7.0"
 
-"@mapcomponents/react-maplibre@^0.1.13":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@mapcomponents/react-maplibre/-/react-maplibre-0.1.13.tgz#ed4a6685bb0232f9a6cbc4491dcd727a12432b76"
-  integrity sha512-m3ZPelNuPPWcq2UGsseW7mldIk5pr7gf24vNv2ZQ9FIFznB4+0Hzwxzs9O67m587ZfPdbqSaURcsY+hy8t8Kcw==
+"@mapcomponents/react-maplibre@^0.1.14":
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/@mapcomponents/react-maplibre/-/react-maplibre-0.1.14.tgz#e499766dd4f3c51abf797280d999a38aaf444a82"
+  integrity sha512-TTCM14SK6QJazlkFFS5SALWRMkCGmDT8nqK8+CoPUw6+pzTqpBtXid99i5my6y573ibaF/daqPRkyKFVjygusA==
   dependencies:
     "@emotion/css" "^11.1.3"
     "@emotion/react" "^11.4.1"

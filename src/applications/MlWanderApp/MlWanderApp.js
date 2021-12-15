@@ -3,6 +3,7 @@ import TopToolbar from "../../ui_components/TopToolbar";
 import {
   MlLayerMagnify,
   MlGPXViewer,
+  MlSpatialElevationProfile,
   MlWmsLayer,
   GeoJsonProvider,
 } from "@mapcomponents/react-maplibre";
@@ -23,8 +24,9 @@ const MlWanderApp = (props) => {
 
       <GeoJsonProvider>
         <MlGPXViewer mapId="map_1" />
+        <MlSpatialElevationProfile mapId="map_2" />
       </GeoJsonProvider>
-      <MlLayerMagnify map1Id="map_1" map2Id="map_2" magnifierRadius={20} />
+      <MlLayerMagnify map1Id="map_1" map2Id="map_2" magnifierRadius={30} />
     </>
   );
 };
