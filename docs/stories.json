@@ -20,11 +20,11 @@
       "id": "applications-mlaerialphotograph--example-config",
       "name": "Example Config",
       "title": "Applications/MlAerialPhotograph",
-      "importPath": 1305,
+      "importPath": 1306,
       "kind": "Applications/MlAerialPhotograph",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1305,
+        "fileName": 1306,
         "framework": "react",
         "__id": "applications-mlaerialphotograph--example-config",
         "__isArgsStory": true
@@ -48,11 +48,11 @@
       "id": "applications-mllaermkarte--example-config",
       "name": "Example Config",
       "title": "Applications/MlLaermkarte",
-      "importPath": 1306,
+      "importPath": 1298,
       "kind": "Applications/MlLaermkarte",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1306,
+        "fileName": 1298,
         "framework": "react",
         "__id": "applications-mllaermkarte--example-config",
         "__isArgsStory": true
@@ -62,11 +62,11 @@
       "id": "applications-mlmobilerimker--example-config",
       "name": "Example Config",
       "title": "Applications/MlMobilerImker",
-      "importPath": 1298,
+      "importPath": 1299,
       "kind": "Applications/MlMobilerImker",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1298,
+        "fileName": 1299,
         "framework": "react",
         "__id": "applications-mlmobilerimker--example-config",
         "__isArgsStory": true
@@ -76,11 +76,11 @@
       "id": "applications-mlwanderapp--example-config",
       "name": "Example Config",
       "title": "Applications/MlWanderApp",
-      "importPath": 1299,
+      "importPath": 1300,
       "kind": "Applications/MlWanderApp",
       "story": "Example Config",
       "parameters": {
-        "fileName": 1299,
+        "fileName": 1300,
         "framework": "react",
         "__id": "applications-mlwanderapp--example-config",
         "__isArgsStory": true
