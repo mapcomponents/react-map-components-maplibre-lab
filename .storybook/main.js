@@ -34,14 +34,23 @@ module.exports = {
         maxSize: 1024 * 1024, // 1MB
       },
     };
+    let aliases = {
+      "@emotion/core": getPackageDir("@emotion/react"),
+      "@emotion/styled": getPackageDir("@emotion/styled"),
+      "@mapcomponents/react-core": getPackageDir("@mapcomponents/react-core"),
+      "@deck.gl/aggregation-layers": getPackageDir("@deck.gl/aggregation-layers"),
+      "@deck.gl/core": getPackageDir("@deck.gl/core"),
+      "@deck.gl/extensions": getPackageDir("@deck.gl/extensions"),
+      "@deck.gl/geo-layers": getPackageDir("@deck.gl/geo-layers"),
+      "@deck.gl/layers": getPackageDir("@deck.gl/layers"),
+      "@deck.gl/mapbox": getPackageDir("@deck.gl/mapbox"),
+      "@deck.gl/mesh-layers": getPackageDir("@deck.gl/mesh-layers"),
+    };
+    console.log(aliases);
 
     return merge(config, {
       resolve: {
-        alias: {
-          "@emotion/core": getPackageDir("@emotion/react"),
-          "@emotion/styled": getPackageDir("@emotion/styled"),
-          "@mapcomponents/react-core": getPackageDir("@mapcomponents/react-core"),
-        },
+        alias: aliases,
       },
     });
   },
