@@ -2,7 +2,7 @@ import React from "react";
 
 import { MapComponentsProvider } from "@mapcomponents/react-core";
 
-import { MapLibreMap } from "@mapcomponents/react-maplibre";
+import { MapLibreMap, MlNavigationTools } from "@mapcomponents/react-maplibre";
 
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -64,6 +64,8 @@ const decorators = [
                   //],
                 }}
               />
+              <MlNavigationTools
+              mapId="map_1"/>
             </div>
           </div>
         </MapComponentsProvider>

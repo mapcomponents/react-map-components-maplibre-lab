@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MapComponentsProvider } from "@mapcomponents/react-core";
-import { MapLibreMap } from "@mapcomponents/react-maplibre";
+import { MapLibreMap, MlNavigationTools } from "@mapcomponents/react-maplibre";
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -14,6 +14,7 @@ const decorators = [
         <MapComponentsProvider>
           <Story />
           <MapLibreMap
+            mapId="map_1"
             options={{
               //style: "mapbox://styles/mapbox/light-v10",
               //center: [-87.62712, 41.89033],
@@ -31,6 +32,8 @@ const decorators = [
               //          ],
             }}
           />
+          <MlNavigationTools
+            mapId="map_1"/>
         </MapComponentsProvider>
       </ThemeProvider>
     </div>
