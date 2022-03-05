@@ -51,7 +51,7 @@ const MlIconLayer = (props) => {
       id: layerName,
       type: IconLayer,
       data,
-      pickable: true,
+      //pickable: true,
       iconAtlas: Airplane,
       iconMapping: {
         airplane: {
@@ -68,10 +68,9 @@ const MlIconLayer = (props) => {
         },
       },
       sizeScale: 20,
-      autoHighlight: true,
+      //autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
-          console.log(d);
           setHoverInfo(d);
         } else {
           setHoverInfo({});
@@ -81,12 +80,12 @@ const MlIconLayer = (props) => {
       getIcon: (d) => {
         return d.origin_country === "Germany" ? "blue_airplane" : "airplane";
       },
-      getAngle: (d) => 45 + (d.true_track * 180) / Math.PI,
+      getAngle: (d) => -d.true_track,
     };
   }, [data]);
 
   const animationFrame = () => {
-    if (!simpleDataContext.data || currentFrame.current > framesPerFetch) return;
+    if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
     airplanes_tmp = airplanes_tmp.map((d) => {
       const [longitude, latitude] = d.interpolatePos(
@@ -146,9 +145,7 @@ const MlIconLayer = (props) => {
     if (
       !simpleDataContext.data ||
       !mapContext.mapExists(props.mapId) ||
-      (mapContext.mapExists(props.mapId) &&
-        simpleDataContext.data &&
-        initializedRef.current)
+      initializedRef.current
     )
       return;
 
@@ -184,7 +181,7 @@ const MlIconLayer = (props) => {
   }, [mapContext.mapIds, mapContext, simpleDataContext.data]);
 
   function renderTooltip(info) {
-    const { object, x, y } = info;
+    let { object, x, y } = info;
 
     if (!object) {
       return null;
@@ -194,6 +191,9 @@ const MlIconLayer = (props) => {
       <div
         className="tooltip"
         style={{
+          zIndex: 1000,
+
+          position: "fixed",
           padding: "8px",
           borderRadius: "4px",
           border: "1px solid rgba(12, 12, 120, .9)",
