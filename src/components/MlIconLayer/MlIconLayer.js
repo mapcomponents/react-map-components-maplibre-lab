@@ -87,9 +87,10 @@ const MlIconLayer = (props) => {
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
+    let _pos = (new Date().getTime() - airplanes_tmp[0].time_contact * 1000)/1000 / fetchEverySeconds;
     airplanes_tmp = airplanes_tmp.map((d) => {
       const [longitude, latitude] = d.interpolatePos(
-        currentFrame.current / framesPerFetch
+        _pos
       );
       return {
         ...d,
@@ -124,8 +125,6 @@ const MlIconLayer = (props) => {
   };
 
   useEffect(() => {
-    if (!mapContext.mapExists(props.mapId)) return cleanup;
-
     return cleanup;
   }, []);
 
