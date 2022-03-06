@@ -52,6 +52,7 @@ const Template = (args) => {
       url={dataUrl}
       formatData={(d) => {
         return {
+          id:d[1],
           callsign: d[1],
           time_contact: (d[3]?d[3]:d[4]),
           lon: d[5],

@@ -51,7 +51,7 @@ const MlIconLayer = (props) => {
       id: layerName,
       type: IconLayer,
       data,
-      //pickable: true,
+      pickable: true,
       iconAtlas: Airplane,
       iconMapping: {
         airplane: {
@@ -68,7 +68,7 @@ const MlIconLayer = (props) => {
         },
       },
       sizeScale: 20,
-      //autoHighlight: true,
+      autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
           setHoverInfo(d);
