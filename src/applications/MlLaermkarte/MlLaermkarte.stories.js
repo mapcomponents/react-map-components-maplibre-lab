@@ -52,12 +52,6 @@ const Template = (args) => {
       <DeckGlProvider>
         <SimpleDataProvider format="json" url="assets/laerm_points.json">
           <MlLaermkarte />
-          <MlFillExtrusionLayer
-            paint={{
-              "fill-extrusion-color": "hsl(30, 30, 30)",
-            }}
-            minZoom={13}
-          />
           <MlCameraFollowPath
             path={route}
             initialZoom={15.8}

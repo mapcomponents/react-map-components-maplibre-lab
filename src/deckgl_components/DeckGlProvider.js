@@ -5,7 +5,7 @@ import { Deck } from "@deck.gl/core";
 
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { MapboxLayer } from "@deck.gl/mapbox";
-import { MapContext } from "@mapcomponents/react-core";
+import { useMap } from "@mapcomponents/react-maplibre";
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
@@ -28,18 +28,17 @@ const lightingEffect = new LightingEffect({
   ambientLight,
 });
 
-const DeckGlProvider = ({ children }) => {
-  const mapContext = useContext(MapContext);
+const DeckGlProvider = ({ mapId,  children }) => {
+  const mapHook = useMap({ mapId });
 
   const [deckGl, setDeckGl] = useState(null);
   const layerRef = useState(null);
 
   useEffect(() => {
-    if (!mapContext.map) return;
+    if (!mapHook.map) return;
 
-    console.log("init deckgl");
     let deck = new Deck({
-      gl: mapContext.map.painter.context.gl,
+      gl: mapHook.map.painter.context.gl,
       layers: [],
     });
 
@@ -51,10 +50,10 @@ const DeckGlProvider = ({ children }) => {
       effects: [lightingEffect],
     });
 
-    mapContext.map.addLayer(layerRef.current, "poi_label");
+    mapHook.map.addLayer(layerRef.current, "poi_label");
 
     setDeckGl(deck);
-  }, [mapContext.map]);
+  }, [mapHook.map]);
 
   const value = {
     deckGl: deckGl,
