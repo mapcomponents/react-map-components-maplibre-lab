@@ -11,6 +11,6 @@
   "tags": [],
   "category": "",
   "type": "application",
-  "components": ["MlGPXViewer", "MlHillshadeLayer", "MlLayerMagnify"],
+  "components": ["MlGPXViewer", "MlSpatialElevationProfile", "MlLayerMagnify"],
   "price": 0
 }
