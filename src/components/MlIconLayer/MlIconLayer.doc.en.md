@@ -1,0 +1,1 @@
+This layer type makes it possile to visualize a large number of markers in a fluid animation on the map. The current civil air traffic based on the flight data provided by opensky can be seen in the demo.
