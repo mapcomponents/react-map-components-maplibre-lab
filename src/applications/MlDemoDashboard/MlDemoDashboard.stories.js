@@ -2,7 +2,7 @@ import React from "react";
 import DashboardPage from "./MlDemoDashboard.js";
 import { MapLibreMap, MlFillExtrusionLayer } from "@mapcomponents/react-maplibre";
 import mapContextDecorator from "../../decorators/MapContextDashboardDecorator";
-import { SimpleDataProvider } from "@mapcomponents/react-core";
+import { SimpleDataProvider } from "@mapcomponents/react-maplibre";
 import "./style.css";
 
 const storyoptions = {

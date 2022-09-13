@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import { MapContext } from "@mapcomponents/react-core";
+import { MapContext } from "@mapcomponents/react-maplibre";
 
 import Button from "@material-ui/core/Button";
 

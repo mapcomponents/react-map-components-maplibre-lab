@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { MapContext } from "@mapcomponents/react-core";
+import { MapContext } from "@mapcomponents/react-maplibre";
 
 const MlDraggableFeatureLayer = (props) => {
   const mapContext = useContext(MapContext);

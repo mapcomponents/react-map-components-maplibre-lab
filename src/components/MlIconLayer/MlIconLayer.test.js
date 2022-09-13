@@ -6,7 +6,7 @@ import {
   MapContext,
   MapComponentsProvider,
   SimpleDataProvider,
-} from "@mapcomponents/react-core";
+} from "@mapcomponents/react-maplibre";
 import MlIconLayer from "./MlIconLayer";
 
 import * as d3 from "d3";

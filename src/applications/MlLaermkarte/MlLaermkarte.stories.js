@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import MlLaermkarte from "./MlLaermkarte";
 import { MlFillExtrusionLayer } from "@mapcomponents/react-maplibre";
 import MlCameraFollowPath from "../../components/MlCameraFollowPath/MlCameraFollowPath";
-import { MapContext, SimpleDataProvider } from "@mapcomponents/react-core";
+import { MapContext, SimpleDataProvider } from "@mapcomponents/react-maplibre";
 import DeckGlProvider from "../../deckgl_components/DeckGlProvider";
 
 //import mapContext3DDecorator from "../../decorators/MapContext3DDecorator";

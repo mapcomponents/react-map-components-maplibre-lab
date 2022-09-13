@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MapComponentsProvider } from "@mapcomponents/react-core";
+import { MapComponentsProvider } from "@mapcomponents/react-maplibre";
 import { MapLibreMap } from "@mapcomponents/react-maplibre";
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

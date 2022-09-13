@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import "./Imker.css";
-import { MapContext } from "@mapcomponents/react-core";
+import { MapContext } from "@mapcomponents/react-maplibre";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";

@@ -37,7 +37,6 @@ module.exports = {
     let aliases = {
       "@emotion/core": getPackageDir("@emotion/react"),
       "@emotion/styled": getPackageDir("@emotion/styled"),
-      "@mapcomponents/react-core": getPackageDir("@mapcomponents/react-core"),
       "@deck.gl/aggregation-layers": getPackageDir("@deck.gl/aggregation-layers"),
       "@deck.gl/core": getPackageDir("@deck.gl/core"),
       "@deck.gl/extensions": getPackageDir("@deck.gl/extensions"),

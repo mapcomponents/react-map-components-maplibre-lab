@@ -5,7 +5,7 @@ import * as turf from "@turf/turf";
 import MlIconLayer from "./MlIconLayer";
 
 import mapContextDecorator from "../../decorators/MapContextKlokantechBasicDecorator";
-import { MapContext, SimpleDataProvider } from "@mapcomponents/react-core";
+import { MapContext, SimpleDataProvider } from "@mapcomponents/react-maplibre";
 
 const storyoptions = {
   title: "MapComponents/MlIconLayer",
