@@ -1,8 +1,9 @@
-import React from "react";
-
+import React, { useState } from "react";
 import MlCameraFollowPath from "./MlCameraFollowPath";
-
+import TopToolbar from "../../ui_components/TopToolbar";
 import mapContextDecorator from "../../decorators/MapContextDecorator";
+import { Button, Slider, Typography } from "@mui/material";
+import { MlGeoJsonLayer, MlNavigationTools } from "@mapcomponents/react-maplibre";
 
 const storyoptions = {
   title: "MapComponents/MlCameraFollowPath",
@@ -15,8 +16,107 @@ const storyoptions = {
 };
 export default storyoptions;
 
+const routeJson = {
+  type: "Feature",
+  properties: {},
+  geometry: {
+    type: "LineString",
+    coordinates: [
+      [7.10942788610961, 50.708209240168],
+      [7.10966149846967, 50.7088867160122],
+      [7.10910082880551, 50.7108256986007],
+      [7.10856352037736, 50.7126945974813],
+      [7.1083532692533, 50.7142598002937],
+      [7.10814301812924, 50.7160118929942],
+      [7.10793276700518, 50.7169463424345],
+      [7.10776923835314, 50.7176004570426],
+      [7.10713848498096, 50.718838602551],
+      [7.10699831756492, 50.7199599418793],
+      [7.106900786313568, 50.72118132611057],
+    ],
+  },
+};
+
+const marks = [
+  {
+    value: 15,
+    label: '15',
+  },
+  {
+    value: 16,
+    label: '16',
+  },
+  {
+    value: 17,
+    label: '17',
+  },
+  {
+    value: 18,
+    label: '18',
+  },
+  {
+    value: 19,
+    label: '19',
+  },
+  {
+    value: 20,
+    label: '20',
+  },
+];
+
 const Template = (args) => {
-  return <MlCameraFollowPath />;
+  const [play, setPlay] = useState(false);
+  const [reset, setReset] = useState(false);
+  const [zoom, setZoom] = useState(18);
+  const [pitch, setPitch] = useState("3D");
+  const [targetPitch, setTargetPitch] = useState(false);
+
+  return (
+    <>
+      <TopToolbar>
+        <Button onClick={() => (setPlay(true), setReset(false))}>Start</Button>
+        <Button onClick={() => setPlay(false)}>Pause</Button>
+        <Button onClick={() => (setReset(true),setPlay(false))}>Reset</Button>
+        <Typography
+          id="discrete-slider"
+          style={{ color: "#121212",marginLeft: "10px", marginRight: "10px" }}
+        >
+          Zoom:
+        </Typography>
+        <Slider
+          value={zoom}
+          onChange={(ev, value) => {
+            setZoom(value);
+          }}
+          getAriaValueText={(value) => value}
+          aria-labelledby="discrete-slider"
+          //valueLabelDisplay="auto"
+          step={1}
+          marks={marks}
+          min={15}
+          max={20}
+          sx={{marginTop:"20px", paddingBottom:"20px", marginRight: "10px", maxWidth: "200px" }}
+        />
+        <Button
+          onClick={function(){if(pitch==="3D"){setTargetPitch(true); setPitch("2D");}else{setTargetPitch(false); setPitch("3D");}}}
+        >
+           {pitch}
+        </Button>
+      </TopToolbar>
+      <MlGeoJsonLayer
+        geojson={routeJson}
+        type="line"
+        paint={{
+          "line-width": 2,
+          "line-color": "blue",
+        }}
+      />
+
+      <MlCameraFollowPath route={routeJson} play={play} reset={reset} zoomInTo={zoom} targetPitch={targetPitch}/>
+
+      <MlNavigationTools />
+    </>
+  );
 };
 
 export const ExampleConfig = Template.bind({});
