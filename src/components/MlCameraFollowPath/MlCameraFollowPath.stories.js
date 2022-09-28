@@ -68,6 +68,7 @@ const Template = (args) => {
   const [play, setPlay] = useState(false);
   const [reset, setReset] = useState(false);
   const [zoom, setZoom] = useState(18);
+  const [speed, setSpeed] = useState(1);
   const [pitch, setPitch] = useState("3D");
   const [targetPitch, setTargetPitch] = useState(false);
 
@@ -76,10 +77,10 @@ const Template = (args) => {
       <TopToolbar>
         <Button onClick={() => (setPlay(true), setReset(false))}>Start</Button>
         <Button onClick={() => setPlay(false)}>Pause</Button>
-        <Button onClick={() => (setReset(true),setPlay(false))}>Reset</Button>
+        <Button onClick={() => (setReset(true), setPlay(false))}>Reset</Button>
         <Typography
           id="discrete-slider"
-          style={{ color: "#121212",marginLeft: "10px", marginRight: "10px" }}
+          style={{ color: "#121212", marginLeft: "10px", marginRight: "10px" }}
         >
           Zoom:
         </Typography>
@@ -95,12 +96,48 @@ const Template = (args) => {
           marks={marks}
           min={15}
           max={20}
-          sx={{marginTop:"20px", paddingBottom:"20px", marginRight: "10px", maxWidth: "200px" }}
+          sx={{
+            marginTop: "20px",
+            paddingBottom: "20px",
+            marginRight: "10px",
+            maxWidth: "200px",
+          }}
+        />
+        <Typography
+          id="discrete-slider2"
+          style={{ color: "#121212", marginLeft: "10px", marginRight: "10px" }}
+        >
+          Speed:
+        </Typography>
+        <Slider
+          value={speed}
+          onChange={(ev, value) => {
+            setSpeed(value);
+          }}
+          getAriaValueText={(value) => value}
+          aria-labelledby="discrete-slider2"
+          //valueLabelDisplay="auto"
+          step={0.1}
+          marks
+          min={0.1}
+          max={2}
+          sx={{
+            marginRight: "10px",
+            maxWidth: "200px",
+          }}
         />
         <Button
-          onClick={function(){if(pitch==="3D"){setTargetPitch(true); setPitch("2D");}else{setTargetPitch(false); setPitch("3D");}}}
+          onClick={function () {
+            if (pitch === "3D") {
+              setTargetPitch(true);
+              setPitch("2D");
+            } else {
+              setTargetPitch(false);
+              setPitch("3D");
+            }
+          }}
         >
-           {pitch}
+          {pitch}
         </Button>
       </TopToolbar>
       <MlGeoJsonLayer
@@ -112,7 +149,14 @@ const Template = (args) => {
         }}
       />
 
-      <MlCameraFollowPath route={routeJson} play={play} reset={reset} zoomInTo={zoom} targetPitch={targetPitch}/>
+      <MlCameraFollowPath
+        route={routeJson}
+        play={play}
+        reset={reset}
+        zoomInTo={zoom}
+        speed={speed}
+        targetPitch={targetPitch}
+      />
 
       <MlNavigationTools />
     </>

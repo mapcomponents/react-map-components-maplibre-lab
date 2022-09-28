@@ -11,8 +11,9 @@ const MlCameraFollowPath = (props) => {
 
   const pause = useRef(false);
   const reset = useRef(false);
-  const step = useRef(1);
   const zoomInTo = useRef(18);
+  const step = useRef(1);
+  const speed = useRef(1);
   const targetPitch = useRef(false);
 
   var timer;
@@ -33,6 +34,9 @@ const MlCameraFollowPath = (props) => {
   useEffect(() => {
     reset.current = props.reset;
   }, [props.reset]);
+  useEffect(() => {
+    speed.current = props.speed;
+  }, [props.speed]);
   useEffect(() => {
     targetPitch.current = props.targetPitch;
   }, [props.targetPitch]);
@@ -99,9 +103,12 @@ const MlCameraFollowPath = (props) => {
   useEffect(() => {
     if (!mapHook.map) return;
     if (reset.current) {
+      enableInteractivity();
       window.clearInterval(timer);
       step.current = 1;
       initializedRef.current = false;
+      centerRoute();
+      mapHook.map.map.setPitch(0);
       reset.current = false;
     }
   }, [props.reset]);
@@ -152,14 +159,13 @@ const MlCameraFollowPath = (props) => {
             duration: stepDuration,
             essential: true,
           });
-          step.current++;
+          step.current = step.current + speed.current;
           console.log("PAN MOVE");
         } else {
           enableInteractivity();
           console.log("ENABLE CONTROLS");
-          window.clearInterval(timer);
           mapHook.map.map.setPitch(0);
-          centerRoute();
+          window.clearInterval(timer);
         }
       } else {
         enableInteractivity();
