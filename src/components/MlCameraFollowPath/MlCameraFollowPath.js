@@ -37,7 +37,6 @@ const MlCameraFollowPath = (props) => {
     targetPitch.current = props.targetPitch;
   }, [props.targetPitch]);
 
-
   const disableInteractivity = useCallback(() => {
     if (!mapHook.map) return;
     mapHook.map.map["scrollZoom"].disable();
@@ -85,28 +84,18 @@ const MlCameraFollowPath = (props) => {
       zoom = zoom - zoomSteps;
       mapHook.map.map.setZoom(zoom);
     }
-    //mapHook.map.map.easeTo({pitch:60 });
     disableInteractivity();
   };
 
   const pitch = () => {
     if (!mapHook.map) return;
     if (targetPitch.current) {
-        mapHook.map.map.setPitch(60 );
-      }else{
-          mapHook.map.map.setPitch( 0 );
-      }
+      mapHook.map.map.setPitch(60);
+    } else {
+      mapHook.map.map.setPitch(0);
+    }
   };
 
- /* useEffect(() => {
-    if (!mapHook.map) return;
-    if (targetPitch.current) {
-        mapHook.map.map.setPitch(60 );
-      }else{
-          mapHook.map.map.setPitch( 0 );
-      }
-  }, [props.targetPitch]);
- */
   useEffect(() => {
     if (!mapHook.map) return;
     if (reset.current) {
@@ -114,9 +103,8 @@ const MlCameraFollowPath = (props) => {
       step.current = 1;
       initializedRef.current = false;
       reset.current = false;
-      }
+    }
   }, [props.reset]);
- 
 
   useEffect(() => {
     return () => {
@@ -127,8 +115,7 @@ const MlCameraFollowPath = (props) => {
       // mapHook.map.getMap(props.mapId).removeLayer(layerRef.current);
     };
   }, []);
-  
-  
+
   useEffect(() => {
     if (!mapHook.map || !props.route) return;
     if (initializedRef.current) return;
@@ -139,7 +126,7 @@ const MlCameraFollowPath = (props) => {
     var kmPerStep = props.kmPerStep || 0.01;
     var routeDistance = turf.lineDistance(props.route);
     var stepDuration = props.stepDuration || 70;
-   
+
     centerRoute();
 
     timer = window.setInterval(function () {
@@ -164,28 +151,27 @@ const MlCameraFollowPath = (props) => {
             ),
             duration: stepDuration,
             essential: true,
-          }); 
+          });
           step.current++;
           console.log("PAN MOVE");
-        } else { 
+        } else {
           enableInteractivity();
           console.log("ENABLE CONTROLS");
           window.clearInterval(timer);
-          //initializedRef.current = false;
           mapHook.map.map.setPitch(0);
           centerRoute();
         }
       } else {
-        enableInteractivity(); 
+        enableInteractivity();
       }
     }, stepDuration);
   }, [
     mapHook.mapId,
     mapHook.map,
     props,
+    props.route,
     disableInteractivity,
     enableInteractivity,
-    props.route,
   ]);
 
   return <></>;
