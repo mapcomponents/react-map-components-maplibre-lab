@@ -8,17 +8,15 @@ const MlCameraFollowPath = (props) => {
   // without the requirement of adding it to the dependency list (ignore the false eslint exhaustive deps warning)
   const initializedRef = useRef(false);
   const clearIntervalRef = useRef(false);
-
-  const pause = useRef(false);
-  const reset = useRef(false);
-  const zoomInTo = useRef(18);
+  const pause = useRef(true);
+  const zoom = useRef(60);
+  const pitch = useRef(60);
   const step = useRef(1);
   const speed = useRef(1);
-  const targetPitch = useRef(false);
 
-  var timer;
-  var zoom = 14;
-  var zoomSteps = 0.04;
+  var kmPerStep = props.kmPerStep || 0.01;
+  var routeDistance = turf.lineDistance(props.route);
+  var stepDuration = props.stepDuration || 70;
 
   const mapHook = useMap({
     mapId: props.mapId,
@@ -26,20 +24,17 @@ const MlCameraFollowPath = (props) => {
   });
 
   useEffect(() => {
-    pause.current = !props.play;
-  }, [props.play]);
+    pause.current = props.pause;
+  }, [props.pause]);
   useEffect(() => {
-    zoomInTo.current = props.zoomInTo;
-  }, [props.zoomInTo]);
+    zoom.current = props.zoom;
+  }, [props.zoom]);
   useEffect(() => {
-    reset.current = props.reset;
-  }, [props.reset]);
+    pitch.current = props.pitch;
+  }, [props.pitch]);
   useEffect(() => {
     speed.current = props.speed;
   }, [props.speed]);
-  useEffect(() => {
-    targetPitch.current = props.targetPitch;
-  }, [props.targetPitch]);
 
   const disableInteractivity = useCallback(() => {
     if (!mapHook.map) return;
@@ -62,7 +57,7 @@ const MlCameraFollowPath = (props) => {
     mapHook.map.map["touchZoomRotate"].enable();
   }, [mapHook.map]);
 
-  const centerRoute = () => {
+  function centerRoute() {
     if (!mapHook.map || !props.route) return;
     var bbox = turf.bbox(props.route);
     var bounds;
@@ -73,47 +68,61 @@ const MlCameraFollowPath = (props) => {
       ];
       mapHook.map.map.fitBounds(bounds, { padding: 100 });
     }
-  };
-
-  const zoomInPlay = () => {
+  }
+  function play() {
     if (!mapHook.map) return;
-    if (mapHook.map.map.getZoom() !== zoom) {
-      mapHook.map.map.setZoom(zoom);
-    }
-    while (zoom < zoomInTo.current) {
-      zoom = zoom + zoomSteps;
-      mapHook.map.map.setZoom(zoom);
-    }
-    while (zoom > zoomInTo.current) {
-      zoom = zoom - zoomSteps;
-      mapHook.map.map.setZoom(zoom);
-    }
-    disableInteractivity();
-  };
 
-  const pitch = () => {
-    if (!mapHook.map) return;
-    if (targetPitch.current) {
-      mapHook.map.map.setPitch(60);
-    } else {
-      mapHook.map.map.setPitch(0);
+    if (!pause.current) {
+      disableInteractivity();
+      if (mapHook.map.map.getZoom() !== zoom.current) {
+        mapHook.map.map.setZoom(zoom.current);
+      }
+      if (pitch.current !== "3D") {
+        mapHook.map.map.setPitch(60);
+      } else {
+        mapHook.map.map.setPitch(0);
+      }
+
+      var alongRoute = turf.along(props.route, step.current * kmPerStep).geometry
+        .coordinates;
+
+      if (step.current * kmPerStep < routeDistance) {
+        mapHook.map.map.panTo(alongRoute, {
+          bearing: turf.bearing(
+            turf.point([
+              mapHook.map.map.getCenter().lng,
+              mapHook.map.map.getCenter().lat,
+            ]),
+            turf.point(alongRoute)
+          ),
+          duration: stepDuration,
+          essential: true,
+        });
+        step.current = step.current + speed.current;
+        console.log("PAN MOVE");
+        setTimeout(() => {
+          play();
+        }, 100);
+      } else {
+        mapHook.map.map.setPitch(0);
+        centerRoute();
+        enableInteractivity();
+        console.log("ENABLE CONTROLS");
+      }
     }
-  };
+  }
+  function reset() {
+    if (!mapHook.map) return;
+    mapHook.map.map.setPitch(0);
+    centerRoute();
+    enableInteractivity();
+    step.current = 1;
+  }
 
   useEffect(() => {
-    if (!mapHook.map) return;
-    if (reset.current) {
-      enableInteractivity();
-      window.clearInterval(timer);
-      step.current = 1;
-      initializedRef.current = false;
-      centerRoute();
-      mapHook.map.map.setPitch(0);
-      reset.current = false;
-    }
-  }, [props.reset]);
-
-  useEffect(() => {
+    if (!mapHook.map || initializedRef.current) return;
+    initializedRef.current = true;
+    centerRoute();
     return () => {
       clearIntervalRef.current = true;
       // This is the cleanup function, it is called when this react component is removed from react-dom
@@ -121,66 +130,12 @@ const MlCameraFollowPath = (props) => {
       // e.g.: remove the layer
       // mapHook.map.getMap(props.mapId).removeLayer(layerRef.current);
     };
-  }, []);
+  }, [mapHook.map]);
 
-  useEffect(() => {
-    if (!mapHook.map || !props.route) return;
-    if (initializedRef.current) return;
-    // the MapLibre-gl instance (mapHook.map.map) is accessible here
-    // initialize the layer and add it to the MapLibre-gl instance or do something else with it
-    initializedRef.current = true;
-
-    var kmPerStep = props.kmPerStep || 0.01;
-    var routeDistance = turf.lineDistance(props.route);
-    var stepDuration = props.stepDuration || 70;
-
-    centerRoute();
-
-    timer = window.setInterval(function () {
-      if (clearIntervalRef.current) {
-        window.clearInterval(timer);
-      }
-      if (!pause.current) {
-        zoomInPlay();
-        pitch();
-
-        var alongRoute = turf.along(props.route, step.current * kmPerStep).geometry
-          .coordinates;
-
-        if (step.current * kmPerStep < routeDistance) {
-          mapHook.map.map.panTo(alongRoute, {
-            bearing: turf.bearing(
-              turf.point([
-                mapHook.map.map.getCenter().lng,
-                mapHook.map.map.getCenter().lat,
-              ]),
-              turf.point(alongRoute)
-            ),
-            duration: stepDuration,
-            essential: true,
-          });
-          step.current = step.current + speed.current;
-          console.log("PAN MOVE");
-        } else {
-          enableInteractivity();
-          console.log("ENABLE CONTROLS");
-          mapHook.map.map.setPitch(0);
-          window.clearInterval(timer);
-        }
-      } else {
-        enableInteractivity();
-      }
-    }, stepDuration);
-  }, [
-    mapHook.mapId,
-    mapHook.map,
-    props,
-    props.route,
-    disableInteractivity,
-    enableInteractivity,
-  ]);
-
-  return <></>;
+  return {
+    play: play,
+    reset: reset,
+  };
 };
 
 export default MlCameraFollowPath;

@@ -65,19 +65,41 @@ const marks = [
 ];
 
 const Template = (args) => {
-  const [play, setPlay] = useState(false);
-  const [reset, setReset] = useState(false);
+  const [pause, setPause] = useState(false);
   const [zoom, setZoom] = useState(18);
   const [speed, setSpeed] = useState(1);
-  const [pitch, setPitch] = useState("3D");
-  const [targetPitch, setTargetPitch] = useState(false);
+  const [pitch, setPitch] = useState("2D");
+
+  const CameraFollowPath = MlCameraFollowPath({
+    route: routeJson,
+    pause: pause,
+    pitch: pitch,
+    zoom: zoom,
+    speed: speed,
+  });
+
+  function doPlay() {
+    setPause(false);
+    CameraFollowPath.play();
+  }
+  function doReset() {
+    setPause(true);
+    CameraFollowPath.reset();
+  }
+  function doPitch() {
+    if (pitch === "2D") {
+      setPitch("3D");
+    } else {
+      setPitch("2D");
+    }
+  }
 
   return (
     <>
       <TopToolbar>
-        <Button onClick={() => (setPlay(true), setReset(false))}>Start</Button>
-        <Button onClick={() => setPlay(false)}>Pause</Button>
-        <Button onClick={() => (setReset(true), setPlay(false))}>Reset</Button>
+        <Button onClick={doPlay}>Start</Button>
+        <Button onClick={() => setPause(true)}>Pause</Button>
+        <Button onClick={doReset}>Reset</Button>
         <Typography
           id="discrete-slider"
           style={{ color: "#121212", marginLeft: "10px", marginRight: "10px" }}
@@ -126,19 +148,7 @@ const Template = (args) => {
             maxWidth: "200px",
           }}
         />
-        <Button
-          onClick={function () {
-            if (pitch === "3D") {
-              setTargetPitch(true);
-              setPitch("2D");
-            } else {
-              setTargetPitch(false);
-              setPitch("3D");
-            }
-          }}
-        >
-          {pitch}
-        </Button>
+        <Button onClick={doPitch}>{pitch}</Button>
       </TopToolbar>
       <MlGeoJsonLayer
         geojson={routeJson}
@@ -148,20 +158,10 @@ const Template = (args) => {
           "line-color": "blue",
         }}
       />
-
-      <MlCameraFollowPath
-        route={routeJson}
-        play={play}
-        reset={reset}
-        zoomInTo={zoom}
-        speed={speed}
-        targetPitch={targetPitch}
-      />
-
       <MlNavigationTools />
     </>
   );
-};
+};;;
 
 export const ExampleConfig = Template.bind({});
 ExampleConfig.parameters = {};
