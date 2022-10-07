@@ -68,7 +68,8 @@ const Template = (args) => {
   const [pause, setPause] = useState(false);
   const [zoom, setZoom] = useState(18);
   const [speed, setSpeed] = useState(1);
-  const [pitch, setPitch] = useState("2D");
+  const [pitch, setPitch] = useState("3D");
+  const [disable, setDisable] = useState(false);
 
   const CameraFollowPath = MlCameraFollowPath({
     route: routeJson,
@@ -78,13 +79,20 @@ const Template = (args) => {
     speed: speed,
   });
 
-  function doPlay() {
+  function doPlay(event) {
     setPause(false);
-    CameraFollowPath.play();
+    setTimeout(() => {
+      CameraFollowPath.play();
+    }, 10);
+    setDisable(true);
   }
   function doReset() {
     setPause(true);
     CameraFollowPath.reset();
+    setDisable(false);
+    setPitch("3D");
+    setZoom(18);
+    setSpeed(1);
   }
   function doPitch() {
     if (pitch === "2D") {
@@ -97,8 +105,15 @@ const Template = (args) => {
   return (
     <>
       <TopToolbar>
-        <Button onClick={doPlay}>Start</Button>
-        <Button onClick={() => setPause(true)}>Pause</Button>
+        <Button disabled={disable} onClick={doPlay}>
+          Start
+        </Button>
+        <Button
+          disabled={!disable}
+          onClick={() => (setPause(true), setDisable(false))}
+        >
+          Pause
+        </Button>
         <Button onClick={doReset}>Reset</Button>
         <Typography
           id="discrete-slider"
@@ -148,7 +163,7 @@ const Template = (args) => {
             maxWidth: "200px",
           }}
         />
-        <Button onClick={doPitch}>{pitch}</Button>
+        <Button onClick={doPitch}>{pitch === "2D" ? "3D" : "2D"}</Button>
       </TopToolbar>
       <MlGeoJsonLayer
         geojson={routeJson}
@@ -161,7 +176,7 @@ const Template = (args) => {
       <MlNavigationTools />
     </>
   );
-};;;
+};;;;
 
 export const ExampleConfig = Template.bind({});
 ExampleConfig.parameters = {};

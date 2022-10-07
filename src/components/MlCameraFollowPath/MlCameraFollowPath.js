@@ -77,7 +77,7 @@ const MlCameraFollowPath = (props) => {
       if (mapHook.map.map.getZoom() !== zoom.current) {
         mapHook.map.map.setZoom(zoom.current);
       }
-      if (pitch.current !== "3D") {
+      if (pitch.current === "3D") {
         mapHook.map.map.setPitch(60);
       } else {
         mapHook.map.map.setPitch(0);
@@ -108,9 +108,13 @@ const MlCameraFollowPath = (props) => {
         centerRoute();
         enableInteractivity();
         console.log("ENABLE CONTROLS");
+        step.current = 1;
       }
+    } else {
+      enableInteractivity();
     }
   }
+
   function reset() {
     if (!mapHook.map) return;
     mapHook.map.map.setPitch(0);
