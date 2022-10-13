@@ -161,7 +161,7 @@ const Template = (args) => {
             maxWidth: "200px",
           }}
         />
-        <Button onClick={doPitch}>{pitch}</Button>
+        <Button onClick={doPitch}>{pitch === "2D" ? "3D" : "2D"}</Button>
       </TopToolbar>
       <MlGeoJsonLayer
         geojson={routeJson}
