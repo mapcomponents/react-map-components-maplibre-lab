@@ -114,7 +114,7 @@ const Template = () => {
           onClick={() => {
             CameraFollowPath.reset();
             setState((current) => {
-              return { ...current, pause: true, pitch: 60, zoom: 18, speed: 1 };
+              return { ...current, pause: true, zoom: 18, speed: 1, pitch: 60 };
             });
           }}
         >
@@ -128,7 +128,7 @@ const Template = () => {
         </Typography>
         <Slider
           value={state.zoom}
-          onChange={(value) => {
+          onChange={(ev, value) => {
             setState((current) => {
               return { ...current, zoom: value };
             });
@@ -155,7 +155,7 @@ const Template = () => {
         </Typography>
         <Slider
           value={state.speed}
-          onChange={(value) => {
+          onChange={(ev, value) => {
             setState((current) => {
               return { ...current, speed: value };
             });
