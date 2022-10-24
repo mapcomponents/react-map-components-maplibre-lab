@@ -47,10 +47,6 @@ const marks = [
     label: "11",
   },
   {
-    value: 11,
-    label: "11",
-  },
-  {
     value: 12,
     label: "12",
   },
