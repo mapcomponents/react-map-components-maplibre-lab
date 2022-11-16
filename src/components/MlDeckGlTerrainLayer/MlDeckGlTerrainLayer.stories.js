@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import MlCameraFollowPath from "../MlCameraFollowPath/MlCameraFollowPath";
 import TopToolbar from "../../ui_components/TopToolbar";
 import mapContextDecorator from "../../decorators/MapContextDecorator";
 import { Button, Slider, Typography } from "@mui/material";
-import { MlGeoJsonLayer, MlNavigationTools } from "@mapcomponents/react-maplibre";
+import { useCameraFollowPath, MlGeoJsonLayer, MlNavigationTools } from "@mapcomponents/react-maplibre";
 
 import MlDeckGlTerrainLayer from "./MlDeckGlTerrainLayer";
 
@@ -68,7 +67,7 @@ const Template = (args) => {
     pitch: 60,
   });
 
-  const CameraFollowPath = MlCameraFollowPath({
+  const CameraFollowPath = useCameraFollowPath({
     route: routeJson,
     pause: state.pause,
     pitch: state.pitch,
@@ -193,7 +192,6 @@ const Template = (args) => {
           {state.pitch === 0 ? "3D" : "2D"}
         </Button>
       </TopToolbar>
-      <MlNavigationTools />
     </>
   );
 };
