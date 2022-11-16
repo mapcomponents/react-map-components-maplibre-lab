@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TopToolbar from "../../ui_components/TopToolbar";
 import mapContextDecorator from "../../decorators/MapContextDecorator";
 import { Button, Slider, Typography } from "@mui/material";
-import { useCameraFollowPath, MlGeoJsonLayer, MlNavigationTools } from "@mapcomponents/react-maplibre";
+import { useCameraFollowPath, MlGeoJsonLayer } from "@mapcomponents/react-maplibre";
 
 import MlDeckGlTerrainLayer from "./MlDeckGlTerrainLayer";
 
