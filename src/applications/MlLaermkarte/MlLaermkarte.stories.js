@@ -52,13 +52,8 @@ const Template = (args) => {
   });
 
   useEffect(() => {
-    if (!mapHook.map) return;
-    CameraFollowPath.play();
-  }, [mapHook.map]);
-
-  useEffect(() => {
     if (!mapHook) return;
-    CameraFollowPath.play();
+   CameraFollowPath.play();
   }, [mapHook]);
 
   return (
