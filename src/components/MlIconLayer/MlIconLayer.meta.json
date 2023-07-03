@@ -8,8 +8,8 @@
       "description": ""
     }
   },
-  "tags": [],
-  "category": "",
+  "tags": ["Map layer"],
+  "category": "layer",
   "type": "component",
   "price": 0
 }
