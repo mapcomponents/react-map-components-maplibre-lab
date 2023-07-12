@@ -211,13 +211,13 @@ const MlIconLayer = (props) => {
           <br />
           {object.altitude && (
             <>
-              Höhe:
+              Altitude:
               <br />
             </>
           )}
-          Land:
+          Country:
           <br />
-          Geschwindigkeit:
+          Speed:
         </div>
         <div style={{ fontWeight: "bold" }}>
           {object.callsign}
