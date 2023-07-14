@@ -2,7 +2,7 @@ import React from "react";
 import TopToolbar from "../../ui_components/TopToolbar";
 import {
   MlLayerMagnify,
-  MlGPXViewer,
+  MlGpxViewer,
   MlSpatialElevationProfile,
   MlWmsLayer,
   GeoJsonProvider,
@@ -18,15 +18,20 @@ const MlWanderApp = (props) => {
           sourceOptions={{
             maxzoom: 24,
           }}
-          mapId="map_2"
+          mapId={props.wmsLayerMapId}
+          urlParameters={{ layers: "" }}
         />
       </TopToolbar>
 
       <GeoJsonProvider>
-        <MlGPXViewer mapId="map_1" />
-        <MlSpatialElevationProfile mapId="map_2" />
+        <MlGpxViewer mapId="map_1" />
+        <MlSpatialElevationProfile mapId={props.wmsLayerMapId} />
       </GeoJsonProvider>
-      <MlLayerMagnify map1Id="map_1" map2Id="map_2" magnifierRadius={30} />
+      <MlLayerMagnify
+        map1Id="map_1"
+        map2Id={props.wmsLayerMapId}
+        magnifierRadius={100}
+      />
     </>
   );
 };
