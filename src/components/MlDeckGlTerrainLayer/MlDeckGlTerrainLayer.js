@@ -1,19 +1,12 @@
-import React, { useContext, useRef, useEffect, useState, useCallback } from "react";
-import { MapContext } from "@mapcomponents/react-maplibre";
-
-import { MlBasicComponent } from "@mapcomponents/react-maplibre";
-import Button from "@material-ui/core/Button";
-
+import React from "react";
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { TerrainLayer } from "@deck.gl/geo-layers";
+import { MlBasicComponent } from "@mapcomponents/react-maplibre";
 
 /**
  * MlDeckGlTerrainLayer adds kepler.gl layer to the maplibre-gl instance.
  */
 const MlDeckGlTerrainLayer = () => {
-  const mapContext = useContext(MapContext);
-  const [showLayer, setShowLayer] = useState(true);
-  const showLayerRef = useRef(true);
   const layerName = "deckgl-terrain-layer";
 
   const ELEVATION_DECODER = {
@@ -49,37 +42,11 @@ const MlDeckGlTerrainLayer = () => {
       }),
       "water-name-lakeline"
     );
-    //    setTimeout(() => {
-    //      map.setZoom(13);
-    //      map.setPitch(45);
-    //      map.setCenter({ lng: 11.647776401389137, lat: 46.48726512556033 });
-    //      rotateCamera(0);
-    //    }, 500);
   };
-
-  useEffect(() => {
-    if (!mapContext.map) return;
-
-    // toggle layer visibility by changing the layout object's visibility property
-    if (showLayer) {
-      showLayerRef.current = true;
-      mapContext.map.setLayoutProperty(layerName, "visibility", "visible");
-    } else {
-      showLayerRef.current = false;
-      mapContext.map.setLayoutProperty(layerName, "visibility", "none");
-    }
-  }, [showLayer]);
 
   return (
     <>
       <MlBasicComponent cleanup={cleanup} mapIsReady={mapIsReady}></MlBasicComponent>
-      <Button
-        color="primary"
-        variant={showLayer ? "contained" : "outlined"}
-        onClick={() => setShowLayer(!showLayer)}
-      >
-        Terrain Layer
-      </Button>
     </>
   );
 };
