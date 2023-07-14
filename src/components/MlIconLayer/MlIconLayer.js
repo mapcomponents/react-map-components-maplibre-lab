@@ -21,7 +21,6 @@ const MlIconLayer = (props) => {
   const currentFrame = useRef(null);
   const timer = useRef(null);
   const fetchEverySeconds = 10;
-  const framesPerFetch = fetchEverySeconds * 30; // 30fps, 10 second intervals
   const DeckMlLayerRef = useRef();
 
   const rawDataRef = useRef([]);
