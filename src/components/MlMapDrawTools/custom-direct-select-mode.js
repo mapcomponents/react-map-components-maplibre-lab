@@ -1,15 +1,15 @@
 import {
-  noTarget,
-  isOfMetaType,
-  isActiveFeature,
-  isInactiveFeature,
-  isShiftDown,
-} from "@mapbox/mapbox-gl-draw/src/lib/common_selectors";
-import createSupplementaryPoints from "@mapbox/mapbox-gl-draw/src/lib/create_supplementary_points";
-import constrainFeatureMovement from "@mapbox/mapbox-gl-draw/src/lib/constrain_feature_movement";
-import doubleClickZoom from "@mapbox/mapbox-gl-draw/src/lib/double_click_zoom";
-import * as Constants from "@mapbox/mapbox-gl-draw/src/constants";
-import moveFeatures from "@mapbox/mapbox-gl-draw/src/lib/move_features";
+    noTarget,
+    isOfMetaType,
+    isActiveFeature,
+    isInactiveFeature,
+    isShiftDown,
+} from "@mapbox/mapbox-gl-draw";
+import createSupplementaryPoints from "@mapbox/mapbox-gl-draw";
+import constrainFeatureMovement from "@mapbox/mapbox-gl-draw";
+import doubleClickZoom from "@mapbox/mapbox-gl-draw";
+import * as Constants from "@mapbox/mapbox-gl-draw";
+import moveFeatures from "@mapbox/mapbox-gl-draw";
 import drawUtils from "./lib/utils";
 
 const isVertex = isOfMetaType(Constants.meta.VERTEX);
