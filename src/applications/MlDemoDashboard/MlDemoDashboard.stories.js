@@ -1,7 +1,10 @@
 import React from "react";
 import DashboardPage from "./MlDemoDashboard.js";
-import { MapLibreMap, MlFillExtrusionLayer } from "@mapcomponents/react-maplibre";
-import mapContextDecorator from "../../decorators/MapContextDashboardDecorator";
+import {
+  MapLibreMap,
+  MlFillExtrusionLayer,
+} from "@mapcomponents/react-maplibre";
+import mapContextDecorator from "../../decorators/MapContextDecorator";
 import { SimpleDataProvider } from "@mapcomponents/react-maplibre";
 import "./style.css";
 

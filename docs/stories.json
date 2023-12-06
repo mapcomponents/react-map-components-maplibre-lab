@@ -86,6 +86,20 @@
         "__isArgsStory": true
       }
     },
+    "applications-mlclientseitigesuche--example-config": {
+      "id": "applications-mlclientseitigesuche--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlClientseitigeSuche",
+      "importPath": 36605,
+      "kind": "Applications/MlClientseitigeSuche",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 36605,
+        "framework": "react",
+        "__id": "applications-mlclientseitigesuche--example-config",
+        "__isArgsStory": true
+      }
+    },
     "mapcomponents-mldeckglterrainlayer--example-config": {
       "id": "mapcomponents-mldeckglterrainlayer--example-config",
       "name": "Example Config",
