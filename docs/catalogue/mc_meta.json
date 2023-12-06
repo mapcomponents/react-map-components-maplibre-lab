@@ -1,1 +1,63 @@
-{"MlLaermkarte":{"name":"MlLaermkarte","title":"Noise map of Bonn","description":"","i18n":{"de":{"title":"Lärmkarte von Bonn","description":""}},"tags":[],"category":"","type":"application","components":["MlFillExtrusionLayer","MlCameraFollowPath"],"price":12000},"MlWanderApp":{"name":"MlWanderApp","title":"Hiking GPX-viewer","description":"","i18n":{"de":{"title":"Wanderwege GPX-Betrachter","description":""}},"tags":[],"category":"","type":"application","components":["MlGPXViewer","MlSpatialElevationProfile","MlLayerMagnify"],"price":0},"MlDeckGlTerrainLayer":{"name":"MlDeckGlTerrainLayer","title":"3D topographical layer","description":"","i18n":{"de":{"title":"3D Topo Ebene","description":""}},"tags":["Map add-on"],"category":"add-ons","type":"component","price":5000},"MlIconLayer":{"name":"MlIconLayer","title":"Animated marker layer","description":"","i18n":{"de":{"title":"Animierte Marker Ebene","description":""}},"tags":["Map layer"],"category":"layer","type":"component","price":0}}
+{
+  "MlLaermkarte": {
+    "name": "MlLaermkarte",
+    "title": "Noise map of Bonn",
+    "description": "",
+    "i18n": { "de": { "title": "Lärmkarte von Bonn", "description": "" } },
+    "tags": [],
+    "category": "",
+    "type": "application",
+    "components": ["MlFillExtrusionLayer", "MlCameraFollowPath"],
+    "price": 12000
+  },
+  "MlWanderApp": {
+    "name": "MlWanderApp",
+    "title": "Hiking GPX-viewer",
+    "description": "",
+    "i18n": {
+      "de": { "title": "Wanderwege GPX-Betrachter", "description": "" }
+    },
+    "tags": [],
+    "category": "",
+    "type": "application",
+    "components": [
+      "MlGPXViewer",
+      "MlSpatialElevationProfile",
+      "MlLayerMagnify"
+    ],
+    "price": 0
+  },
+  "MlClientseitigeSuche": {
+    "name": "MlClientseitigeSuche",
+    "title": "Offline Suche",
+    "description": "",
+    "i18n": {
+      "de": { "title": "Offline Suche", "description": "" }
+    },
+    "tags": [],
+    "category": "",
+    "type": "application",
+    "components": [],
+    "price": 0
+  },
+  "MlDeckGlTerrainLayer": {
+    "name": "MlDeckGlTerrainLayer",
+    "title": "3D topographical layer",
+    "description": "",
+    "i18n": { "de": { "title": "3D Topo Ebene", "description": "" } },
+    "tags": ["Map add-on"],
+    "category": "add-ons",
+    "type": "component",
+    "price": 5000
+  },
+  "MlIconLayer": {
+    "name": "MlIconLayer",
+    "title": "Animated marker layer",
+    "description": "",
+    "i18n": { "de": { "title": "Animierte Marker Ebene", "description": "" } },
+    "tags": ["Map layer"],
+    "category": "layer",
+    "type": "component",
+    "price": 0
+  }
+}
