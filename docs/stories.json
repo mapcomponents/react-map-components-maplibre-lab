@@ -30,20 +30,6 @@
         "__isArgsStory": true
       }
     },
-    "applications-mldemodashboard--example-config": {
-      "id": "applications-mldemodashboard--example-config",
-      "name": "Example Config",
-      "title": "Applications/MlDemoDashboard",
-      "importPath": 934578,
-      "kind": "Applications/MlDemoDashboard",
-      "story": "Example Config",
-      "parameters": {
-        "fileName": 934578,
-        "framework": "react",
-        "__id": "applications-mldemodashboard--example-config",
-        "__isArgsStory": true
-      }
-    },
     "applications-mllaermkarte--example-config": {
       "id": "applications-mllaermkarte--example-config",
       "name": "Example Config",
