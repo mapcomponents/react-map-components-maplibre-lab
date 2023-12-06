@@ -30,6 +30,20 @@
         "__isArgsStory": true
       }
     },
+    "applications-mlclientseitigesuche--example-config": {
+      "id": "applications-mlclientseitigesuche--example-config",
+      "name": "Example Config",
+      "title": "Applications/MlClientseitigeSuche",
+      "importPath": 932495,
+      "kind": "Applications/MlClientseitigeSuche",
+      "story": "Example Config",
+      "parameters": {
+        "fileName": 932495,
+        "framework": "react",
+        "__id": "applications-mlclientseitigesuche--example-config",
+        "__isArgsStory": false
+      }
+    },
     "applications-mllaermkarte--example-config": {
       "id": "applications-mllaermkarte--example-config",
       "name": "Example Config",
@@ -69,20 +83,6 @@
         "fileName": 36604,
         "framework": "react",
         "__id": "applications-mlwanderapp--example-config",
-        "__isArgsStory": true
-      }
-    },
-    "applications-mlclientseitigesuche--example-config": {
-      "id": "applications-mlclientseitigesuche--example-config",
-      "name": "Example Config",
-      "title": "Applications/MlClientseitigeSuche",
-      "importPath": 36605,
-      "kind": "Applications/MlClientseitigeSuche",
-      "story": "Example Config",
-      "parameters": {
-        "fileName": 36605,
-        "framework": "react",
-        "__id": "applications-mlclientseitigesuche--example-config",
         "__isArgsStory": true
       }
     },
