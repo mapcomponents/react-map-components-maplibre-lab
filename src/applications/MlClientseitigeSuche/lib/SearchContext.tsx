@@ -4,6 +4,7 @@ import index from "./searchIndex.json";
 import { SearchContextInterface } from "./searchContext.js";
 import * as turf from "@turf/turf";
 import { MlGeoJsonLayer, useMap } from "@mapcomponents/react-maplibre";
+import worldBoundaries from "./world-administrative-boundaries-countries.json";
 
 const SearchContext = React.createContext<SearchContextInterface>(
   {} as SearchContextInterface
@@ -25,6 +26,10 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
     mapId: undefined,
   });
 
+  useEffect(() => {
+    setFeatureCollection(worldBoundaries);
+  }, []);
+
   const getBoundingBox = (geometry: any): turf.BBox => {
     if ("coordinates" in geometry && geometry.coordinates.length === 2) {
       geometry = turf.buffer(geometry, 0.03, {
@@ -33,23 +38,6 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
     return turf.bbox(geometry);
   };
-
-  const loadFeatureCollection = useCallback(() => {
-    fetch(url + "/assets/world-administrative-boundaries-countries.geojson")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setFeatureCollection(data);
-      });
-  }, []);
-
-  useEffect(() => {
-    loadFeatureCollection();
-  }, [loadFeatureCollection]);
 
   useEffect(() => {
     // @ts-ignore
