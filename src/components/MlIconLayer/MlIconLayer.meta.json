@@ -1,15 +1,15 @@
 {
-  "name": "MlIconLayer",
-  "title": "Animated marker layer",
-  "description": "",
-  "i18n": {
-    "de": {
-      "title": "Animierte Marker Ebene",
-      "description": ""
-    }
-  },
-  "tags": ["Map layer"],
-  "category": "layer",
-  "type": "component",
-  "price": 0
+   "name": "MlIconLayer",
+   "title": "Animated marker layer",
+   "description": "A Layer displaying animated Symbols",
+   "i18n": {
+      "de": {
+         "title": "Animierte Marker Ebene",
+         "description": "Ebene zur Darstellung animierter Symbole"
+      }
+   },
+   "tags": ["Map layer"],
+   "category": "layer",
+   "type": "component",
+   "price": 0
 }
