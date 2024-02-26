@@ -1,16 +1,17 @@
 {
-  "name": "MlLaermkarte",
-  "title": "Noise map of Bonn",
-  "description": "",
-  "i18n": {
-    "de": {
-      "title": "Lärmkarte von Bonn",
-      "description": ""
-    }
-  },
-  "tags": [],
-  "category": "",
-  "type": "application",
-  "components": ["MlFillExtrusionLayer", "MlCameraFollowPath"],
-  "price": 12000
+   "name": "MlLaermkarte",
+   "title": "Noise map of Bonn",
+   "description": "A WebGis application providing a detailed visualisation of the noise level within different parts of the former german capital",
+   "i18n": {
+      "de": {
+         "title": "Lärmkarte von Bonn",
+         "description": "Eine WebGis Anwendung, welche den Lautstärkepegel innerhalb von Bonn grafisch darstellt"
+      }
+   },
+   "tags": [],
+   "category": "",
+   "type": "application",
+   "components": ["MlFillExtrusionLayer", "useCameraFollowPath"],
+   "price": 12000
 }
+
