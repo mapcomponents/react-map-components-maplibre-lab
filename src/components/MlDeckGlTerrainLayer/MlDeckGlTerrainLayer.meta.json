@@ -1,15 +1,15 @@
 {
-  "name": "MlDeckGlTerrainLayer",
-  "title": "3D topographical layer",
-  "description": "",
-  "i18n": {
-    "de": {
-      "title": "3D Topo Ebene",
-      "description": ""
-    }
-  },
-  "tags": ["Map add-on"],
-  "category": "add-ons",
-  "type": "component",
-  "price": 5000
+   "name": "MlDeckGlTerrainLayer",
+   "title": "3D topographical layer",
+   "description": "Move along a Camera path through a 3-dimensional Layer",
+   "i18n": {
+      "de": {
+         "title": "3D Topo Ebene",
+         "description": "Verfolgt eine Kameraroute in einer dreidimensionalen Ebene"
+      }
+   },
+   "tags": ["Map add-on"],
+   "category": "add-ons",
+   "type": "component",
+   "price": 5000
 }
