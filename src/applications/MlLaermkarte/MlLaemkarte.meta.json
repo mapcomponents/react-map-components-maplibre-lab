@@ -11,6 +11,6 @@
    "tags": [],
    "category": "",
    "type": "application",
-   "components": ["MlFillExtrusionLayer", "MlCameraFollowPath"],
+   "components": ["MlFillExtrusionLayer", "useCameraFollowPath"],
    "price": 12000
 }
