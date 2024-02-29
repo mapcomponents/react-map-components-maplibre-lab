@@ -5,13 +5,12 @@
    "i18n": {
       "de": {
          "title": "Lärmkarte von Bonn",
-         "description": "Eine WebGis Anwendung, welche den Lautstärkepegel innerhalb von Bonn grafisch darstellt"
+         "description": "Eine WebGis Anwendung, die den Lautstärkepegel in Bonn grafisch darstellt"
       }
    },
    "tags": [],
    "category": "",
    "type": "application",
-   "components": ["MlFillExtrusionLayer", "useCameraFollowPath"],
+   "components": ["MlFillExtrusionLayer", "MlCameraFollowPath"],
    "price": 12000
 }
-

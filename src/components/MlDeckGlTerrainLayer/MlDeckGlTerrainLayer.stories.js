@@ -113,159 +113,173 @@ const Template = (args) => {
   const [openSidebar, setOpenSidebar] = useState(true);
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        {showLayer ? <MlDeckGlTerrainLayer /> : null}
-        {showRoute ? (
-          <MlGeoJsonLayer
-            geojson={routeJson}
-            type="line"
-            paint={{
-              "line-width": 2,
-              "line-color": "blue",
-            }}
-          />
-        ) : null}
-        <TopToolbar
-          buttons={
-            <>
-              <Button
-                variant={showLayer ? "contained" : "outlined"}
-                onClick={() => setShowLayer(!showLayer)}
-                sx={{
-                  marginRight: { xs: "0px", sm: "10px" },
-                  marginBottom: { xs: "5px", sm: "00px" },
-                }}
-              >
-                Terrain Layer
-              </Button>
-              <Button
-                variant={openSidebar ? "contained" : "outlined"}
-                onClick={() => setOpenSidebar(!openSidebar)}
-                sx={{ marginRight: { xs: "0px", sm: "10px" } }}
-              >
-                Camera Settings
-              </Button>
-            </>
-          }
-        />
-        <Sidebar
-          open={openSidebar}
-          setOpen={setOpenSidebar}
-          name={"Camera Settings"}
-        >
-          <MenuItem onClick={() => setShowRoute(!showRoute)}>
-            <Typography>
-              {showRoute ? "Route ausblenden" : "Route einblenden"}
-            </Typography>
-          </MenuItem>
-
-          <MenuItem
-            disabled={!state.pause}
-            onClick={() =>
-              setState((current) => {
-                return { ...current, pause: false };
-              })
-            }
-          >
-            <Typography>Start</Typography>
-          </MenuItem>
-          <MenuItem
-            disabled={state.pause}
-            onClick={() =>
-              setState((current) => {
-                return { ...current, pause: true };
-              })
-            }
-          >
-            <Typography>Pause</Typography>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setState((current) => {
-                return { ...current, pause: true, pitch: 60, zoom: 11, speed: 20 };
-              });
-              setTimeout(() => {
-                CameraFollowPath.reset();
-              }, 50);
-            }}
-          >
-            <Typography>Reset</Typography>
-          </MenuItem>
-          <MenuItem>
-            <Typography
-              id="discrete-slider"
-              style={{ color: "#121212", marginLeft: "10px", marginRight: "10px" }}
-            >
-              Zoom:
-            </Typography>
-            <Slider
-              value={state.zoom}
-              onChange={(ev, value) => {
-                setState((current) => {
-                  return { ...current, zoom: value };
-                });
-              }}
-              getAriaValueText={(value) => value}
-              aria-labelledby="discrete-slider"
-              //valueLabelDisplay="auto"
-              step={1}
-              marks={marks}
-              min={8}
-              max={13}
-              sx={{
-                marginTop: "20px",
-                paddingBottom: "20px",
-                marginRight: "10px",
-                maxWidth: "200px",
-              }}
-            />
-          </MenuItem>
-          <MenuItem>
-            <Typography
-              id="discrete-slider2"
-              style={{ color: "#121212", marginLeft: "10px", marginRight: "10px" }}
-            >
-              Speed:
-            </Typography>
-            <Slider
-              value={state.speed}
-              onChange={(ev, value) => {
-                setState((current) => {
-                  return { ...current, speed: value };
-                });
-              }}
-              getAriaValueText={(value) => value}
-              aria-labelledby="discrete-slider2"
-              //valueLabelDisplay="auto"
-              step={5}
-              marks
-              min={1}
-              max={60}
-              sx={{
-                marginRight: "10px",
-                maxWidth: "200px",
-              }}
-            />
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              if (state.pitch === 0) {
-                setState((current) => {
-                  return { ...current, pitch: 60 };
-                });
-              } else {
-                setState((current) => {
-                  return { ...current, pitch: 0 };
-                });
+     <>
+        <ThemeProvider theme={theme}>
+           {showLayer ? <MlDeckGlTerrainLayer /> : null}
+           {showRoute ? (
+              <MlGeoJsonLayer
+                 geojson={routeJson}
+                 type="line"
+                 paint={{
+                    "line-width": 2,
+                    "line-color": "blue",
+                 }}
+              />
+           ) : null}
+           <TopToolbar
+              buttons={
+                 <>
+                    <Button
+                       variant={showLayer ? "contained" : "outlined"}
+                       onClick={() => setShowLayer(!showLayer)}
+                       sx={{
+                          marginRight: { xs: "0px", sm: "10px" },
+                          marginBottom: { xs: "5px", sm: "00px" },
+                       }}
+                    >
+                       Terrain Layer
+                    </Button>
+                    <Button
+                       variant={openSidebar ? "contained" : "outlined"}
+                       onClick={() => setOpenSidebar(!openSidebar)}
+                       sx={{ marginRight: { xs: "0px", sm: "10px" } }}
+                    >
+                       Camera Settings
+                    </Button>
+                 </>
               }
-            }}
-          >
-            {state.pitch === 0 ? "3D" : "2D"}
-          </MenuItem>
-        </Sidebar>
-      </ThemeProvider>
-    </>
+           />
+           <Sidebar
+              open={openSidebar}
+              setOpen={setOpenSidebar}
+              name={"Camera Settings"}
+           >
+              <MenuItem onClick={() => setShowRoute(!showRoute)}>
+                 <Typography>
+                    {showRoute ? "Hide Camera path" : "Show Camera path"}
+                 </Typography>
+              </MenuItem>
+
+              <MenuItem
+                 disabled={!state.pause}
+                 onClick={() =>
+                    setState((current) => {
+                       return { ...current, pause: false };
+                    })
+                 }
+              >
+                 <Typography>Start</Typography>
+              </MenuItem>
+              <MenuItem
+                 disabled={state.pause}
+                 onClick={() =>
+                    setState((current) => {
+                       return { ...current, pause: true };
+                    })
+                 }
+              >
+                 <Typography>Pause</Typography>
+              </MenuItem>
+              <MenuItem
+                 onClick={() => {
+                    setState((current) => {
+                       return {
+                          ...current,
+                          pause: true,
+                          pitch: 60,
+                          zoom: 11,
+                          speed: 20,
+                       };
+                    });
+                    setTimeout(() => {
+                       CameraFollowPath.reset();
+                    }, 50);
+                 }}
+              >
+                 <Typography>Reset</Typography>
+              </MenuItem>
+              <MenuItem>
+                 <Typography
+                    id="discrete-slider"
+                    style={{
+                       color: "#121212",
+                       marginLeft: "10px",
+                       marginRight: "10px",
+                    }}
+                 >
+                    Zoom:
+                 </Typography>
+                 <Slider
+                    value={state.zoom}
+                    onChange={(ev, value) => {
+                       setState((current) => {
+                          return { ...current, zoom: value };
+                       });
+                    }}
+                    getAriaValueText={(value) => value}
+                    aria-labelledby="discrete-slider"
+                    //valueLabelDisplay="auto"
+                    step={1}
+                    marks={marks}
+                    min={8}
+                    max={13}
+                    sx={{
+                       marginTop: "20px",
+                       paddingBottom: "20px",
+                       marginRight: "10px",
+                       maxWidth: "200px",
+                    }}
+                 />
+              </MenuItem>
+              <MenuItem>
+                 <Typography
+                    id="discrete-slider2"
+                    style={{
+                       color: "#121212",
+                       marginLeft: "10px",
+                       marginRight: "10px",
+                    }}
+                 >
+                    Speed:
+                 </Typography>
+                 <Slider
+                    value={state.speed}
+                    onChange={(ev, value) => {
+                       setState((current) => {
+                          return { ...current, speed: value };
+                       });
+                    }}
+                    getAriaValueText={(value) => value}
+                    aria-labelledby="discrete-slider2"
+                    //valueLabelDisplay="auto"
+                    step={5}
+                    marks
+                    min={1}
+                    max={60}
+                    sx={{
+                       marginRight: "10px",
+                       maxWidth: "200px",
+                    }}
+                 />
+              </MenuItem>
+              <MenuItem
+                 onClick={() => {
+                    if (state.pitch === 0) {
+                       setState((current) => {
+                          return { ...current, pitch: 60 };
+                       });
+                    } else {
+                       setState((current) => {
+                          return { ...current, pitch: 0 };
+                       });
+                    }
+                 }}
+              >
+                 {state.pitch === 0 ? "3D" : "2D"}
+              </MenuItem>
+           </Sidebar>
+        </ThemeProvider>
+     </>
   );
 };
 
