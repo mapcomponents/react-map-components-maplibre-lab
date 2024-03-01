@@ -26,7 +26,7 @@ const Template = (args) => {
     // currently vv is used to prevent cache as time requires an opensky account
     () =>
       timeParam
-        ? "https://opensky-network.org/api/states/all?vv=" + timeParam
+        ? "https://api.opensky-network.org/api/states/all?vv=" + timeParam
         : "",
     [timeParam]
   );
