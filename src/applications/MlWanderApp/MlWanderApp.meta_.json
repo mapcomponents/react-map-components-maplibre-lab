@@ -1,0 +1,16 @@
+{
+   "name": "MlWanderApp",
+   "title": "Hiking GPX-viewer",
+   "description": "",
+   "i18n": {
+      "de": {
+         "title": "Wanderwege GPX-Betrachter",
+         "description": ""
+      }
+   },
+   "tags": [],
+   "category": "",
+   "type": "application",
+   "components": ["MlGPXViewer", "MlSpatialElevationProfile", "MlLayerMagnify"],
+   "price": 0
+}
