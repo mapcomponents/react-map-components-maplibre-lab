@@ -8,6 +8,8 @@ import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import Airplane from "./assets/airplane-icon.png";
+import Cargo from "./assets/spaceship.png";
+import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 
 const MlIconLayer = (props) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
@@ -42,7 +44,7 @@ const MlIconLayer = (props) => {
     }
     //console.log(new Error().stack);
     rawDataRef.current = [...simpleDataContext.data];
-    startAnimation();
+       startAnimation();
   }, [simpleDataContext.data]);
 
   const deckLayerProps = useMemo(() => {
@@ -51,7 +53,7 @@ const MlIconLayer = (props) => {
       type: IconLayer,
       data,
       pickable: true,
-      iconAtlas: Airplane,
+      iconAtlas: Cargo,
       iconMapping: {
         airplane: {
           x: 0,
@@ -68,7 +70,7 @@ const MlIconLayer = (props) => {
       },
       sizeScale: 20,
       autoHighlight: true,
-      onHover: (d) => {
+      onHover: (d) => {       
         if (d.picked) {
           setHoverInfo(d);
         } else {
@@ -89,7 +91,7 @@ const MlIconLayer = (props) => {
     let _timeNow = new Date().getTime();
     airplanes_tmp = airplanes_tmp.map((d) => {
       const [longitude, latitude] = d.interpolatePos(
-        (_timeNow - d.time_contact * 1000)/1000 / fetchEverySeconds
+        (_timeNow - d.time_contact * 1000) / 1000 / fetchEverySeconds
       );
       return {
         ...d,
@@ -97,6 +99,7 @@ const MlIconLayer = (props) => {
         latitude,
       };
     });
+
     currentFrame.current += 1;
     setData(airplanes_tmp);
   };
@@ -180,7 +183,6 @@ const MlIconLayer = (props) => {
 
   function renderTooltip(info) {
     let { object, x, y } = info;
-
     if (!object) {
       return null;
     }
@@ -190,7 +192,6 @@ const MlIconLayer = (props) => {
         className="tooltip"
         style={{
           zIndex: 1000,
-
           position: "fixed",
           padding: "8px",
           borderRadius: "4px",
@@ -206,30 +207,26 @@ const MlIconLayer = (props) => {
         }}
       >
         <div style={{ paddingRight: "10px" }}>
-          Callsign:
+          MMSI:     
+          {object.mmsi}
           <br />
-          {object.altitude && (
+          {object.navStat && (
             <>
-              Altitude:
+              Navigational Status:
+              <br />
+              {object.navStat}
               <br />
             </>
           )}
-          Country:
-          <br />
+          {object.origin_country && (
+            <>
+              Country:
+              {object.origin_country}
+              <br />
+            </>
+          )}
           Speed:
-        </div>
-        <div style={{ fontWeight: "bold" }}>
-          {object.callsign}
-          <br />
-          {object.altitude && (
-            <>
-              {object.altitude}m
-              <br />
-            </>
-          )}
-          {object.origin_country}
-          <br />
-          {object.velocity}mph
+          {object.velocity} kn
         </div>
       </div>
     );
