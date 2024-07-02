@@ -11,6 +11,27 @@ import Airplane from "./assets/airplane-icon.png";
 import Cargo from "./assets/spaceship.png";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 
+
+
+const navStats = {
+    "0": "under way using engine",
+    "1": "at anchor",
+    "2": "not under command",
+    "3": "restricted maneuverability",
+    "4": "constrained by her draught",
+    "5": "moored",
+    "6": "aground",
+    "7": "engaged in fishing",
+    "8": "under way sailing",
+    "9": "reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high speed craft (HSC)",
+    "10": "reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)",
+    "11": "power-driven vessel towing astern (regional use)",
+    "12": "power-driven vessel pushing ahead or towing alongside (regional use)",
+    "13": "reserved for future use",
+    "14": "AIS-SART (active), MOB-AIS, EPIRB-AIS",
+    "15": "default"
+  }
+
 const MlIconLayer = (props) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
   // without the requirement of adding it to the dependency list (ignore the false eslint exhaustive deps warning)
@@ -90,8 +111,8 @@ const MlIconLayer = (props) => {
     let airplanes_tmp = rawDataRef.current;
     let _timeNow = new Date().getTime();
     airplanes_tmp = airplanes_tmp.map((d) => {
-      const [longitude, latitude] = d.interpolatePos(
-        (_timeNow - d.time_contact * 1000) / 1000 / fetchEverySeconds
+         const [longitude, latitude] = d.interpolatePos(
+        (_timeNow - d.time_contact * 10) / 1000 / fetchEverySeconds
       );
       return {
         ...d,
@@ -214,7 +235,7 @@ const MlIconLayer = (props) => {
             <>
               Navigational Status:
               <br />
-              {object.navStat}
+              {navStats[object.navStat]}
               <br />
             </>
           )}
