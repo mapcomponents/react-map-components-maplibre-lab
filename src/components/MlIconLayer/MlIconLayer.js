@@ -8,10 +8,6 @@ import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import Airplane from "./assets/airplane-icon.png";
-import Cargo from "./assets/spaceship.png";
-import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
-
-
 
 const navStats = {
     "0": "under way using engine",
@@ -74,7 +70,7 @@ const MlIconLayer = (props) => {
       type: IconLayer,
       data,
       pickable: true,
-      iconAtlas: Cargo,
+      iconAtlas: Airplane,
       iconMapping: {
         airplane: {
           x: 0,
@@ -109,12 +105,15 @@ const MlIconLayer = (props) => {
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
-    let _timeNow = new Date().getTime();
-    airplanes_tmp = airplanes_tmp.map((d) => {
-         const [longitude, latitude] = d.interpolatePos(
-        (_timeNow - d.time_contact * 10) / 1000 / fetchEverySeconds
-      );
-      return {
+    let _timeNow = new Date().getTime();   
+    airplanes_tmp = airplanes_tmp.map((d) => {          
+        let trackPorcentage = (_timeNow - d.time_contact)/1000 / fetchEverySeconds   
+        if (trackPorcentage > 1 ){
+            trackPorcentage = 1
+        }
+        
+        const [longitude, latitude] = d.interpolatePos(trackPorcentage);
+    return {
         ...d,
         longitude,
         latitude,

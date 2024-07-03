@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState, useContext } from "react";
+import React, { useMemo, useEffect, useState, useContext, useRef } from "react";
 import * as d3 from "d3";
 import * as turf from "@turf/turf";
 
@@ -21,17 +21,18 @@ export default storyoptions;
 const Template = (args) => {
   const mapContext = useContext(MapContext);
   const [timeParam, setTimeParam] = useState();
-
+  const timeRef = useRef();
+console.log(timeRef)
   const dataUrl = useMemo(
     // currently vv is used to prevent cache as time requires an opensky account
     () =>
       timeParam
-        ? "https://meri.digitraffic.fi/api/ais/v1/locations?from=" + timeParam
+        ? "https://meri.digitraffic.fi/api/ais/v1/locations?from=" + (timeParam - 86400000)
         : "",
     [timeParam]
   );
 
-  const plainDataUrl = "https://meri.digitraffic.fi/api/ais/v1/locations";
+  const plainDataUrl = "https://meri.digitraffic.fi/api/ais/v1/locations?mmsi=312691000";
 
   const increaseTimeParam = () => {
     setTimeParam(timeParam + 10);
@@ -54,6 +55,7 @@ const Template = (args) => {
       format="json"
       url={plainDataUrl}
       formatData={(d) => {        
+        timeRef.current = new Date().getTime();
         const props = d.properties;
         return {
           mmsi: props.mmsi,
@@ -61,14 +63,14 @@ const Template = (args) => {
           navStat: d.properties.navStat,
           //   callsign: d[1],
           //   time_contact: (d[3]?d[3]:d[4]),
-          //time_contact: d.properties.timestampExternal,
+          time_contact: timeRef.current,        
           longitude: d.geometry?.coordinates[0],
           latitude: d.geometry?.coordinates[1],
           //   lon: d[5],
           //   lat: d[6],
           //   altitude: d[13],
           //   origin_country: d[2],
-          true_track: props.cog,
+          //true_track: props.cog,
           interpolatePos: d3.geoInterpolate(
             [d.geometry?.coordinates[0], d.geometry?.coordinates[1]],            
             d.geometry?.coordinates[0] === null
