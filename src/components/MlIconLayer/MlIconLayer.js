@@ -9,6 +9,7 @@ import { IconLayer } from "@deck.gl/layers";
 
 import Airplane from "./assets/airplane-icon.png";
 import Ships from "./assets/Ships_v2.png";
+import { Divider } from "@mui/material";
 
 const navStats = {
   0: "under way using engine",
@@ -47,6 +48,27 @@ const MlIconLayer = (props) => {
   const [data, setData] = useState([]);
 
   const [hoverInfo, setHoverInfo] = useState({});
+
+  const [vesselInfo, setVesselInfo] = useState();
+
+  const getVesselInfo = (mmsi) => {
+    fetch("https://meri.digitraffic.fi/api/ais/v1/vessels/" + mmsi)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setVesselInfo(data);
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  };
 
   const startAnimation = () => {
     if (timer.current) {
@@ -87,15 +109,17 @@ const MlIconLayer = (props) => {
         },
       },
       sizeScale: 30,
-      autoHighlight: true,     
+      autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
+          setVesselInfo(undefined);
           setHoverInfo(d);
         } else {
           setHoverInfo({});
         }
       },
       getPosition: (d) => [d.longitude, d.latitude],
+      onClick: (ev) => getVesselInfo(ev.object.mmsi),
       getIcon: (d) => {
         return d.navStat === 0 ? "moving" : "other";
       },
@@ -224,12 +248,13 @@ const MlIconLayer = (props) => {
           opacity: 1,
           left: x,
           top: y,
+          minWidth: "180px",
           marginTop: "20px",
           marginLeft: "20px",
           display: "flex",
         }}
       >
-        <div style={{ paddingRight: "10px" }}>
+        <div style={{ paddingRight: "10px"}}>
           <b>MMSI:</b>
           {object.mmsi}
           <br />
@@ -252,7 +277,29 @@ const MlIconLayer = (props) => {
           <br />
           <b>Position accurancy: </b>
           {object.accurancy ? "high" : "low"}
-          <br />          
+          <br />
+          <br/>
+          {!vesselInfo ? (
+            <b>click on ship to get more info...</b>
+          ) : (
+            <>
+              <b>Name:</b>
+              <br />
+              {vesselInfo.name}
+              <br />
+              <b>Callsign:</b>
+              <br />
+              {vesselInfo.callSign}
+              <br />
+              <b>Destination:</b>
+              <br />
+              {vesselInfo.destination}
+              <br />
+              <b>Ship type:</b>
+              <br />
+              {vesselInfo.shipType}
+            </>
+          )}
         </div>
       </div>
     );

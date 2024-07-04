@@ -23,6 +23,7 @@ const Template = (args) => {
   const [timeParam, setTimeParam] = useState();
   const timeRef = useRef();
 
+
   const dataUrl = useMemo(
     // currently vv is used to prevent cache as time requires an opensky account
     () =>
