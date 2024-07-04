@@ -105,9 +105,10 @@ const MlIconLayer = (props) => {
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
-    let _timeNow = new Date().getTime();   
-    airplanes_tmp = airplanes_tmp.map((d) => {          
-        let trackPorcentage = (_timeNow - d.time_contact)/1000 / fetchEverySeconds   
+    let _timeNow = new Date().getTime(); 
+
+    airplanes_tmp = airplanes_tmp.map((d) => { 
+        let trackPorcentage = (_timeNow - d.time_contact)/1000 / fetchEverySeconds         
         if (trackPorcentage > 1 ){
             trackPorcentage = 1
         }
@@ -230,14 +231,14 @@ const MlIconLayer = (props) => {
           MMSI:     
           {object.mmsi}
           <br />
-          {object.navStat && (
+         
             <>
               Navigational Status:
               <br />
-              {navStats[object.navStat]}
+              {object.navStat}: {navStats[object.navStat]}
               <br />
             </>
-          )}
+        
           {object.origin_country && (
             <>
               Country:

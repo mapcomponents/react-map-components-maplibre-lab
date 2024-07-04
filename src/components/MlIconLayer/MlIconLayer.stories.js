@@ -22,12 +22,12 @@ const Template = (args) => {
   const mapContext = useContext(MapContext);
   const [timeParam, setTimeParam] = useState();
   const timeRef = useRef();
-console.log(timeRef)
+
   const dataUrl = useMemo(
     // currently vv is used to prevent cache as time requires an opensky account
     () =>
       timeParam
-        ? "https://meri.digitraffic.fi/api/ais/v1/locations?from=" + (timeParam - 86400000)
+        ? "https://meri.digitraffic.fi/api/ais/v1/locations?from=" + (timeParam)
         : "",
     [timeParam]
   );
@@ -46,31 +46,32 @@ console.log(timeRef)
     if (mapContext.map) {
       //mapContext.map.setZoom(8.5);
       mapContext.map.jumpTo({ center: [20.247363, 58.873056], zoom: 5 });
-      setTimeParam(Math.floor(new Date().getTime() / 1000) - 5);
+      setTimeParam(Math.floor(new Date().getTime()) - 5000);
     }
   }, [mapContext.map]);
 
   return (
     <SimpleDataProvider
       format="json"
-      url={plainDataUrl}
+      url={dataUrl}
       formatData={(d) => {        
         timeRef.current = new Date().getTime();
         const props = d.properties;
         return {
           mmsi: props.mmsi,
-          velocity: d.properties.sog,
+          velocity:props.sog,
           navStat: d.properties.navStat,
           //   callsign: d[1],
           //   time_contact: (d[3]?d[3]:d[4]),
-          time_contact: timeRef.current,        
+          // time_contact: timeRef.current,        
+          time_contact: props.timestampExternal,
           longitude: d.geometry?.coordinates[0],
           latitude: d.geometry?.coordinates[1],
           //   lon: d[5],
           //   lat: d[6],
           //   altitude: d[13],
           //   origin_country: d[2],
-          //true_track: props.cog,
+          true_track: props.cog,
           interpolatePos: d3.geoInterpolate(
             [d.geometry?.coordinates[0], d.geometry?.coordinates[1]],            
             d.geometry?.coordinates[0] === null
