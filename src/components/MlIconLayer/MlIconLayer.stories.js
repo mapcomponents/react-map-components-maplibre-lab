@@ -5,7 +5,7 @@ import * as turf from "@turf/turf";
 import MlIconLayer from "./MlIconLayer";
 
 import mapContextDecorator from "../../decorators/MapContextKlokantechBasicDecorator";
-import { MapContext, SimpleDataProvider } from "@mapcomponents/react-maplibre";
+import { MapContext, MlWmsLayer, SimpleDataProvider } from "@mapcomponents/react-maplibre";
 
 const storyoptions = {
   title: "MapComponents/MlIconLayer",
@@ -51,6 +51,7 @@ const Template = (args) => {
   }, [mapContext.map]);
 
   return (
+    <>
     <SimpleDataProvider
       format="json"
       url={dataUrl}
@@ -61,16 +62,9 @@ const Template = (args) => {
           mmsi: props.mmsi,
           velocity:props.sog,
           navStat: d.properties.navStat,
-          //   callsign: d[1],
-          //   time_contact: (d[3]?d[3]:d[4]),
-          // time_contact: timeRef.current,        
           time_contact: props.timestampExternal,
           longitude: d.geometry?.coordinates[0],
-          latitude: d.geometry?.coordinates[1],
-          //   lon: d[5],
-          //   lat: d[6],
-          //   altitude: d[13],
-          //   origin_country: d[2],
+          latitude: d.geometry?.coordinates[1], 
           true_track: props.cog,
           accurancy: props.posAcc,
           interpolatePos: d3.geoInterpolate(
@@ -97,6 +91,12 @@ const Template = (args) => {
     >
       <MlIconLayer />
     </SimpleDataProvider>
+    <MlWmsLayer 
+    url="https://openwms.statkart.no/skwms1/wms.dybdekurver_havomraader?"
+      layerId="dybdekontur_oversiktsdata"
+          urlParameters={{format: "image/png", layers: ["dybdekontur_oversiktsdata", "dybdekontur_label"], transparent: "true"}}
+    />
+    </>
   );
 };
 
