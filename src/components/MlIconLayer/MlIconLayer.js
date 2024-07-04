@@ -10,23 +10,23 @@ import { IconLayer } from "@deck.gl/layers";
 import Airplane from "./assets/airplane-icon.png";
 
 const navStats = {
-    "0": "under way using engine",
-    "1": "at anchor",
-    "2": "not under command",
-    "3": "restricted maneuverability",
-    "4": "constrained by her draught",
-    "5": "moored",
-    "6": "aground",
-    "7": "engaged in fishing",
-    "8": "under way sailing",
-    "9": "reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high speed craft (HSC)",
-    "10": "reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)",
-    "11": "power-driven vessel towing astern (regional use)",
-    "12": "power-driven vessel pushing ahead or towing alongside (regional use)",
-    "13": "reserved for future use",
-    "14": "AIS-SART (active), MOB-AIS, EPIRB-AIS",
-    "15": "default"
-  }
+  0: "under way using engine",
+  1: "at anchor",
+  2: "not under command",
+  3: "restricted maneuverability",
+  4: "constrained by her draught",
+  5: "moored",
+  6: "aground",
+  7: "engaged in fishing",
+  8: "under way sailing",
+  9: "reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high speed craft (HSC)",
+  10: "reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)",
+  11: "power-driven vessel towing astern (regional use)",
+  12: "power-driven vessel pushing ahead or towing alongside (regional use)",
+  13: "reserved for future use",
+  14: "AIS-SART (active), MOB-AIS, EPIRB-AIS",
+  15: "default",
+};
 
 const MlIconLayer = (props) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
@@ -61,7 +61,7 @@ const MlIconLayer = (props) => {
     }
     //console.log(new Error().stack);
     rawDataRef.current = [...simpleDataContext.data];
-       startAnimation();
+    startAnimation();
   }, [simpleDataContext.data]);
 
   const deckLayerProps = useMemo(() => {
@@ -87,7 +87,7 @@ const MlIconLayer = (props) => {
       },
       sizeScale: 20,
       autoHighlight: true,
-      onHover: (d) => {       
+      onHover: (d) => {
         if (d.picked) {
           setHoverInfo(d);
         } else {
@@ -105,16 +105,17 @@ const MlIconLayer = (props) => {
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
-    let _timeNow = new Date().getTime(); 
+    let _timeNow = new Date().getTime();
 
-    airplanes_tmp = airplanes_tmp.map((d) => { 
-        let trackPorcentage = (_timeNow - d.time_contact)/1000 / fetchEverySeconds         
-        if (trackPorcentage > 1 ){
-            trackPorcentage = 1
-        }
-        
-        const [longitude, latitude] = d.interpolatePos(trackPorcentage);
-    return {
+    airplanes_tmp = airplanes_tmp.map((d) => {
+      let trackPorcentage =
+        (_timeNow - d.time_contact) / 1000 / fetchEverySeconds;
+      if (trackPorcentage > 1) {
+        trackPorcentage = 1;
+      }
+
+      const [longitude, latitude] = d.interpolatePos(trackPorcentage);
+      return {
         ...d,
         longitude,
         latitude,
@@ -228,17 +229,15 @@ const MlIconLayer = (props) => {
         }}
       >
         <div style={{ paddingRight: "10px" }}>
-        <b>MMSI:</b>     
+          <b>MMSI:</b>
           {object.mmsi}
           <br />
-         
-            <>
-              <b>Navigational Status:</b>
-              <br />
-              {object.navStat}: {navStats[object.navStat]}
-              <br />
-            </>
-        
+          <>
+            <b>Navigational Status:</b>
+            <br />
+            {object.navStat}: {navStats[object.navStat]}
+            <br />
+          </>
           {object.origin_country && (
             <>
               Country:
@@ -247,7 +246,12 @@ const MlIconLayer = (props) => {
             </>
           )}
           <b>Speed:</b>
-          {object.velocity} kn ({Math.round((object.velocity * 1.852 ) * 100) / 100}  km/h)
+          {object.velocity} kn (
+          {Math.round(object.velocity * 1.852 * 100) / 100} km/h)
+          <br />
+          <b>Position accurancy: </b>
+          {object.accurancy ? "high" : "low"}
+          <br />          
         </div>
       </div>
     );

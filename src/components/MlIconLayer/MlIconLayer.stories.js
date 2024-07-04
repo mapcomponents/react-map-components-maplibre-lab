@@ -72,6 +72,7 @@ const Template = (args) => {
           //   altitude: d[13],
           //   origin_country: d[2],
           true_track: props.cog,
+          accurancy: props.posAcc,
           interpolatePos: d3.geoInterpolate(
             [d.geometry?.coordinates[0], d.geometry?.coordinates[1]],            
             d.geometry?.coordinates[0] === null
