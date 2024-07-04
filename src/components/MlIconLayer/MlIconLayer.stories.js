@@ -45,7 +45,7 @@ const Template = (args) => {
   useEffect(() => {
     if (mapContext.map) {
       //mapContext.map.setZoom(8.5);
-      mapContext.map.jumpTo({ center: [20.247363, 58.873056], zoom: 5 });
+      mapContext.map.jumpTo({ center: [22.870581, 62.543826], zoom:5.5 });
       setTimeParam(Math.floor(new Date().getTime()) - 5000);
     }
   }, [mapContext.map]);

@@ -228,12 +228,12 @@ const MlIconLayer = (props) => {
         }}
       >
         <div style={{ paddingRight: "10px" }}>
-          MMSI:     
+        <b>MMSI:</b>     
           {object.mmsi}
           <br />
          
             <>
-              Navigational Status:
+              <b>Navigational Status:</b>
               <br />
               {object.navStat}: {navStats[object.navStat]}
               <br />
@@ -246,8 +246,8 @@ const MlIconLayer = (props) => {
               <br />
             </>
           )}
-          Speed:
-          {object.velocity} kn
+          <b>Speed:</b>
+          {object.velocity} kn ({Math.round((object.velocity * 1.852 ) * 100) / 100}  km/h)
         </div>
       </div>
     );
