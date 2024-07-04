@@ -8,6 +8,7 @@ import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import Airplane from "./assets/airplane-icon.png";
+import Ships from "./assets/Ships_v2.png";
 
 const navStats = {
   0: "under way using engine",
@@ -70,23 +71,23 @@ const MlIconLayer = (props) => {
       type: IconLayer,
       data,
       pickable: true,
-      iconAtlas: Airplane,
+      iconAtlas: Ships,
       iconMapping: {
-        airplane: {
+        moving: {
           x: 0,
           y: 0,
           width: 512,
           height: 512,
         },
-        blue_airplane: {
+        other: {
           x: 512,
           y: 0,
           width: 512,
           height: 512,
         },
       },
-      sizeScale: 20,
-      autoHighlight: true,
+      sizeScale: 30,
+      autoHighlight: true,     
       onHover: (d) => {
         if (d.picked) {
           setHoverInfo(d);
@@ -96,7 +97,7 @@ const MlIconLayer = (props) => {
       },
       getPosition: (d) => [d.longitude, d.latitude],
       getIcon: (d) => {
-        return d.origin_country === "Germany" ? "blue_airplane" : "airplane";
+        return d.navStat === 0 ? "moving" : "other";
       },
       getAngle: (d) => -d.true_track,
     };
