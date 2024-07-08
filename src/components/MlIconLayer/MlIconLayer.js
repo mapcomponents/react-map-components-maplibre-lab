@@ -2,11 +2,12 @@ import React, { useRef, useMemo, useEffect, useState, useContext } from "react";
 import * as d3 from "d3";
 
 import { MapContext, SimpleDataContext } from "@mapcomponents/react-maplibre";
-import DeckGlContext from "../../deckgl_components/DeckGlContext";
 
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
+import DeckGlContext from "../../deckgl_components/DeckGlContext";
+import getShipType from "./utils/getShipType";
 import Ships from "./assets/Ships_v2.png";
 
 
@@ -20,11 +21,8 @@ const navStats = {
   6: "aground",
   7: "engaged in fishing",
   8: "under way sailing",
-  9: "reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high speed craft (HSC)",
-  10: "reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)",
   11: "power-driven vessel towing astern (regional use)",
   12: "power-driven vessel pushing ahead or towing alongside (regional use)",
-  13: "reserved for future use",
   14: "AIS-SART (active), MOB-AIS, EPIRB-AIS",
   15: "default",
 };
@@ -293,7 +291,7 @@ const MlIconLayer = (props) => {
               <br />
               <b>Ship type:</b>
               <br />
-              {vesselInfo.shipType}
+              {getShipType(vesselInfo.shipType)}
             </>
           )}
         </div>

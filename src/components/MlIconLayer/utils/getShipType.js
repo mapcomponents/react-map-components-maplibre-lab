@@ -1,6 +1,6 @@
 const vesselTypes = {
     "0": "Not available (default)",
-    "20": "Wing in ground (WIG), all ships of this type",
+    "20": "Wing in ground (WIG)",
     "21": "Wing in ground (WIG), Hazardous category A",
     "22": "Wing in ground (WIG), Hazardous category B",
     "23": "Wing in ground (WIG), Hazardous category C",
@@ -20,7 +20,7 @@ const vesselTypes = {
     "37": "Pleasure Craft",
     "38": "Reserved",
     "39": "Reserved",
-    "40": "High speed craft (HSC), all ships of this type",
+    "40": "High speed craft (HSC)",
     "41": "High speed craft (HSC), Hazardous category A",
     "42": "High speed craft (HSC), Hazardous category B",
     "43": "High speed craft (HSC), Hazardous category C",
@@ -40,7 +40,7 @@ const vesselTypes = {
     "57": "Spare - Local Vessel",
     "58": "Medical Transport",
     "59": "Noncombatant ship according to RR Resolution No. 18",
-    "60": "Passenger, all ships of this type",
+    "60": "Passenger",
     "61": "Passenger, Hazardous category A",
     "62": "Passenger, Hazardous category B",
     "63": "Passenger, Hazardous category C",
@@ -50,7 +50,7 @@ const vesselTypes = {
     "67": "Passenger, Reserved for future use",
     "68": "Passenger, Reserved for future use",
     "69": "Passenger, No additional information",
-    "70": "Cargo, all ships of this type",
+    "70": "Cargo",
     "71": "Cargo, Hazardous category A",
     "72": "Cargo, Hazardous category B",
     "73": "Cargo, Hazardous category C",
@@ -60,7 +60,7 @@ const vesselTypes = {
     "77": "Cargo, Reserved for future use",
     "78": "Cargo, Reserved for future use",
     "79": "Cargo, No additional information",
-    "80": "Tanker, all ships of this type",
+    "80": "Tanker",
     "81": "Tanker, Hazardous category A",
     "82": "Tanker, Hazardous category B",
     "83": "Tanker, Hazardous category C",
@@ -69,17 +69,7 @@ const vesselTypes = {
     "86": "Tanker, Reserved for future use",
     "87": "Tanker, Reserved for future use",
     "88": "Tanker, Reserved for future use",
-    "89": "Tanker, No additional information",
-    "90": "Other Type, all ships of this type",
-    "91": "Other Type, Hazardous category A",
-    "92": "Other Type, Hazardous category B",
-    "93": "Other Type, Hazardous category C",
-    "94": "Other Type, Hazardous category D",
-    "95": "Other Type, Reserved for future use",
-    "96": "Other Type, Reserved for future use",
-    "97": "Other Type, Reserved for future use",
-    "98": "Other Type, Reserved for future use",
-    "99": "Other Type, no additional information"
+    "89": "Tanker, No additional information"
   };
   
   export default function getShipType(number) {
