@@ -16,8 +16,7 @@ jobs:
           yarn
           yarn build-catalogue-meta
           yarn build-catalogue-markdown-docs
-          yarn build-storybook
-          npx sb extract ./docs-build ./docs-build/stories.json
+          yarn build-storybook          
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:

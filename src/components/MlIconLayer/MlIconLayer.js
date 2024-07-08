@@ -7,9 +7,8 @@ import DeckGlContext from "../../deckgl_components/DeckGlContext";
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
-import Airplane from "./assets/airplane-icon.png";
 import Ships from "./assets/Ships_v2.png";
-import { Divider } from "@mui/material";
+
 
 const navStats = {
   0: "under way using engine",
@@ -135,9 +134,6 @@ const MlIconLayer = (props) => {
     airplanes_tmp = airplanes_tmp.map((d) => {
       let trackPorcentage =
         (_timeNow - d.time_contact) / 1000 / fetchEverySeconds;
-      if (trackPorcentage > 1) {
-        trackPorcentage = 1;
-      }
 
       const [longitude, latitude] = d.interpolatePos(trackPorcentage);
       return {
