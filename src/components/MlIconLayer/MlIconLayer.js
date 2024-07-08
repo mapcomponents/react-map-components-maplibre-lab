@@ -8,6 +8,27 @@ import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import Airplane from "./assets/airplane-icon.png";
+import Ships from "./assets/Ships_v2.png";
+import { Divider } from "@mui/material";
+
+const navStats = {
+  0: "under way using engine",
+  1: "at anchor",
+  2: "not under command",
+  3: "restricted maneuverability",
+  4: "constrained by her draught",
+  5: "moored",
+  6: "aground",
+  7: "engaged in fishing",
+  8: "under way sailing",
+  9: "reserved for future amendment of navigational status for ships carrying DG, HS, or MP, or IMO hazard or pollutant category C, high speed craft (HSC)",
+  10: "reserved for future amendment of navigational status for ships carrying dangerous goods (DG), harmful substances (HS) or marine pollutants (MP), or IMO hazard or pollutant category A, wing in ground (WIG)",
+  11: "power-driven vessel towing astern (regional use)",
+  12: "power-driven vessel pushing ahead or towing alongside (regional use)",
+  13: "reserved for future use",
+  14: "AIS-SART (active), MOB-AIS, EPIRB-AIS",
+  15: "default",
+};
 
 const MlIconLayer = (props) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
@@ -27,6 +48,27 @@ const MlIconLayer = (props) => {
   const [data, setData] = useState([]);
 
   const [hoverInfo, setHoverInfo] = useState({});
+
+  const [vesselInfo, setVesselInfo] = useState();
+
+  const getVesselInfo = (mmsi) => {
+    fetch("https://meri.digitraffic.fi/api/ais/v1/vessels/" + mmsi)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setVesselInfo(data);
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  };
 
   const startAnimation = () => {
     if (timer.current) {
@@ -51,33 +93,35 @@ const MlIconLayer = (props) => {
       type: IconLayer,
       data,
       pickable: true,
-      iconAtlas: Airplane,
+      iconAtlas: Ships,
       iconMapping: {
-        airplane: {
+        moving: {
           x: 0,
           y: 0,
           width: 512,
           height: 512,
         },
-        blue_airplane: {
+        other: {
           x: 512,
           y: 0,
           width: 512,
           height: 512,
         },
       },
-      sizeScale: 20,
+      sizeScale: 30,
       autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
+          setVesselInfo(undefined);
           setHoverInfo(d);
         } else {
           setHoverInfo({});
         }
       },
       getPosition: (d) => [d.longitude, d.latitude],
+      onClick: (ev) => getVesselInfo(ev.object.mmsi),
       getIcon: (d) => {
-        return d.origin_country === "Germany" ? "blue_airplane" : "airplane";
+        return d.navStat === 0 ? "moving" : "other";
       },
       getAngle: (d) => -d.true_track,
     };
@@ -87,16 +131,22 @@ const MlIconLayer = (props) => {
     if (!simpleDataContext.data) return;
     let airplanes_tmp = rawDataRef.current;
     let _timeNow = new Date().getTime();
+
     airplanes_tmp = airplanes_tmp.map((d) => {
-      const [longitude, latitude] = d.interpolatePos(
-        (_timeNow - d.time_contact * 1000)/1000 / fetchEverySeconds
-      );
+      let trackPorcentage =
+        (_timeNow - d.time_contact) / 1000 / fetchEverySeconds;
+      if (trackPorcentage > 1) {
+        trackPorcentage = 1;
+      }
+
+      const [longitude, latitude] = d.interpolatePos(trackPorcentage);
       return {
         ...d,
         longitude,
         latitude,
       };
     });
+
     currentFrame.current += 1;
     setData(airplanes_tmp);
   };
@@ -180,7 +230,6 @@ const MlIconLayer = (props) => {
 
   function renderTooltip(info) {
     let { object, x, y } = info;
-
     if (!object) {
       return null;
     }
@@ -190,7 +239,6 @@ const MlIconLayer = (props) => {
         className="tooltip"
         style={{
           zIndex: 1000,
-
           position: "fixed",
           padding: "8px",
           borderRadius: "4px",
@@ -200,36 +248,58 @@ const MlIconLayer = (props) => {
           opacity: 1,
           left: x,
           top: y,
+          minWidth: "180px",
           marginTop: "20px",
           marginLeft: "20px",
           display: "flex",
         }}
       >
-        <div style={{ paddingRight: "10px" }}>
-          Callsign:
+        <div style={{ paddingRight: "10px"}}>
+          <b>MMSI:</b>
+          {object.mmsi}
           <br />
-          {object.altitude && (
+          <>
+            <b>Navigational Status:</b>
+            <br />
+            {object.navStat}: {navStats[object.navStat]}
+            <br />
+          </>
+          {object.origin_country && (
             <>
-              Altitude:
+              Country:
+              {object.origin_country}
               <br />
             </>
           )}
-          Country:
+          <b>Speed:</b>
+          {object.velocity} kn (
+          {Math.round(object.velocity * 1.852 * 100) / 100} km/h)
           <br />
-          Speed:
-        </div>
-        <div style={{ fontWeight: "bold" }}>
-          {object.callsign}
+          <b>Position accurancy: </b>
+          {object.accurancy ? "high" : "low"}
           <br />
-          {object.altitude && (
+          <br/>
+          {!vesselInfo ? (
+            <b>click on ship to get more info...</b>
+          ) : (
             <>
-              {object.altitude}m
+              <b>Name:</b>
               <br />
+              {vesselInfo.name}
+              <br />
+              <b>Callsign:</b>
+              <br />
+              {vesselInfo.callSign}
+              <br />
+              <b>Destination:</b>
+              <br />
+              {vesselInfo.destination}
+              <br />
+              <b>Ship type:</b>
+              <br />
+              {vesselInfo.shipType}
             </>
           )}
-          {object.origin_country}
-          <br />
-          {object.velocity}mph
         </div>
       </div>
     );
