@@ -269,7 +269,7 @@ const MlIconLayer = (props) => {
           {object.velocity} kn (
           {Math.round(object.velocity * 1.852 * 100) / 100} km/h)
           <br />
-          <b>Position accurancy: </b>
+          <b>Position accuracy: </b>
           {object.accurancy ? "high" : "low"}
           <br />
           <br/>
