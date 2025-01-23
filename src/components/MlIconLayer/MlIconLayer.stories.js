@@ -212,7 +212,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
               control={<Checkbox />}
               label={
                 <Typography sx={{ fontSize: "1.1rem" }}>
-                  1 kn (1.85 km/h)
+                  {" > 1 kn (1.85 km/h)"}
                 </Typography>
               }
             />
