@@ -10,7 +10,13 @@ import {
 } from "@mapcomponents/react-maplibre";
 import TopToolbar from "../../ui_components/TopToolbar.tsx";
 import Sidebar from "../../ui_components/Sidebar.tsx";
-import { Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from "@mui/material";
 
 const storyoptions = {
   title: "MapComponents/MlIconLayer",
@@ -183,7 +189,41 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
         }}
       />
 
-      <Sidebar open={openSidebar} setOpen={setOpenSidebar} />
+      <Sidebar open={openSidebar} setOpen={setOpenSidebar}>
+        <Box sx={{ marginLeft: "15px", marginTop: "10px" }}>
+          <Typography sx={{ fontSize: "1.5rem" }}>Animated Layer</Typography>
+        </Box>
+        <Box sx={{ marginLeft: "15px", marginTop: "40px", height: 120 }}>
+          <Typography sx={{ fontSize: "1.1rem" }}>
+            <b>Ship speed</b>
+          </Typography>
+          <Box
+            sx={{ marginTop: "10px", display: "flex", flexDirection: "column" }}
+          >
+            <FormControlLabel
+              control={<Checkbox />}
+              label={
+                <Typography sx={{ fontSize: "1.1rem" }}>
+                  0 kn (0.00 km/h)
+                </Typography>
+              }
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label={
+                <Typography sx={{ fontSize: "1.1rem" }}>
+                  1 kn (1.85 km/h)
+                </Typography>
+              }
+            />
+          </Box>
+        </Box>
+        <Box sx={{ marginLeft: "15px", marginTop: "40px", height: 200 }}>
+          <Typography sx={{ fontSize: "1.1rem" }}>
+            <b>Selected ship information</b>
+          </Typography>
+        </Box>
+      </Sidebar>
     </>
   );
 };
@@ -198,15 +238,17 @@ const CatalogueTemplate = () => {
           <Button
             variant="contained"
             sx={{
-              fontSize: "20px",
+              backgroundColor: "#009EE0",
+              fontSize: "1.2rem",
               fontFamily: "sans-serif",
+              mr: "10px",
             }}
           >
             Tools
           </Button>
         }
         text={
-          <Typography variant="h6" fontFamily="sans-serif">
+          <Typography fontFamily="sans-serif" sx={{ fontSize: "1.2rem" }}>
             Ships on Baltic Sea
           </Typography>
         }
