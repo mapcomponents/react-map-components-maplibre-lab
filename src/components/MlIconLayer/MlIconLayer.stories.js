@@ -9,7 +9,7 @@ import {
   SimpleDataProvider,
 } from "@mapcomponents/react-maplibre";
 import TopToolbar from "../../ui_components/TopToolbar.tsx";
-// import Sidebar from "../../ui_components/Sidebar.tsx";
+import Sidebar from "../../ui_components/Sidebar.tsx";
 import { Button, Typography } from "@mui/material";
 
 const storyoptions = {
@@ -183,7 +183,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
         }}
       />
 
-      {/* <Sidebar open={openSidebar} setOpen={setOpenSidebar} /> */}
+      <Sidebar open={openSidebar} setOpen={setOpenSidebar} />
     </>
   );
 };
