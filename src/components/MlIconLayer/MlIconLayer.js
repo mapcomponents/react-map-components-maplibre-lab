@@ -228,6 +228,21 @@ const MlIconLayer = (props) => {
       return null;
     }
 
+    // Adjusting the tooltip position at the edges of the screen
+    const tooltipWidth = 300;
+    const tooltipHeight = 200;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    if (x + tooltipWidth > screenWidth) {
+      x = screenWidth - tooltipWidth - 20;
+    }
+
+    if (y + tooltipHeight > screenHeight) {
+      y = screenHeight - tooltipHeight - 20;
+    }
+
     return (
       <div
         className="tooltip"
@@ -242,13 +257,12 @@ const MlIconLayer = (props) => {
           opacity: 1,
           left: x,
           top: y,
-          minWidth: "180px",
           marginTop: "20px",
           marginLeft: "20px",
           display: "flex",
         }}
       >
-        <div style={{ paddingRight: "10px"}}>
+        <div style={{ paddingRight: "10px" }}>
           <b>MMSI:</b>
           {object.mmsi}
           <br />
@@ -265,14 +279,14 @@ const MlIconLayer = (props) => {
               <br />
             </>
           )}
-          <b>Speed:</b>
+          <b>Speed: </b>
           {object.velocity} kn (
           {Math.round(object.velocity * 1.852 * 100) / 100} km/h)
           <br />
           <b>Position accuracy: </b>
           {object.accurancy ? "high" : "low"}
           <br />
-          <br/>
+          <br />
           {!vesselInfo ? (
             <b>click on ship to get more info...</b>
           ) : (
