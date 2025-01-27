@@ -115,6 +115,9 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
   const [timeParam, setTimeParam] = useState();
   const timeRef = useRef();
 
+  const [showMovingVessels, setShowMovingvessels] = useState(true);
+  const [showNotMovingVessels, setShowNotMovingVessels] = useState(true);
+
   const dataUrl = useMemo(
     () =>
       timeParam
@@ -201,7 +204,12 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
             sx={{ marginTop: "10px", display: "flex", flexDirection: "column" }}
           >
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={showMovingVessels}
+                  onChange={() => setShowMovingvessels(!showMovingVessels)}
+                />
+              }
               label={
                 <Typography sx={{ fontSize: "1.1rem" }}>
                   0 kn (0.00 km/h)
@@ -209,7 +217,12 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
               }
             />
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  checked={showNotMovingVessels}
+                  onChange={() => setShowNotMovingVessels(showNotMovingVessels)}
+                />
+              }
               label={
                 <Typography sx={{ fontSize: "1.1rem" }}>
                   {" > 1 kn (1.85 km/h)"}
@@ -229,7 +242,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
 };
 
 const CatalogueTemplate = () => {
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
   const handleToggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -239,14 +252,13 @@ const CatalogueTemplate = () => {
       <TopToolbar
         buttons={
           <Button
-            variant={openSidebar ? "contained" : "outlined"} // Der Button-Variant ändert sich je nach Sidebar-Status
+            variant={openSidebar ? "contained" : "outlined"}
             sx={{
-              backgroundColor: openSidebar ? "#009EE0" : undefined,
               fontSize: "1.2rem",
               fontFamily: "sans-serif",
               mr: "10px",
             }}
-            onClick={handleToggleSidebar} // Klick-Handler zum Öffnen/Schließen der Sidebar
+            onClick={handleToggleSidebar}
           >
             Tools
           </Button>
