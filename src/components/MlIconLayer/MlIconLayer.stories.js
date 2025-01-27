@@ -230,19 +230,23 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
 
 const CatalogueTemplate = () => {
   const [openSidebar, setOpenSidebar] = useState(true);
+  const handleToggleSidebar = () => {
+    setOpenSidebar(!openSidebar);
+  };
 
   return (
     <>
       <TopToolbar
         buttons={
           <Button
-            variant="contained"
+            variant={openSidebar ? "contained" : "outlined"} // Der Button-Variant ändert sich je nach Sidebar-Status
             sx={{
-              backgroundColor: "#009EE0",
+              backgroundColor: openSidebar ? "#009EE0" : undefined,
               fontSize: "1.2rem",
               fontFamily: "sans-serif",
               mr: "10px",
             }}
+            onClick={handleToggleSidebar} // Klick-Handler zum Öffnen/Schließen der Sidebar
           >
             Tools
           </Button>
@@ -255,7 +259,10 @@ const CatalogueTemplate = () => {
       >
         <Typography>Ships on Baltic Sea</Typography>
       </TopToolbar>
-      <CatalogueSidebar openSidebar={openSidebar} />
+      <CatalogueSidebar
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
     </>
   );
 };
