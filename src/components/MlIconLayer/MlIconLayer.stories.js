@@ -220,7 +220,9 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
               control={
                 <Checkbox
                   checked={showNotMovingVessels}
-                  onChange={() => setShowNotMovingVessels(showNotMovingVessels)}
+                  onChange={() =>
+                    setShowNotMovingVessels(!showNotMovingVessels)
+                  }
                 />
               }
               label={
