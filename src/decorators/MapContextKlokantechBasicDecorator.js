@@ -1,9 +1,13 @@
 import React from "react";
 
-import { MapComponentsProvider } from "@mapcomponents/react-maplibre";
-import { MapLibreMap } from "@mapcomponents/react-maplibre";
+import {
+  MapComponentsProvider,
+  MlScaleReference,
+  MapLibreMap,
+} from "@mapcomponents/react-maplibre";
 import "./style.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Paper } from "@mui/material";
 
 const theme = createTheme({});
 
@@ -12,6 +16,16 @@ const decorators = [
     <div className="fullscreen_map">
       <ThemeProvider theme={theme}>
         <MapComponentsProvider>
+          <Paper
+            sx={{
+              position: "fixed",
+              bottom: "40px",
+              right: "20px",
+              zIndex: 1300,
+            }}
+          >
+            <MlScaleReference />
+          </Paper>
           <Story />
           <MapLibreMap
             options={{
