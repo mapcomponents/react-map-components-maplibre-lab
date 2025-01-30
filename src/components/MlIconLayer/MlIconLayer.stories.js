@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useState, useContext, useRef } from "react";
 import * as d3 from "d3";
 import * as turf from "@turf/turf";
 import MlIconLayer from "./MlIconLayer";
+import getShipType from "./utils/getShipType.js";
 import mapContextDecorator from "../../decorators/MapContextKlokantechBasicDecorator";
 import {
   MapContext,
@@ -115,6 +116,11 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
   const [timeParam, setTimeParam] = useState();
   const timeRef = useRef();
 
+  const [sidebarInfo, setSidebarInfo] = useState({
+    hoverInfo: {},
+    vesselInfo: null,
+  });
+
   const [showMovingVessels, setShowMovingvessels] = useState(true);
   const [showNotMovingVessels, setShowNotMovingVessels] = useState(true);
 
@@ -140,6 +146,24 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
       setTimeParam(Math.floor(new Date().getTime()) - 5000);
     }
   }, [mapContext.map]);
+
+  const resetSidebarInfo = () => {
+    setSidebarInfo({
+      hoverInfo: {},
+      vesselInfo: null,
+    });
+  };
+
+  useEffect(() => {
+    if (!openSidebar) {
+      resetSidebarInfo();
+    }
+  }, [openSidebar]);
+
+  // Funktion, um Geschwindigkeit von Knoten in km/h umzurechnen
+  const convertKnotsToKmh = (knots) => {
+    return (knots * 1.852).toFixed(2); // Umrechnung Knoten in km/h (1 Knoten = 1.852 km/h)
+  };
 
   return (
     <>
@@ -179,7 +203,10 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
         data_property="features"
         onData={renewDataUrl}
       >
-        <MlIconLayer />
+        <MlIconLayer
+          setOpenSidebar={setOpenSidebar}
+          setSidebarInfo={setSidebarInfo}
+        />
       </SimpleDataProvider>
 
       <MlWmsLayer
@@ -237,6 +264,52 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
           <Typography sx={{ fontSize: "1.1rem" }}>
             <b>Selected ship information</b>
           </Typography>
+
+          <Box sx={{ marginTop: "20px" }}>
+            {sidebarInfo.hoverInfo ? (
+              <>
+                <Typography>
+                  <b>MMSI: </b> {sidebarInfo.hoverInfo.object?.mmsi}
+                </Typography>
+                {/* <Typography>
+                  <b>Navigational Status: </b>
+                  {sidebarInfo.hoverInfo.object?.navStat}:{" "}
+                  {navStats[sidebarInfo.hoverInfo.object?.navStat]}
+                </Typography> */}
+                <Typography>
+                  <b>Speed: </b> {sidebarInfo.hoverInfo.object?.velocity} kn (
+                  {convertKnotsToKmh(sidebarInfo.hoverInfo.object?.velocity)}{" "}
+                  km/h)
+                </Typography>
+                <Typography>
+                  <b>Position accuracy: </b>
+                  {sidebarInfo.hoverInfo.object?.accurancy ? "high" : "low"}
+                </Typography>
+              </>
+            ) : (
+              <Typography>No ship hovered.</Typography>
+            )}
+
+            {sidebarInfo.vesselInfo ? (
+              <>
+                <Typography>
+                  <b>Name:</b> {sidebarInfo.vesselInfo.name}
+                </Typography>
+                <Typography>
+                  <b>Callsign:</b> {sidebarInfo.vesselInfo.callSign}
+                </Typography>
+                <Typography>
+                  <b>Destination:</b> {sidebarInfo.vesselInfo.destination}
+                </Typography>
+                <Typography>
+                  <b>Ship Type:</b>{" "}
+                  {getShipType(sidebarInfo.vesselInfo.shipType)}
+                </Typography>
+              </>
+            ) : (
+              <Typography>No ship selected.</Typography>
+            )}
+          </Box>
         </Box>
       </Sidebar>
     </>

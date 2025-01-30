@@ -27,7 +27,7 @@ const navStats = {
   15: "default",
 };
 
-const MlIconLayer = (props) => {
+const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
   // without the requirement of adding it to the dependency list (ignore the false eslint exhaustive deps warning)
   const mapContext = useContext(MapContext);
@@ -45,7 +45,6 @@ const MlIconLayer = (props) => {
   const [data, setData] = useState([]);
 
   const [hoverInfo, setHoverInfo] = useState({});
-
   const [vesselInfo, setVesselInfo] = useState();
 
   const getVesselInfo = (mmsi) => {
@@ -58,6 +57,7 @@ const MlIconLayer = (props) => {
       })
       .then((data) => {
         setVesselInfo(data);
+        setSidebarInfo({ hoverInfo, vesselInfo: data });
       })
       .catch((error) => {
         console.error(
@@ -83,6 +83,11 @@ const MlIconLayer = (props) => {
     rawDataRef.current = [...simpleDataContext.data];
     startAnimation();
   }, [simpleDataContext.data]);
+
+  const onClickHandler = (ev) => {
+    setOpenSidebar(true);
+    getVesselInfo(ev.object.mmsi);
+  };
 
   const deckLayerProps = useMemo(() => {
     return {
@@ -116,13 +121,13 @@ const MlIconLayer = (props) => {
         }
       },
       getPosition: (d) => [d.longitude, d.latitude],
-      onClick: (ev) => getVesselInfo(ev.object.mmsi),
+      onClick: onClickHandler,
       getIcon: (d) => {
         return d.navStat === 0 ? "moving" : "other";
       },
       getAngle: (d) => -d.true_track,
     };
-  }, [data]);
+  }, [data, hoverInfo, vesselInfo]);
 
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
