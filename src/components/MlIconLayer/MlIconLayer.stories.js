@@ -234,6 +234,12 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
                 <Checkbox
                   checked={showMovingVessels}
                   onChange={() => setShowMovingvessels(!showMovingVessels)}
+                  sx={{
+                    color: "#009ee0",
+                    "&.Mui-checked": {
+                      color: "#009ee0",
+                    },
+                  }}
                 />
               }
               label={
@@ -249,6 +255,12 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
                   onChange={() =>
                     setShowNotMovingVessels(!showNotMovingVessels)
                   }
+                  sx={{
+                    color: "#009ee0",
+                    "&.Mui-checked": {
+                      color: "#009ee0",
+                    },
+                  }}
                 />
               }
               label={
@@ -333,6 +345,13 @@ const CatalogueTemplate = () => {
               fontSize: "1.2rem",
               fontFamily: "sans-serif",
               mr: "10px",
+              backgroundColor: openSidebar ? "#009ee0" : "transparent",
+              color: openSidebar ? "#fff" : "#009ee0",
+              borderColor: "#009ee0",
+              "&:hover": {
+                backgroundColor: openSidebar ? "#006e9c" : "#f5fbfe",
+                borderColor: openSidebar ? "#006e9c" : "#009ee0",
+              },
             }}
             onClick={handleToggleSidebar}
           >
