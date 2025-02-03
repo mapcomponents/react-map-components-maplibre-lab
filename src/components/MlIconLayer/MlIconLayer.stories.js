@@ -160,9 +160,8 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
     }
   }, [openSidebar]);
 
-  // Funktion, um Geschwindigkeit von Knoten in km/h umzurechnen
   const convertKnotsToKmh = (knots) => {
-    return (knots * 1.852).toFixed(2); // Umrechnung Knoten in km/h (1 Knoten = 1.852 km/h)
+    return (knots * 1.852).toFixed(2);
   };
 
   return (
@@ -266,16 +265,17 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
           </Typography>
 
           <Box sx={{ marginTop: "20px" }}>
-            {sidebarInfo.hoverInfo ? (
+            {sidebarInfo.hoverInfo && sidebarInfo.navStats ? (
               <>
                 <Typography>
                   <b>MMSI: </b> {sidebarInfo.hoverInfo.object?.mmsi}
                 </Typography>
-                {/* <Typography>
+                <Typography>
                   <b>Navigational Status: </b>
+                  <br />
                   {sidebarInfo.hoverInfo.object?.navStat}:{" "}
-                  {navStats[sidebarInfo.hoverInfo.object?.navStat]}
-                </Typography> */}
+                  {sidebarInfo.navStats[sidebarInfo.hoverInfo.object?.navStat]}
+                </Typography>
                 <Typography>
                   <b>Speed: </b> {sidebarInfo.hoverInfo.object?.velocity} kn (
                   {convertKnotsToKmh(sidebarInfo.hoverInfo.object?.velocity)}{" "}
@@ -287,23 +287,24 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
                 </Typography>
               </>
             ) : (
-              <Typography>No ship hovered.</Typography>
+              <Typography></Typography>
             )}
 
             {sidebarInfo.vesselInfo ? (
               <>
                 <Typography>
-                  <b>Name:</b> {sidebarInfo.vesselInfo.name}
+                  <b>Name:</b> {sidebarInfo.vesselInfo.name || "--"}
                 </Typography>
                 <Typography>
-                  <b>Callsign:</b> {sidebarInfo.vesselInfo.callSign}
+                  <b>Callsign:</b> {sidebarInfo.vesselInfo.callSign || "--"}
                 </Typography>
                 <Typography>
-                  <b>Destination:</b> {sidebarInfo.vesselInfo.destination}
+                  <b>Destination:</b>{" "}
+                  {sidebarInfo.vesselInfo.destination || "--"}
                 </Typography>
                 <Typography>
-                  <b>Ship Type:</b>{" "}
-                  {getShipType(sidebarInfo.vesselInfo.shipType)}
+                  <b>Ship Type: </b>
+                  {getShipType(sidebarInfo.vesselInfo.shipType) || "--"}
                 </Typography>
               </>
             ) : (

@@ -57,7 +57,7 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
       })
       .then((data) => {
         setVesselInfo(data);
-        setSidebarInfo({ hoverInfo, vesselInfo: data });
+        setSidebarInfo({ hoverInfo, vesselInfo: data, navStats });
       })
       .catch((error) => {
         console.error(
