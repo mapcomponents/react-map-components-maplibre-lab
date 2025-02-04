@@ -232,8 +232,10 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={showMovingVessels}
-                  onChange={() => setShowMovingvessels(!showMovingVessels)}
+                  checked={showNotMovingVessels}
+                  onChange={() =>
+                    setShowNotMovingVessels(!showNotMovingVessels)
+                  }
                   sx={{
                     color: "#009ee0",
                     "&.Mui-checked": {
@@ -251,10 +253,8 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={showNotMovingVessels}
-                  onChange={() =>
-                    setShowNotMovingVessels(!showNotMovingVessels)
-                  }
+                  checked={showMovingVessels}
+                  onChange={() => setShowMovingvessels(!showMovingVessels)}
                   sx={{
                     color: "#009ee0",
                     "&.Mui-checked": {
