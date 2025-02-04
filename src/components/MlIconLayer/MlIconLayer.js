@@ -44,6 +44,7 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
   const rawDataRef = useRef([]);
   const [data, setData] = useState([]);
 
+  const [selectedVessel, setSelectedVessel] = useState(null);
   const [hoverInfo, setHoverInfo] = useState({});
   const [vesselInfo, setVesselInfo] = useState();
 
@@ -87,6 +88,7 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
   const onClickHandler = (ev) => {
     setOpenSidebar(true);
     getVesselInfo(ev.object.mmsi);
+    setSelectedVessel(ev.object);
   };
 
   const deckLayerProps = useMemo(() => {
@@ -109,6 +111,12 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
           width: 512,
           height: 512,
         },
+        selected: {
+          x: 1024,
+          y: 0,
+          width: 512,
+          height: 512,
+        },
       },
       sizeScale: 30,
       autoHighlight: true,
@@ -123,11 +131,14 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
       getPosition: (d) => [d.longitude, d.latitude],
       onClick: onClickHandler,
       getIcon: (d) => {
+        if (selectedVessel && d.mmsi === selectedVessel.mmsi) {
+          return "selected";
+        }
         return d.navStat === 0 ? "moving" : "other";
       },
       getAngle: (d) => -d.true_track,
     };
-  }, [data, hoverInfo, vesselInfo]);
+  }, [data, selectedVessel, hoverInfo, vesselInfo]);
 
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
