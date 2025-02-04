@@ -95,6 +95,7 @@ const MlIconLayer = ({
     setOpenSidebar(true);
     getVesselInfo(ev.object.mmsi);
     setSelectedVessel(ev.object);
+    setHoverInfo({}); // Hide tooltip
   };
 
   const deckLayerProps = useMemo(() => {
