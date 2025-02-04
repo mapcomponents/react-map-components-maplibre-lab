@@ -140,7 +140,7 @@ const MlIconLayer = ({
       getIcon: (d) => {
         if (
           (d.velocity === 0 && !showNotMovingVessels) ||
-          (d.velocity > 1 && !showMovingVessels)
+          (d.velocity > 0 && !showMovingVessels)
         ) {
           return null;
         }
