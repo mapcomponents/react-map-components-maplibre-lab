@@ -205,6 +205,8 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
         <MlIconLayer
           setOpenSidebar={setOpenSidebar}
           setSidebarInfo={setSidebarInfo}
+          showMovingVessels={showMovingVessels}
+          showNotMovingVessels={showNotMovingVessels}
         />
       </SimpleDataProvider>
 

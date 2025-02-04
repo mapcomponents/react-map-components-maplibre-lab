@@ -27,7 +27,13 @@ const navStats = {
   15: "default",
 };
 
-const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
+const MlIconLayer = ({
+  setOpenSidebar,
+  setSidebarInfo,
+  showMovingVessels,
+  showNotMovingVessels,
+  ...props
+}) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
   // without the requirement of adding it to the dependency list (ignore the false eslint exhaustive deps warning)
   const mapContext = useContext(MapContext);
@@ -131,14 +137,38 @@ const MlIconLayer = ({ setOpenSidebar, setSidebarInfo, ...props }) => {
       getPosition: (d) => [d.longitude, d.latitude],
       onClick: onClickHandler,
       getIcon: (d) => {
+        if (
+          (d.velocity === 0 && !showNotMovingVessels) ||
+          (d.velocity > 1 && !showMovingVessels)
+        ) {
+          return null;
+        }
+
         if (selectedVessel && d.mmsi === selectedVessel.mmsi) {
           return "selected";
         }
         return d.navStat === 0 ? "moving" : "other";
       },
       getAngle: (d) => -d.true_track,
+      getTooltip: (d) => {
+        if (
+          (d.velocity === 0 && !showNotMovingVessels) ||
+          (d.velocity > 1 && !showMovingVessels)
+        ) {
+          return null;
+        }
+
+        return renderTooltip(d);
+      },
     };
-  }, [data, selectedVessel, hoverInfo, vesselInfo]);
+  }, [
+    data,
+    selectedVessel,
+    hoverInfo,
+    vesselInfo,
+    showMovingVessels,
+    showNotMovingVessels,
+  ]);
 
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
