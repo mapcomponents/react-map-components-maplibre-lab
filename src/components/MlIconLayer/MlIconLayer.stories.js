@@ -267,7 +267,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
               }
               label={
                 <Typography sx={{ fontSize: "1.1rem" }}>
-                  {" > 1 kn (1.85 km/h)"}
+                  {" > 0.1 kn (0.185 km/h)"}
                 </Typography>
               }
             />
@@ -332,7 +332,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
 };
 
 const CatalogueTemplate = () => {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
   const handleToggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -357,7 +357,7 @@ const CatalogueTemplate = () => {
             }}
             onClick={handleToggleSidebar}
           >
-            Tools
+            Sidebar
           </Button>
         }
         text={
