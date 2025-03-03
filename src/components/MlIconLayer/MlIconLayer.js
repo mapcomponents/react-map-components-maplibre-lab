@@ -1,15 +1,18 @@
 import React, { useRef, useMemo, useEffect, useState, useContext } from "react";
 import * as d3 from "d3";
 
-import { MapContext, SimpleDataContext } from "@mapcomponents/react-maplibre";
+import {
+  MapContext,
+  SimpleDataContext,
+  useMapState,
+} from "@mapcomponents/react-maplibre";
 
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import DeckGlContext from "../../deckgl_components/DeckGlContext";
 import getShipType from "./utils/getShipType";
-import Ships from "./assets/Ships_v2.png";
-
+import Ships from "./assets/Ships.png";
 
 const navStats = {
   0: "under way using engine",
@@ -54,6 +57,10 @@ const MlIconLayer = ({
   const [hoverInfo, setHoverInfo] = useState({});
   const [vesselInfo, setVesselInfo] = useState();
 
+  const [size, setSize] = useState(30);
+  const mapState = useMapState({ mapId: undefined, watch: { viewport: true } });
+  // console.log(mapState?.viewport?.zoom);
+
   const getVesselInfo = (mmsi) => {
     fetch("https://meri.digitraffic.fi/api/ais/v1/vessels/" + mmsi)
       .then((response) => {
@@ -96,7 +103,33 @@ const MlIconLayer = ({
     getVesselInfo(ev.object.mmsi);
     setSelectedVessel(ev.object);
     setHoverInfo({}); // Hide tooltip
+
+    if (mapContext.map) {
+      const currentZoom = mapState?.viewport?.zoom;
+
+      // Only set zoom to 9 if the current zoom is less than or equal to 9
+      const zoomLevel = currentZoom <= 9 ? 9 : currentZoom;
+
+      mapContext.map.flyTo({
+        center: [ev.object.longitude, ev.object.latitude],
+        zoom: zoomLevel,
+        speed: 1,
+      });
+    }
   };
+
+  useEffect(() => {
+    const zoom = mapState?.viewport?.zoom;
+    if (zoom <= 6) {
+      setSize(30);
+    } else if (zoom <= 11) {
+      setSize(50);
+    } else if (zoom <= 15) {
+      setSize(75);
+    } else {
+      setSize(100);
+    }
+  }, [mapState?.viewport?.zoom]);
 
   const deckLayerProps = useMemo(() => {
     return {
@@ -112,7 +145,7 @@ const MlIconLayer = ({
           width: 512,
           height: 512,
         },
-        other: {
+        notmoving: {
           x: 512,
           y: 0,
           width: 512,
@@ -125,7 +158,7 @@ const MlIconLayer = ({
           height: 512,
         },
       },
-      sizeScale: 30,
+      sizeScale: size,
       autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
@@ -148,7 +181,7 @@ const MlIconLayer = ({
         if (selectedVessel && d.mmsi === selectedVessel.mmsi) {
           return "selected";
         }
-        return d.navStat === 0 ? "moving" : "other";
+        return d.velocity === 0 ? "notmoving" : "moving";
       },
       getAngle: (d) => -d.true_track,
       getTooltip: (d) => {
@@ -167,6 +200,7 @@ const MlIconLayer = ({
     selectedVessel,
     hoverInfo,
     vesselInfo,
+    size,
     showMovingVessels,
     showNotMovingVessels,
   ]);
