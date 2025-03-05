@@ -35,6 +35,8 @@ const MlIconLayer = ({
   setSidebarInfo,
   showMovingVessels,
   showNotMovingVessels,
+  selectedVessel,
+  setSelectedVessel,
   ...props
 }) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
@@ -53,7 +55,6 @@ const MlIconLayer = ({
   const rawDataRef = useRef([]);
   const [data, setData] = useState([]);
 
-  const [selectedVessel, setSelectedVessel] = useState(null);
   const [hoverInfo, setHoverInfo] = useState({});
   const [vesselInfo, setVesselInfo] = useState();
 

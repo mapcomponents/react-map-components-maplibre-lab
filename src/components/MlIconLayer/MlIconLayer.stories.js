@@ -123,6 +123,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
 
   const [showMovingVessels, setShowMovingvessels] = useState(true);
   const [showNotMovingVessels, setShowNotMovingVessels] = useState(true);
+  const [selectedVessel, setSelectedVessel] = useState(null);
 
   const dataUrl = useMemo(
     () =>
@@ -157,6 +158,7 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
   useEffect(() => {
     if (!openSidebar) {
       resetSidebarInfo();
+      setSelectedVessel(null);
     }
   }, [openSidebar]);
 
@@ -207,6 +209,8 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
           setSidebarInfo={setSidebarInfo}
           showMovingVessels={showMovingVessels}
           showNotMovingVessels={showNotMovingVessels}
+          selectedVessel={selectedVessel}
+          setSelectedVessel={setSelectedVessel}
         />
       </SimpleDataProvider>
 
