@@ -1,15 +1,18 @@
 import React, { useRef, useMemo, useEffect, useState, useContext } from "react";
 import * as d3 from "d3";
 
-import { MapContext, SimpleDataContext } from "@mapcomponents/react-maplibre";
+import {
+  MapContext,
+  SimpleDataContext,
+  useMapState,
+} from "@mapcomponents/react-maplibre";
 
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { IconLayer } from "@deck.gl/layers";
 
 import DeckGlContext from "../../deckgl_components/DeckGlContext";
 import getShipType from "./utils/getShipType";
-import Ships from "./assets/Ships_v2.png";
-
+import Ships from "./assets/Ships.png";
 
 const navStats = {
   0: "under way using engine",
@@ -27,7 +30,15 @@ const navStats = {
   15: "default",
 };
 
-const MlIconLayer = (props) => {
+const MlIconLayer = ({
+  setOpenSidebar,
+  setSidebarInfo,
+  showMovingVessels,
+  showNotMovingVessels,
+  selectedVessel,
+  setSelectedVessel,
+  ...props
+}) => {
   // Use a useRef hook to reference the layer object to be able to access it later inside useEffect hooks
   // without the requirement of adding it to the dependency list (ignore the false eslint exhaustive deps warning)
   const mapContext = useContext(MapContext);
@@ -45,8 +56,11 @@ const MlIconLayer = (props) => {
   const [data, setData] = useState([]);
 
   const [hoverInfo, setHoverInfo] = useState({});
-
   const [vesselInfo, setVesselInfo] = useState();
+
+  const [size, setSize] = useState(30);
+  const mapState = useMapState({ mapId: undefined, watch: { viewport: true } });
+  // console.log(mapState?.viewport?.zoom);
 
   const getVesselInfo = (mmsi) => {
     fetch("https://meri.digitraffic.fi/api/ais/v1/vessels/" + mmsi)
@@ -58,6 +72,7 @@ const MlIconLayer = (props) => {
       })
       .then((data) => {
         setVesselInfo(data);
+        setSidebarInfo({ hoverInfo, vesselInfo: data, navStats });
       })
       .catch((error) => {
         console.error(
@@ -84,6 +99,39 @@ const MlIconLayer = (props) => {
     startAnimation();
   }, [simpleDataContext.data]);
 
+  const onClickHandler = (ev) => {
+    setOpenSidebar(true);
+    getVesselInfo(ev.object.mmsi);
+    setSelectedVessel(ev.object);
+    setHoverInfo({}); // Hide tooltip
+
+    if (mapContext.map) {
+      const currentZoom = mapState?.viewport?.zoom;
+
+      // Only set zoom to 9 if the current zoom is less than or equal to 9
+      const zoomLevel = currentZoom <= 9 ? 9 : currentZoom;
+
+      mapContext.map.flyTo({
+        center: [ev.object.longitude, ev.object.latitude],
+        zoom: zoomLevel,
+        speed: 1,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const zoom = mapState?.viewport?.zoom;
+    if (zoom <= 6) {
+      setSize(30);
+    } else if (zoom <= 11) {
+      setSize(50);
+    } else if (zoom <= 15) {
+      setSize(75);
+    } else {
+      setSize(100);
+    }
+  }, [mapState?.viewport?.zoom]);
+
   const deckLayerProps = useMemo(() => {
     return {
       id: layerName,
@@ -98,14 +146,20 @@ const MlIconLayer = (props) => {
           width: 512,
           height: 512,
         },
-        other: {
+        notmoving: {
           x: 512,
           y: 0,
           width: 512,
           height: 512,
         },
+        selected: {
+          x: 1024,
+          y: 0,
+          width: 512,
+          height: 512,
+        },
       },
-      sizeScale: 30,
+      sizeScale: size,
       autoHighlight: true,
       onHover: (d) => {
         if (d.picked) {
@@ -116,13 +170,41 @@ const MlIconLayer = (props) => {
         }
       },
       getPosition: (d) => [d.longitude, d.latitude],
-      onClick: (ev) => getVesselInfo(ev.object.mmsi),
+      onClick: onClickHandler,
       getIcon: (d) => {
-        return d.navStat === 0 ? "moving" : "other";
+        if (
+          (d.velocity === 0 && !showNotMovingVessels) ||
+          (d.velocity > 0 && !showMovingVessels)
+        ) {
+          return null;
+        }
+
+        if (selectedVessel && d.mmsi === selectedVessel.mmsi) {
+          return "selected";
+        }
+        return d.velocity === 0 ? "notmoving" : "moving";
       },
       getAngle: (d) => -d.true_track,
+      getTooltip: (d) => {
+        if (
+          (d.velocity === 0 && !showNotMovingVessels) ||
+          (d.velocity > 1 && !showMovingVessels)
+        ) {
+          return null;
+        }
+
+        return renderTooltip(d);
+      },
     };
-  }, [data]);
+  }, [
+    data,
+    selectedVessel,
+    hoverInfo,
+    vesselInfo,
+    size,
+    showMovingVessels,
+    showNotMovingVessels,
+  ]);
 
   const animationFrame = () => {
     if (!simpleDataContext.data) return;
@@ -228,6 +310,21 @@ const MlIconLayer = (props) => {
       return null;
     }
 
+    // Adjusting the tooltip position at the edges of the screen
+    const tooltipWidth = 300;
+    const tooltipHeight = 200;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    if (x + tooltipWidth > screenWidth) {
+      x = screenWidth - tooltipWidth - 20;
+    }
+
+    if (y + tooltipHeight > screenHeight) {
+      y = screenHeight - tooltipHeight - 20;
+    }
+
     return (
       <div
         className="tooltip"
@@ -242,13 +339,12 @@ const MlIconLayer = (props) => {
           opacity: 1,
           left: x,
           top: y,
-          minWidth: "180px",
           marginTop: "20px",
           marginLeft: "20px",
           display: "flex",
         }}
       >
-        <div style={{ paddingRight: "10px"}}>
+        <div style={{ paddingRight: "10px" }}>
           <b>MMSI:</b>
           {object.mmsi}
           <br />
@@ -265,14 +361,14 @@ const MlIconLayer = (props) => {
               <br />
             </>
           )}
-          <b>Speed:</b>
+          <b>Speed: </b>
           {object.velocity} kn (
           {Math.round(object.velocity * 1.852 * 100) / 100} km/h)
           <br />
           <b>Position accuracy: </b>
           {object.accurancy ? "high" : "low"}
           <br />
-          <br/>
+          <br />
           {!vesselInfo ? (
             <b>click on ship to get more info...</b>
           ) : (
