@@ -100,7 +100,7 @@ export default function Sidebar({
                 sx={{
                   position: "absolute",
                   right: "20px",
-                  top: "80px",
+                  top: "88px",
                 }}
               >
                 <CloseIcon />

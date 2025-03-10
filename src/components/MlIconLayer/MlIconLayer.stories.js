@@ -226,7 +226,9 @@ const CatalogueSidebar = ({ openSidebar, setOpenSidebar }) => {
 
       <Sidebar open={openSidebar} setOpen={setOpenSidebar}>
         <Box sx={{ marginLeft: "15px", marginTop: "10px" }}>
-          <Typography sx={{ fontSize: "1.5rem" }}>Animated Layer</Typography>
+          <Typography sx={{ fontSize: "1.2rem" }}>
+            <b>Animated Layer</b>
+          </Typography>
         </Box>
         <Box sx={{ marginLeft: "15px", marginTop: "40px", height: 120 }}>
           <Typography sx={{ fontSize: "1.1rem" }}>
@@ -348,9 +350,8 @@ const CatalogueTemplate = () => {
           <Button
             variant={openSidebar ? "contained" : "outlined"}
             sx={{
-              fontSize: "1.2rem",
-              fontFamily: "sans-serif",
-              mr: "10px",
+              fontSize: "16px",
+              marginRight: "30px",
               backgroundColor: openSidebar ? "#009ee0" : "transparent",
               color: openSidebar ? "#fff" : "#009ee0",
               borderColor: "#009ee0",
@@ -365,7 +366,7 @@ const CatalogueTemplate = () => {
           </Button>
         }
         text={
-          <Typography fontFamily="sans-serif" sx={{ fontSize: "1.2rem" }}>
+          <Typography sx={{ fontSize: "1.1rem" }}>
             Ships on Baltic Sea
           </Typography>
         }
