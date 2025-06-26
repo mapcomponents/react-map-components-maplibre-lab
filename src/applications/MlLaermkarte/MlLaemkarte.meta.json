@@ -12,5 +12,11 @@
    "category": "",
    "type": "application",
    "components": ["MlFillExtrusionLayer", "useCameraFollowPath"],
-   "price": 12000
+   "demos": [
+      {
+         "name": "Demo",
+         "url": "https://mapcomponents.github.io/react-map-components-maplibre-lab/iframe.html?args=&id=applications-mllaermkarte--example-config&viewMode=story"
+      }
+   ],
+   "thumbnail": "https://mapcomponents.github.io/react-map-components-maplibre-lab/thumbnails/MlLaermkarte.png"
 }
