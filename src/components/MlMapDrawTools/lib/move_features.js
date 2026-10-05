@@ -1,5 +1,6 @@
-import constrainFeatureMovement from "@mapbox/mapbox-gl-draw";
-import * as Constants from "@mapbox/mapbox-gl-draw";
+import { constants as Constants, lib as DrawLib } from "@mapbox/mapbox-gl-draw";
+
+const { constrainFeatureMovement } = DrawLib;
 
 const move_features = function (features, delta, allFeatures) {
     const constrainedDelta = constrainFeatureMovement(

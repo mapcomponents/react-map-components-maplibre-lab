@@ -1,11 +1,9 @@
-import * as CommonSelectors from "@mapbox/mapbox-gl-draw";
-import doubleClickZoom from "@mapbox/mapbox-gl-draw";
-import * as Constants from "@mapbox/mapbox-gl-draw";
-import mouseEventPoint from "@mapbox/mapbox-gl-draw";
-import createSupplementaryPoints from "@mapbox/mapbox-gl-draw";
-import StringSet from "@mapbox/mapbox-gl-draw";
+import { constants as Constants, lib as DrawLib } from "@mapbox/mapbox-gl-draw";
 import moveFeatures from "./lib/move_features";
 import drawUtils from "./lib/utils";
+
+const CommonSelectors = DrawLib.CommonSelectors;
+const { doubleClickZoom, mouseEventPoint, createSupplementaryPoints, StringSet } = DrawLib;
 
 const CustomSelectMode = {};
 CustomSelectMode.onSetup = function (opts) {
