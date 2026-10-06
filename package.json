@@ -2,6 +2,7 @@
   "name": "react-map-components-maplibre-lab",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.18.1",
   "module": "dist/index.esm.js",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
