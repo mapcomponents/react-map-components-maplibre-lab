@@ -32,6 +32,8 @@ export interface MlIfcLayerProps {
 	init?: () => void;
 	/** Callback called when the model is loaded, includes extracted site location if available */
 	onDone?: (siteLocation?: IfcSiteLocation) => void;
+	/** Callback called when Web-IFC cannot load or parse the model */
+	onError?: (error: Error) => void;
 	/** Optional map ID */
 	mapId?: string;
 	/** Enable element picking by clicking on elements */
@@ -57,6 +59,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		sourceCrs,
 		init,
 		onDone,
+		onError,
 		enablePicking,
 		onElementPicked,
 		onElementHovered,
@@ -73,6 +76,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		sourceCrs,
 		init,
 		onDone,
+		onError,
 		enablePicking,
 		onElementPicked,
 		onElementHovered,

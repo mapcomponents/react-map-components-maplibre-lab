@@ -69,6 +69,7 @@ export interface UseIfcModelProps {
 	transform?: IfcModelTransform;
 	init?: () => void;
 	onDone?: (siteLocation?: IfcSiteLocation) => void;
+	onError?: (error: Error) => void;
 	useIfcPosition?: boolean;
 	/** Source CRS used to reproject projected coordinates when the file declares none */
 	sourceCrs?: string;
@@ -110,6 +111,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 		transform, 
 		init, 
 		onDone, 
+		onError,
 		useIfcPosition = false,
 		sourceCrs,
 		enablePicking = false,
@@ -130,8 +132,10 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 
 	const initRef = useRef(init);
 	const onDoneRef = useRef(onDone);
+	const onErrorRef = useRef(onError);
 	initRef.current = init;
 	onDoneRef.current = onDone;
+	onErrorRef.current = onError;
 
 	const sourceCrsRef = useRef(sourceCrs);
 	sourceCrsRef.current = sourceCrs;
@@ -469,10 +473,17 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 				if (typeof onDoneRef.current === 'function') {
 					onDoneRef.current(location);
 				}
+				if (!location && typeof onErrorRef.current === 'function') {
+					onErrorRef.current(new Error(
+						'No IFC site location was found. The file has no usable georeferencing data.'
+					));
+				}
 			} catch (err) {
 				console.error('Error loading IFC model:', err);
-				setError(err instanceof Error ? err : new Error(String(err)));
+				const loadError = err instanceof Error ? err : new Error(String(err));
+				setError(loadError);
 				setIsLoading(false);
+				onErrorRef.current?.(loadError);
 			}
 		};
 

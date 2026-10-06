@@ -62,6 +62,8 @@ export default class ThreejsSceneRenderer {
 		// information so Three.js objects can be properly occluded by MapLibre 3D
 		// content (fill-extrusion buildings, terrain, etc.) and vice versa.
 		this.renderer.resetState();
+		const canvas = this.renderer.domElement;
+		this.renderer.setViewport(0, 0, canvas.width, canvas.height);
 		this.renderer.render(scene, camera);
 		this.labelRenderer.render(scene, camera);
 	}

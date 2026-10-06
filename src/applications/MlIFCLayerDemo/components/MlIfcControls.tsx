@@ -411,49 +411,57 @@ export const MlIfcControls = ({
 				)}
 
 				{/* IFC Site Location */}
-				{ifcSiteLocation && (
+				{modelLoaded && (
 					<Box sx={{ mb: 2, p: 1, bgcolor: '#e3f2fd', borderRadius: 1 }}>
 						<Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
 							IFC Site Location
 						</Typography>
-						<Typography variant="body2">
-							Lat: {ifcSiteLocation.latitude.toFixed(6)}
-						</Typography>
-						<Typography variant="body2">
-							Lng: {ifcSiteLocation.longitude.toFixed(6)}
-						</Typography>
-						<Typography variant="body2">
-							Elevation: {ifcSiteLocation.elevation}m
-						</Typography>
-						<Typography variant="body2">
-							Position source: {ifcSiteLocation.method ?? 'unknown'}
-						</Typography>
-						<Typography variant="body2">
-							CRS: {ifcSiteLocation.crs ?? 'WGS84 / RefLatitude and RefLongitude'}
-						</Typography>
-						<TextField
-							select
-							label="Source CRS"
-							size="small"
-							fullWidth
-							value={ifcSiteLocation.crsFromFile ? ifcSiteLocation.crs ?? sourceCrs : sourceCrs}
-							onChange={(e) => setSourceCrs(e.target.value)}
-							disabled={ifcSiteLocation.crsFromFile}
-							helperText={
-								ifcSiteLocation.crsFromFile
-									? `Detected from file (${ifcSiteLocation.method})`
-									: ifcSiteLocation.method === 'reflatlong'
-									? 'File has no projected coordinates — using RefLat/Long'
-									: `Reprojected from ${ifcSiteLocation.method}`
-							}
-							sx={{ mt: 1 }}
-						>
-							{CRS_OPTIONS.map((option) => (
-								<MenuItem key={option.code} value={option.code}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
+						{ifcSiteLocation ? (
+							<>
+								<Typography variant="body2">
+									Lat: {ifcSiteLocation.latitude.toFixed(6)}
+								</Typography>
+								<Typography variant="body2">
+									Lng: {ifcSiteLocation.longitude.toFixed(6)}
+								</Typography>
+								<Typography variant="body2">
+									Elevation: {ifcSiteLocation.elevation}m
+								</Typography>
+								<Typography variant="body2">
+									Position source: {ifcSiteLocation.method ?? 'unknown'}
+								</Typography>
+								<Typography variant="body2">
+									CRS: {ifcSiteLocation.crs ?? 'WGS84 / RefLatitude and RefLongitude'}
+								</Typography>
+								<TextField
+									select
+									label="Source CRS"
+									size="small"
+									fullWidth
+									value={ifcSiteLocation.crsFromFile ? ifcSiteLocation.crs ?? sourceCrs : sourceCrs}
+									onChange={(e) => setSourceCrs(e.target.value)}
+									disabled={ifcSiteLocation.crsFromFile}
+									helperText={
+										ifcSiteLocation.crsFromFile
+											? `Detected from file (${ifcSiteLocation.method})`
+											: ifcSiteLocation.method === 'reflatlong'
+											? 'File has no projected coordinates — using RefLat/Long'
+											: `Reprojected from ${ifcSiteLocation.method}`
+									}
+									sx={{ mt: 1 }}
+								>
+									{CRS_OPTIONS.map((option) => (
+										<MenuItem key={option.code} value={option.code}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
+							</>
+						) : (
+							<Typography variant="body2" color="error">
+								No site location or georeferencing information was found in this IFC file.
+							</Typography>
+						)}
 					</Box>
 				)}
 

@@ -18,7 +18,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { CRS_OPTIONS, isSupportedCrs } from "../config/ifcGeoConfig";
+import { ALL_CRS_OPTIONS, CRS_OPTIONS, isSupportedCrs } from "../config/ifcGeoConfig";
 import { readFileCrs } from "../lib/IfcGeoreferencing";
 
 interface IfcViewerProps {
@@ -26,7 +26,7 @@ interface IfcViewerProps {
   onModelLocated?: (center: LngLatLike) => void;
 }
 
-const DEMO_URL = "assets/IFC/test_building.ifc";
+const DEMO_URL = "assets/IFC/model_Villa_A_1.ifc";
 const INITIAL_MAP_POSITION = { lng: 0, lat: 0 };
 const MODEL_ZOOM = 18;
 const MODEL_PITCH = 60;
@@ -37,6 +37,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [modelUrl, setModelUrl] = useState<string>();
   const [modelReady, setModelReady] = useState(false);
+  const [positionSelected, setPositionSelected] = useState(false);
   const [error, setError] = useState<string>();
   const [isInspecting, setIsInspecting] = useState(false);
   const [crsDialogOpen, setCrsDialogOpen] = useState(false);
@@ -66,7 +67,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   const [sourceCrs, setSourceCrs] = useState<string>();
   
   // Clipping planes
-  const [topClipping, setTopClipping] = useState<ClippingState>({ enabled: false, value: 20 });
+  const [topClipping, setTopClipping] = useState<ClippingState>({ enabled: false, value: 2 });
   const [bottomClipping, setBottomClipping] = useState<ClippingState>({ enabled: false, value: 0 });
   const [sideClipping, setSideClipping] = useState<SideClippingState>({ enabled: false, angle: 0, offset: 0 });
   
@@ -111,6 +112,8 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
     const handleMapClick = (event: unknown) => {
       const { lng, lat } = (event as MapMouseEvent).lngLat;
       setMapPosition({ lng, lat });
+      setPositionSelected(true);
+      setShowLayer(true);
       setIsPickingPosition(false);
     };
 
@@ -188,8 +191,10 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
     if (!file) return;
     if (modelUrl?.startsWith('blob:')) URL.revokeObjectURL(modelUrl);
     resetTransformsForNewModel();
+    setShowLayer(true);
     setModelUrl(undefined);
     setModelReady(false);
+    setPositionSelected(false);
     setSourceCrs(undefined);
     setIfcSiteLocation(undefined);
     locatedRef.current = false;
@@ -200,8 +205,10 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   const handleUseDemo = () => {
     if (modelUrl?.startsWith('blob:')) URL.revokeObjectURL(modelUrl);
     resetTransformsForNewModel();
+    setShowLayer(true);
     setModelUrl(undefined);
     setModelReady(false);
+    setPositionSelected(false);
     setSourceCrs(undefined);
     setIfcSiteLocation(undefined);
     locatedRef.current = false;
@@ -217,7 +224,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   };
 
   const handleCrsContinue = () => {
-    const selected = CRS_OPTIONS.find((option) => option.code === crsSearch)?.code;
+    const selected = isSupportedCrs(crsSearch) ? crsSearch : undefined;
     if (!selected || !pendingSource) return;
     setSourceCrs(selected);
     setModelUrl(pendingSource);
@@ -230,9 +237,15 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
     setCrsDialogOpen(false);
   };
 
-  const matchingCrsOptions = CRS_OPTIONS.filter((option) =>
-    `${option.code} ${option.label}`.toLowerCase().includes(crsSearch.toLowerCase())
-  );
+  const matchingCrsOptions = useMemo(() => {
+    const search = crsSearch.trim().toLowerCase();
+    const options = search ? ALL_CRS_OPTIONS : CRS_OPTIONS;
+    return options
+      .filter((option) =>
+        `${option.code} ${option.label}`.toLowerCase().includes(search)
+      )
+      .slice(0, CRS_OPTIONS.length);
+  }, [crsSearch]);
 
   // Handle model loaded
   const handleDone = (location?: IfcSiteLocation) => {
@@ -254,7 +267,20 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
         onModelLocated?.([location.longitude, location.latitude]);
       }
       console.log("IFC Site Location:", location);
+    } else if (!positionSelected) {
+      setShowLayer(false);
     }
+  };
+
+  const handleMapPositionChange = (nextPosition: { lng: number; lat: number }) => {
+    setMapPosition(nextPosition);
+    setPositionSelected(true);
+    setShowLayer(true);
+  };
+
+  const handleModelError = (modelError: Error) => {
+    setIsLoading(false);
+    setError(modelError.message);
   };
 
   // Handle element picked
@@ -313,7 +339,11 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
             position: position,
           }}
           onDone={handleDone}
-          init={() => setIsLoading(true)}
+          onError={handleModelError}
+          init={() => {
+            setIsLoading(true);
+            setError(undefined);
+          }}
           enablePicking={enablePicking}
           onElementPicked={handleElementPicked}
           onElementHovered={handleElementHovered}
@@ -351,7 +381,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
           rotation={rotation}
           setRotation={setRotation}
           mapPosition={mapPosition}
-          setMapPosition={setMapPosition}
+          setMapPosition={handleMapPositionChange}
           position={position}
           setPosition={setPosition}
           enableTransformControls={enableTransformControls}
