@@ -38,8 +38,8 @@ module.exports = {
             },
         };
         let aliases = {
-            "@emotion/core": getPackageDir("@emotion/react"),
-            "@emotion/styled": getPackageDir("@emotion/styled"),
+          "osm2geojson-lite": require.resolve("osm2geojson-lite"),
+            "@emotion/core": "@emotion/react",
             "@deck.gl/aggregation-layers": getPackageDir(
                 "@deck.gl/aggregation-layers"
             ),

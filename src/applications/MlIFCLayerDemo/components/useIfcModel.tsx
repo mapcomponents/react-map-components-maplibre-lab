@@ -121,7 +121,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 		highlightedExpressId,
 		hoveredExpressId,
 	} = props;
-	const { scene, worldMatrixInv, camera, renderer } = useThree();
+	const { scene, worldMatrixInv, camera, renderer, map } = useThree();
 	const [model, setModel] = useState<THREE.Group | undefined>(undefined);
 	const [siteLocation, setSiteLocation] = useState<IfcSiteLocation | undefined>(undefined);
 	const [isLoading, setIsLoading] = useState(false);
@@ -466,6 +466,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 
 				scene.add(group);
 				console.log('[IFC] Scene after add:', scene.children.length);
+				map?.triggerRepaint();
 
 				setModel(group);
 				setIsLoading(false);

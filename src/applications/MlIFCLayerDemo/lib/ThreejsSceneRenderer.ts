@@ -10,6 +10,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 export default class ThreejsSceneRenderer {
 	private renderer: WebGLRenderer;
 	private labelRenderer: CSS2DRenderer;
+	private hasLoggedRender = false;
 
 	/**
 	 * Creates a ThreejsSceneRenderer instance.
@@ -57,13 +58,17 @@ export default class ThreejsSceneRenderer {
 	}
 
 	render(scene: Scene, camera: Camera): void {
-		// Reset WebGL state to avoid conflicts with MapLibre
-		// but DO NOT clear the depth buffer - we want to preserve MapLibre's depth
-		// information so Three.js objects can be properly occluded by MapLibre 3D
-		// content (fill-extrusion buildings, terrain, etc.) and vice versa.
+		// Reset WebGL state to avoid conflicts with MapLibre. MapLibre's map pass
+		// can leave the shared depth buffer filled across the viewport, which would
+		// otherwise hide the IFC model and transform gizmo completely.
 		this.renderer.resetState();
+		this.renderer.clearDepth();
 		const canvas = this.renderer.domElement;
 		this.renderer.setViewport(0, 0, canvas.width, canvas.height);
+		if (!this.hasLoggedRender) {
+			console.log('[Three] custom layer render', scene.children.length);
+			this.hasLoggedRender = true;
+		}
 		this.renderer.render(scene, camera);
 		this.labelRenderer.render(scene, camera);
 	}

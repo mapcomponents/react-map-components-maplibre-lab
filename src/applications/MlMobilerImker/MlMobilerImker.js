@@ -7,7 +7,6 @@ import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import * as turf from "@turf/turf";
 import { FormControl } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
 import MlDraggableFeatureLayer from "../../components/MlDraggableFeatureLayer/MlDraggableFeatureLayer";
 
 const MlMobilerImker = () => {
@@ -32,18 +31,6 @@ const MlMobilerImker = () => {
   });
 
   let [fieldDataList, setFieldDataList] = useState([]);
-
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
-
-  const classes = useStyles();
 
   const mapContext = useContext(MapContext);
   const flightRadiusList = [0.3, 1, 1.5, 2, 2.5, 3];
@@ -464,7 +451,7 @@ const MlMobilerImker = () => {
       />
       <Avatar style={{ marginLeft: "auto", marginRight: "auto" }} src="./bee.png" />
       <div>
-        <FormControl className={classes.formControl}>
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel htmlFor="flightradiusSelect">Flugradius</InputLabel>
           <Select
             value={selectedMainFlightRadius}

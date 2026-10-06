@@ -1,20 +1,16 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
 import Drawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    flexGrow: 1,
-    zIndex: 90,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    backgroundColor: "#fafafa",
-  },
-  drawerPaper: {
+const StyledDrawer = styled(Drawer)(() => ({
+  flexGrow: 1,
+  zIndex: 90,
+  position: "absolute",
+  top: 0,
+  left: 0,
+  bottom: 0,
+  backgroundColor: "#fafafa",
+  "& .MuiDrawer-paper": {
     position: "static",
     display: "flex",
     alignItems: "stretch",
@@ -27,20 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Sidebar(props) {
-  const classes = useStyles();
-  const theme = useTheme();
-
   return (
-    <Drawer
-      className={classes.drawer}
-      variant="persistent"
-      anchor="left"
-      open={true}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
+    <StyledDrawer variant="persistent" anchor="left" open={true}>
       {props.children}
-    </Drawer>
+    </StyledDrawer>
   );
 }
