@@ -1,16 +1,8 @@
-import {
-    noTarget,
-    isOfMetaType,
-    isActiveFeature,
-    isInactiveFeature,
-    isShiftDown,
-} from "@mapbox/mapbox-gl-draw";
-import createSupplementaryPoints from "@mapbox/mapbox-gl-draw";
-import constrainFeatureMovement from "@mapbox/mapbox-gl-draw";
-import doubleClickZoom from "@mapbox/mapbox-gl-draw";
-import * as Constants from "@mapbox/mapbox-gl-draw";
-import moveFeatures from "@mapbox/mapbox-gl-draw";
+import { constants as Constants, lib as DrawLib } from "@mapbox/mapbox-gl-draw";
 import drawUtils from "./lib/utils";
+
+const { isOfMetaType, isShiftDown } = DrawLib.CommonSelectors;
+const { constrainFeatureMovement, createSupplementaryPoints, doubleClickZoom, moveFeatures } = DrawLib;
 
 const isVertex = isOfMetaType(Constants.meta.VERTEX);
 const isMidpoint = isOfMetaType(Constants.meta.MIDPOINT);

@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { MapContext } from "@mapcomponents/react-maplibre";
 
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 /**
  * MlHillshadeLayer returns a Button that will add a standard OSM tile layer to the maplibre-gl instance.

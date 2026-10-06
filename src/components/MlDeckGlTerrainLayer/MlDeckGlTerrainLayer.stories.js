@@ -5,8 +5,6 @@ import {
   MenuItem,
   Slider,
   Typography,
-  createTheme,
-  ThemeProvider,
 } from "@mui/material";
 import {
   TopToolbar,
@@ -16,28 +14,6 @@ import {
 } from "@mapcomponents/react-maplibre";
 
 import MlDeckGlTerrainLayer from "./MlDeckGlTerrainLayer";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#009EE0",
-    },
-    secondary: { main: "#747577" },
-    text: {
-      primary: "#000",
-      contrast: "#fff",
-    },
-  },
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#fff",
-        },
-      },
-    },
-  },
-});
 
 const storyoptions = {
   title: "MapComponents/MlDeckGlTerrainLayer",
@@ -114,7 +90,6 @@ const Template = (args) => {
 
   return (
      <>
-        <ThemeProvider theme={theme}>
            {showLayer ? <MlDeckGlTerrainLayer /> : null}
            {showRoute ? (
               <MlGeoJsonLayer
@@ -278,7 +253,6 @@ const Template = (args) => {
                  {state.pitch === 0 ? "3D" : "2D"}
               </MenuItem>
            </Sidebar>
-        </ThemeProvider>
      </>
   );
 };
