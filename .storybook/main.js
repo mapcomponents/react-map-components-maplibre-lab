@@ -49,6 +49,9 @@ module.exports = {
             "@deck.gl/layers": getPackageDir("@deck.gl/layers"),
             "@deck.gl/mapbox": getPackageDir("@deck.gl/mapbox"),
             "@deck.gl/mesh-layers": getPackageDir("@deck.gl/mesh-layers"),
+            "@mdx-js/react": path.dirname(
+              require.resolve("@mdx-js/react/package.json")
+            ),
         };
         console.log(aliases);
 

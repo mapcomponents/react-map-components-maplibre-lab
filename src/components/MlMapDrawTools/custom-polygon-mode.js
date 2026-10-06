@@ -1,8 +1,7 @@
-import * as CommonSelectors from "@mapbox/mapbox-gl-draw";
-import doubleClickZoom from "@mapbox/mapbox-gl-draw";
-import * as Constants from "@mapbox/mapbox-gl-draw";
-import isEventAtCoordinates from "@mapbox/mapbox-gl-draw";
-import createVertex from "@mapbox/mapbox-gl-draw";
+import { constants as Constants, lib as DrawLib } from "@mapbox/mapbox-gl-draw";
+
+const CommonSelectors = DrawLib.CommonSelectors;
+const { doubleClickZoom, isEventAtCoordinates, createVertex } = DrawLib;
 
 const CustomPolygonMode = {};
 

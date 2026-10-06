@@ -9,11 +9,11 @@ import CustomDirectSelectMode from "./custom-direct-select-mode";
 
 import { MapContext } from "@mapcomponents/react-maplibre";
 
-import DeleteIcon from "@material-ui/icons/DeleteForever";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@mui/icons-material/DeleteForever";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 function MlMapDrawTools() {
   const draw = useRef(null);
