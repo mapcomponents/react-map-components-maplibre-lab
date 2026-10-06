@@ -425,7 +425,7 @@ export const MlIfcControls = ({
 									Lng: {ifcSiteLocation.longitude.toFixed(6)}
 								</Typography>
 								<Typography variant="body2">
-									Elevation: {ifcSiteLocation.elevation}m
+									Elevation: {ifcSiteLocation.elevation.toFixed(6)}m
 								</Typography>
 								<Typography variant="body2">
 									Position source: {ifcSiteLocation.method ?? 'unknown'}
