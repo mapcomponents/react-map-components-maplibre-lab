@@ -707,3 +707,4 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 
 	return { model, siteLocation, isLoading, error, pickElement };
 };
+
