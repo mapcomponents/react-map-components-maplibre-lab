@@ -131,6 +131,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
     setRotation({ x: 90, y: 0, z: 0 });
     setPosition({ x: 0, y: 0, z: 0 });
     setEnableTransformControls(false);
+    setSelectedElement(undefined);
     setTransformMode('translate');
   };
 
