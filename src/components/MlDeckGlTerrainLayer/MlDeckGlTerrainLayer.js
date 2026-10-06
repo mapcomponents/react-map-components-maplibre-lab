@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MapboxLayer } from "@deck.gl/mapbox";
 import { TerrainLayer } from "@deck.gl/geo-layers";
-import { MlBasicComponent } from "@mapcomponents/react-maplibre";
+import { useMap } from "@mapcomponents/react-maplibre";
 
 /**
  * MlDeckGlTerrainLayer adds kepler.gl layer to the maplibre-gl instance.
  */
 const MlDeckGlTerrainLayer = () => {
   const layerName = "deckgl-terrain-layer";
+  const { map, mapIsReady, componentId, cleanup } = useMap({
+    waitForLayer: "water-name-lakeline",
+  });
 
   const ELEVATION_DECODER = {
     rScaler: 6553.6,
@@ -19,14 +22,11 @@ const MlDeckGlTerrainLayer = () => {
   const TERRAIN_IMAGE = `https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWF4dG9iaSIsImEiOiJjaW1rcWQ5bWMwMDJvd2hrbWZ2ZTBhcnM5In0.NcGt5NmLP5Q1WC7P5u6qUA`;
   const SURFACE_IMAGE = `https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWF4dG9iaSIsImEiOiJjaW1rcWQ5bWMwMDJvd2hrbWZ2ZTBhcnM5In0.NcGt5NmLP5Q1WC7P5u6qUA`;
 
-  const cleanup = (map) => {
-    if (map && map.style && map.getLayer(layerName)) {
-      map.removeLayer(layerName);
+  useEffect(() => {
+    if (!mapIsReady || !map) {
+      return undefined;
     }
-  };
 
-  const mapIsReady = (map) => {
-    console.log("Hallo ");
     map.addLayer(
       new MapboxLayer({
         id: layerName,
@@ -40,15 +40,19 @@ const MlDeckGlTerrainLayer = () => {
         wireframe: false,
         color: [255, 255, 255],
       }),
-      "water-name-lakeline"
+      "water-name-lakeline",
+      componentId
     );
-  };
 
-  return (
-    <>
-      <MlBasicComponent cleanup={cleanup} mapIsReady={mapIsReady}></MlBasicComponent>
-    </>
-  );
+    return () => {
+      if (map.getLayer(layerName)) {
+        map.removeLayer(layerName);
+      }
+      cleanup();
+    };
+  }, [cleanup, componentId, map, mapIsReady]);
+
+  return null;
 };
 
 export default MlDeckGlTerrainLayer;
