@@ -3,6 +3,7 @@ import mapContextDecorator from "../../decorators/MapContextDecorator";
 import {
   Button,
   MenuItem,
+   MenuList,
   Slider,
   Typography,
 } from "@mui/material";
@@ -129,6 +130,7 @@ const Template = (args) => {
               setOpen={setOpenSidebar}
               name={"Camera Settings"}
            >
+              <MenuList>
               <MenuItem onClick={() => setShowRoute(!showRoute)}>
                  <Typography>
                     {showRoute ? "Hide Camera path" : "Show Camera path"}
@@ -252,6 +254,7 @@ const Template = (args) => {
               >
                  {state.pitch === 0 ? "3D" : "2D"}
               </MenuItem>
+              </MenuList>
            </Sidebar>
      </>
   );

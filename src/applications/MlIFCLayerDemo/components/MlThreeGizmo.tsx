@@ -34,8 +34,8 @@ const MlThreeGizmo = (props: MlThreeGizmoProps) => {
 			controls.setSize(size);
 		}
 
-		// TransformControls is itself an Object3D in the supported Three.js version.
-		sceneRoot.add(controls);
+		// TransformControls is no longer an Object3D; add its helper to the scene.
+		sceneRoot.add(controls.getHelper());
 
 		// Disable map interaction when using transform controls
 		const onDraggingChanged = (event: any) => {
@@ -62,7 +62,7 @@ const MlThreeGizmo = (props: MlThreeGizmoProps) => {
 			controls.removeEventListener('dragging-changed', onDraggingChanged);
 			controls.removeEventListener('objectChange', handleObjectChange);
 			controls.detach();
-			sceneRoot.remove(controls);
+			sceneRoot.remove(controls.getHelper());
 			controls.dispose();
 			controlsRef.current = null;
 		};
