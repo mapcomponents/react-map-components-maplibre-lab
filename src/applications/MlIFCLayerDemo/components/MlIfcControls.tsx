@@ -42,6 +42,8 @@ export interface MlIfcControlsProps {
 	uploadDisabled?: boolean;
 	showLayer: boolean;
 	setShowLayer: (show: boolean) => void;
+	showUnderground: boolean;
+	setShowUnderground: (show: boolean) => void;
 	scale: number;
 	setScale: (scale: number) => void;
 	rotation: { x: number; y: number; z: number };
@@ -77,6 +79,8 @@ export const MlIfcControls = ({
 	uploadDisabled = false,
 	showLayer,
 	setShowLayer,
+	showUnderground,
+	setShowUnderground,
 	scale,
 	setScale,
 	rotation,
@@ -493,6 +497,16 @@ export const MlIfcControls = ({
 					>
 						3D Gizmo
 					</Button>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={showUnderground}
+								onChange={(event) => setShowUnderground(event.target.checked)}
+								size="small"
+							/>
+						}
+						label="Underground"
+					/>
 				</Box>
 
 				{/* Transform Mode Buttons */}

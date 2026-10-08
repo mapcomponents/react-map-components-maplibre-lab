@@ -41,6 +41,7 @@ const DEMO_ELEMENT_PROPERTIES: IfcElementProperty[] = [
 const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   // Layer visibility
   const [showLayer, setShowLayer] = useState(true);
+  const [showUnderground, setShowUnderground] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [modelUrl, setModelUrl] = useState<string>();
   const [modelReady, setModelReady] = useState(false);
@@ -354,6 +355,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
           }}
           enablePicking={enablePicking}
           elementProperties={DEMO_ELEMENT_PROPERTIES}
+          showUnderground={showUnderground}
           onElementPicked={handleElementPicked}
           onElementHovered={handleElementHovered}
           clippingPlanes={clippingPlanesArray}
@@ -385,6 +387,8 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
           uploadDisabled={isInspecting}
           showLayer={showLayer}
           setShowLayer={setShowLayer}
+          showUnderground={showUnderground}
+          setShowUnderground={setShowUnderground}
           scale={scale}
           setScale={setScale}
           rotation={rotation}

@@ -96,6 +96,7 @@ export interface UseIfcModelProps {
 	onElementPicked?: (element: IfcElementInfo | null) => void;
 	onElementHovered?: (element: IfcElementInfo | null) => void;
 	elementProperties?: IfcElementProperty[];
+	showUnderground?: boolean;
 	clippingPlanes?: THREE.Plane[];
 	highlightedExpressId?: number;
 	hoveredExpressId?: number;
@@ -163,6 +164,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 		onElementPicked,
 		onElementHovered,
 		elementProperties = DEFAULT_IFC_ELEMENT_PROPERTIES,
+		showUnderground = false,
 		clippingPlanes = [],
 		highlightedExpressId,
 		hoveredExpressId,
@@ -502,6 +504,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 				);
 				occluder.name = 'IFC Ground Occluder';
 				occluder.renderOrder = -1;
+				occluder.visible = !showUnderground;
 				occluderRef.current = occluder;
 				scene.add(occluder);
 
@@ -553,6 +556,12 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 			}
 		};
 	}, [url, scene, worldMatrixReady, cleanup, updateModelTransform]);
+
+	useEffect(() => {
+		if (!occluderRef.current) return;
+		occluderRef.current.visible = !showUnderground;
+		map?.triggerRepaint();
+	}, [showUnderground, map]);
 
 	// Update transform when props change
 	useEffect(() => {

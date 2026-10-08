@@ -50,6 +50,8 @@ export interface MlIfcLayerProps {
 	onElementHovered?: (element: IfcElementInfo | null) => void;
 	/** IFC properties to load and return when an element is selected */
 	elementProperties?: IfcElementProperty[];
+	/** Show geometry below the ground plane */
+	showUnderground?: boolean;
 	/** Clipping planes for section cuts */
 	clippingPlanes?: THREE.Plane[];
 	/** Express ID of the selected element */
@@ -72,6 +74,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		onElementPicked,
 		onElementHovered,
 		elementProperties,
+		showUnderground,
 		clippingPlanes,
 		highlightedExpressId,
 		hoveredExpressId,
@@ -90,6 +93,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		onElementPicked,
 		onElementHovered,
 		elementProperties,
+		showUnderground,
 		clippingPlanes,
 		highlightedExpressId,
 		hoveredExpressId,
