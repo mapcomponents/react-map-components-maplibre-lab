@@ -1,0 +1,22 @@
+{
+  "name": "MlIFCLayerDemo",
+  "title": "IFC Layer Demonstration",
+  "description": "Display, inspect, georeference, transform, clip, and select IFC models on a MapLibre map.",
+  "i18n": {
+    "de": {
+      "title": "IFC-Layer-Demonstrator",
+      "description": "IFC-Modelle auf einer MapLibre-Karte darstellen, georeferenzieren, transformieren, schneiden und auswählen."
+    }
+  },
+  "tags": ["IFC", "3D", "MapLibre"],
+  "category": "3D",
+  "type": "application",
+  "components": ["MlIfcLayer"],
+  "demos": [
+    {
+      "name": "Demo",
+      "url": "https://mapcomponents.github.io/react-map-components-maplibre-lab/iframe.html?args=&id=applications-mlifclayerdemo--example-config&viewMode=story"
+    }
+  ],
+  "thumbnail": "https://mapcomponents.github.io/react-map-components-maplibre-lab/thumbnails/MlIFCLayerDemo.png"
+}
