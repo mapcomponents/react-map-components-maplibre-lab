@@ -1,6 +1,12 @@
 import * as THREE from 'three';
 import { LngLatLike } from 'maplibre-gl';
-import { useIfcModel, IfcModelTransform, IfcSiteLocation, IfcElementInfo } from './useIfcModel';
+import {
+	useIfcModel,
+	IfcModelTransform,
+	IfcSiteLocation,
+	IfcElementInfo,
+	IfcElementProperty,
+} from './useIfcModel';
 
 /**
  * MlIfcLayer - Renders IFC (Industry Foundation Classes) 3D models on the MapLibreMap
@@ -42,6 +48,8 @@ export interface MlIfcLayerProps {
 	onElementPicked?: (element: IfcElementInfo | null) => void;
 	/** Callback when an element is hovered */
 	onElementHovered?: (element: IfcElementInfo | null) => void;
+	/** IFC properties to load and return when an element is selected */
+	elementProperties?: IfcElementProperty[];
 	/** Clipping planes for section cuts */
 	clippingPlanes?: THREE.Plane[];
 	/** Express ID of the selected element */
@@ -63,6 +71,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		enablePicking,
 		onElementPicked,
 		onElementHovered,
+		elementProperties,
 		clippingPlanes,
 		highlightedExpressId,
 		hoveredExpressId,
@@ -80,6 +89,7 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 		enablePicking,
 		onElementPicked,
 		onElementHovered,
+		elementProperties,
 		clippingPlanes,
 		highlightedExpressId,
 		hoveredExpressId,
@@ -89,4 +99,4 @@ const MlIfcLayer = (props: MlIfcLayerProps) => {
 };
 
 export default MlIfcLayer;
-export type { IfcModelTransform, IfcSiteLocation, IfcElementInfo };
+export type { IfcModelTransform, IfcSiteLocation, IfcElementInfo, IfcElementProperty };

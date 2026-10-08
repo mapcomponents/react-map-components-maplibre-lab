@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo, useRef, type ChangeEvent } from "react";
 import { LngLatLike, type MapMouseEvent } from "maplibre-gl";
 import {  useMap,  Sidebar, TopToolbar } from "@mapcomponents/react-maplibre";
-import MlIfcLayer, { IfcSiteLocation, IfcElementInfo } from "./MlIfcLayer";
+import MlIfcLayer, { IfcSiteLocation, IfcElementInfo, IfcElementProperty } from "./MlIfcLayer";
 import MlIfcControls, { ClippingState, SideClippingState } from "./MlIfcControls";
 import ElementInfoPanel from "./ElementInfoPanel";
 import Lights from "./Lights";
@@ -30,6 +30,13 @@ const DEMO_URL = "assets/IFC/model_Villa_A_1.ifc";
 const INITIAL_MAP_POSITION = { lng: 0, lat: 0 };
 const MODEL_ZOOM = 18;
 const MODEL_PITCH = 60;
+const DEMO_ELEMENT_PROPERTIES: IfcElementProperty[] = [
+  { key: "Name", label: "Name", source: "attributes" },
+  { key: "Description", label: "Description", source: "attributes" },
+  { key: "Tag", label: "Tag", source: "attributes" },
+  { key: "GlobalId", label: "Global ID", source: "attributes" },
+  { key: "Name", label: "Material", source: "materials" },
+];
 
 const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
   // Layer visibility
@@ -346,6 +353,7 @@ const IfcViewer = ({ onModelLocated }: IfcViewerProps) => {
             setError(undefined);
           }}
           enablePicking={enablePicking}
+          elementProperties={DEMO_ELEMENT_PROPERTIES}
           onElementPicked={handleElementPicked}
           onElementHovered={handleElementHovered}
           clippingPlanes={clippingPlanesArray}

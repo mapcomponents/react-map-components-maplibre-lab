@@ -57,10 +57,29 @@ export interface IfcSiteLocation {
 	method?: GeoreferencingMethod;
 }
 
+export type IfcElementPropertySource = 'attributes' | 'propertySets' | 'typeProperties' | 'materials';
+
+export interface IfcElementProperty {
+	key: string;
+	label?: string;
+	source?: IfcElementPropertySource;
+	path?: string[];
+}
+
+export const DEFAULT_IFC_ELEMENT_PROPERTIES: IfcElementProperty[] = [
+	{ key: 'Name', source: 'attributes' },
+	{ key: 'GlobalId', source: 'attributes' },
+	{ key: 'ObjectType', source: 'attributes' }
+
+];
+
 export interface IfcElementInfo {
 	expressId: number;
 	type: string;
 	attributes: Record<string, unknown>;
+	properties?: Record<string, unknown>;
+	detailsLoading?: boolean;
+	detailsError?: string;
 }
 
 export interface UseIfcModelProps {
@@ -76,6 +95,7 @@ export interface UseIfcModelProps {
 	enablePicking?: boolean;
 	onElementPicked?: (element: IfcElementInfo | null) => void;
 	onElementHovered?: (element: IfcElementInfo | null) => void;
+	elementProperties?: IfcElementProperty[];
 	clippingPlanes?: THREE.Plane[];
 	highlightedExpressId?: number;
 	hoveredExpressId?: number;
@@ -101,6 +121,31 @@ const disposeObject = (obj: THREE.Object3D): void => {
 	}
 };
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+	Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+
+const findIfcValue = (value: unknown, key: string, path: string[] = []): unknown => {
+	if (path.length > 0 && isRecord(value)) {
+		const [segment, ...remaining] = path;
+		return segment in value ? findIfcValue(value[segment], key, remaining) : undefined;
+	}
+
+	if (isRecord(value)) {
+		if (key in value) return value[key];
+		for (const child of Object.values(value)) {
+			const result = findIfcValue(child, key, path);
+			if (result !== undefined) return result;
+		}
+	}
+	if (Array.isArray(value)) {
+		for (const child of value) {
+			const result = findIfcValue(child, key, path);
+			if (result !== undefined) return result;
+		}
+	}
+	return undefined;
+};
+
 /**
  * Hook to manage loading, transforming, and rendering an IFC model
  */
@@ -117,6 +162,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 		enablePicking = false,
 		onElementPicked,
 		onElementHovered,
+		elementProperties = DEFAULT_IFC_ELEMENT_PROPERTIES,
 		clippingPlanes = [],
 		highlightedExpressId,
 		hoveredExpressId,
@@ -129,6 +175,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 	const modelRef = useRef<THREE.Group | undefined>(undefined);
 	const ifcApiRef = useRef<any>(null);
 	const modelIdRef = useRef<number | null>(null);
+	const selectionRequestRef = useRef(0);
 
 	const initRef = useRef(init);
 	const onDoneRef = useRef(onDone);
@@ -492,6 +539,7 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 
 		return () => {
 			isCanceled = true;
+			selectionRequestRef.current++;
 			cleanup();
 			// Close IFC model on cleanup
 			if (ifcApiRef.current && modelIdRef.current !== null) {
@@ -653,10 +701,11 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 							expressId,
 							type: typeName,
 							attributes,
+							properties: attributes,
 						};
 					} catch (e) {
 						console.warn('Error getting element info:', e);
-						return { expressId, type: 'Unknown', attributes: {} };
+						return { expressId, type: 'Unknown', attributes: {}, properties: {} };
 					}
 				}
 			}
@@ -674,7 +723,58 @@ export const useIfcModel = (props: UseIfcModelProps) => {
 
 		const handleClick = (event: MouseEvent) => {
 			const element = pickElement(event);
-			onElementPicked(element);
+			const requestId = ++selectionRequestRef.current;
+			if (!element) {
+				onElementPicked(null);
+				return;
+			}
+
+			onElementPicked({ ...element, detailsLoading: true });
+			void (async () => {
+				try {
+					const WebIFC = webIfcRef.current;
+					const ifcApi = ifcApiRef.current;
+					const modelID = modelIdRef.current;
+					if (!WebIFC || !ifcApi || modelID === null) return;
+
+					const sources = new Set(elementProperties.map((property) => property.source ?? 'attributes'));
+					const propertyApi = new WebIFC.Properties(ifcApi);
+					const sourceData: Partial<Record<IfcElementPropertySource, unknown>> = {};
+					if (sources.has('attributes')) {
+						sourceData.attributes = await propertyApi.getItemProperties(modelID, element.expressId, true);
+					}
+					if (sources.has('propertySets')) {
+						sourceData.propertySets = await propertyApi.getPropertySets(modelID, element.expressId, true);
+					}
+					if (sources.has('typeProperties')) {
+						sourceData.typeProperties = await propertyApi.getTypeProperties(modelID, element.expressId, true);
+					}
+					if (sources.has('materials')) {
+						sourceData.materials = await propertyApi.getMaterialsProperties(modelID, element.expressId, true, true);
+					}
+
+					const selectedProperties = Object.fromEntries(elementProperties.map((property) => {
+						const source = property.source ?? 'attributes';
+						const value = findIfcValue(sourceData[source], property.key, property.path);
+						return [property.label ?? property.key, value ?? null];
+					}));
+
+					if (requestId !== selectionRequestRef.current) return;
+					onElementPicked({
+						...element,
+						attributes: element.attributes,
+						properties: selectedProperties,
+						detailsLoading: false,
+					});
+				} catch (error) {
+					if (requestId !== selectionRequestRef.current) return;
+					onElementPicked({
+						...element,
+						detailsLoading: false,
+						detailsError: error instanceof Error ? error.message : String(error),
+					});
+				}
+			})();
 		};
 
 		canvas.addEventListener('click', handleClick);
